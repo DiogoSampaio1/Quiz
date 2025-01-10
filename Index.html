@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Quiz GB</title>
+
+  <link rel="stylesheet" href="BarraLateral.css">
+  <link rel="stylesheet" href="LinhaSuperior.css">
+  <link rel="stylesheet" href="Index.css">
+
+</head>
+<body>
+
+  <!-- Ícone das 3 barras -->
+  <div id="menu-3Barras" class="menu-3Barras" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Overlay para clicar fora do menu -->
+  <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+  <!-- Menu lateral -->
+  <nav id="menu" class="menu-lateral">
+    <div class="menu-header">
+      <button class="fechar-menu" onclick="closeMenu()">←</button>
+    </div>
+    <ul>
+      <li><a href="Index.html">Página inicial</a></li>
+      <li><a href="Quizes/Quizes.html">Quizes</a></li>
+      <li><a href="Avaliações/Index.html">Avaliações</a></li>
+    </ul>
+  </nav>
+
+  <!-- Linha Supeior -->
+  <div class="linha-superior"></div>
+
+  <div class="barra-container">
+
+    <div class="input-wrapper">
+        <img src="../Imagens/lupa.png" alt="Lupa" class="icon-lupa">
+        <input type="text" class="barra-pesquisa" id="barraPesquisa" placeholder="Pesquisar...">
+    </div>
+  </div>
+
+  <div class="botões-container">
+    <button class="botao-CriarQuiz" id="criarQuiz" onclick="criarQuiz()"><b>Criar Quiz</b></button>
+    <button class="botao-Entrar" id="entrar" onclick="entrar()"><b>Entrar</b></button>
+  </div>
+
+  <div class="destaques-container">
+    <h2 class="destaques-titulo">CATEGORIAS</h2>
+    <div class="destaques-grid">
+
+      <!-- Card 1 -->
+      <div class="destaque-card">
+        <img src="imagens/exemplo1.jpg" alt="Destaque 1" class="destaque-img">
+        <p class="destaque-texto">Título do Quiz 1</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="destaque-card">
+        <img src="imagens/exemplo2.jpg" alt="Destaque 2" class="destaque-img">
+        <p class="destaque-texto">Título do tet 2</p>
+      </div>
+      <!-- Card 3 -->
+      <div class="destaque-card">
+        <img src="imagens/exemplo3.jpg" alt="Destaque 3" class="destaque-img">
+        <p class="destaque-texto">Título do Quiz 3</p>
+      </div>
+
+    </div>
+  </div>
+  
+    <footer>
+      <p>© 2025 Quiz GB. Todos os direitos reservados.</p>
+    </footer>
+
+  <script src="scripts.js"></script>
+
+</body>
+</html>
