@@ -8,12 +8,37 @@
     <title>Quiz GB - Avaliações</title>
 
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="BarraLateral.css"> 
 
 </head>
 <body>
     <div class="container">
         <header>
+
+            <!-- Ícone das 3 barras -->
+            <div id="menu-3Barras" class="menu-3Barras" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div> 
+
+            <!-- Overlay para clicar fora do menu -->
+            <div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+            <!-- Menu lateral -->
+            <nav id="menu" class="menu-lateral">
+                <div class="menu-header">
+                <button class="fechar-menu" onclick="closeMenu()">←</button>
+                </div>
+                <ul>
+                <li><a href="../Index.html">Página inicial</a></li>
+                <li><a href="../Quizes/Quizes.html">Quizes</a></li>
+                <li><a href="../Avaliações/Index.html">Avaliações</a></li>
+                </ul>
+            </nav>
+
             <h1>Avaliações</h1>
+
         </header>
         
         <div class="form-container">
@@ -26,10 +51,13 @@
         </div>
     </div>
 
-         <footer>
+    <div class="footer">
+        <footer>
             <p>© 2025 Quiz GB. Todos os direitos reservados.</p>
         </footer>
+    </div>
 
     <script src="scripts.js"></script>
+
 </body>
 </html>

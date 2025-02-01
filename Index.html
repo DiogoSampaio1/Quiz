@@ -35,7 +35,7 @@
     </ul>
   </nav>
 
-  <!-- Linha Supeior -->
+  <!-- Linha Superior -->
   <div class="linha-superior"></div>
 
   <div class="barra-container">
@@ -46,9 +46,41 @@
     </div>
   </div>
 
+  <!-- Botões de Login e Criar Quiz -->
   <div class="botões-container">
-    <button class="botao-CriarQuiz" id="criarQuiz" onclick="criarQuiz()"><b>Criar Quiz</b></button>
-    <button class="botao-Entrar" id="entrar" onclick="entrar()"><b>Entrar</b></button>
+    <button class="botao-CriarQuiz" id="criarQuiz" onclick="abrirCriarQuiz()"><b>Criar Quiz</b></button>
+    <button class="botao-Entrar" id="btnEntrar"><b>Entrar</b></button>
+  </div>
+
+  <!-- Criar Conta -->
+  <div id="modalCriarConta" class="modal">
+    <div class="modal-content">
+      <span class="fechar" onclick="fecharModal('modalCriarConta')">&times;</span>
+      <h2>Criar Conta</h2>
+      <form id="formCriarConta">
+        <input type="text" id="username" placeholder="Nome de Utilizador" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="senha" placeholder="Palavra-passe" required>
+        <button type="submit">Registar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Login -->
+  <div id="modalLogin" class="modal">
+    <div class="modal-content">
+      <span class="fechar" onclick="fecharModal('modalLogin')">&times;</span>
+      <h2>Entrar</h2>
+      <form id="formLogin">
+        <input type="text" id="username" placeholder="Nome de Utilizador" required>
+        <input type="password" id="senha" placeholder="Palavra-passe" required>
+        <button type="submit">Entrar</button>
+        <p class="criar-conta-link">
+          Ainda não tem conta? 
+          <a href="#" onclick="abrirModal('modalCriarConta', 'modalLogin')">Criar uma</a>
+        </p>        
+      </form>
+    </div>
   </div>
 
   <div class="destaques-container">
@@ -63,7 +95,7 @@
       <!-- Card 2 -->
       <div class="destaque-card">
         <img src="imagens/exemplo2.jpg" alt="Destaque 2" class="destaque-img">
-        <p class="destaque-texto">Título do tet 2</p>
+        <p class="destaque-texto">Título do Quiz 2</p>
       </div>
       <!-- Card 3 -->
       <div class="destaque-card">
