@@ -52,8 +52,8 @@
   z-index: 1000;
 }
 
-/* Estilizando o botão de alternância */
 .theme-switch {
+  top: 3px;
   position: relative;
   display: inline-block;
   width: 60px;

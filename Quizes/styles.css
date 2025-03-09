@@ -8,6 +8,7 @@ body {
     padding: 0;
     background-color: #f5f5f5;
     color: #333;
+    
 }
 
 header {
@@ -38,7 +39,7 @@ main {
     list-style: none;
     padding: 0;
     display: flex;
-    justify-content: space-evenly; /* Espaça igualmente os itens */
+    justify-content: space-evenly;
 }
 
 .indice ul li {
@@ -84,7 +85,7 @@ main {
 
 .disciplinas-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(5, 1fr); 
     gap: 20px; 
 }
 
@@ -96,11 +97,14 @@ main {
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
+    position: relative;
+    z-index: 500;
 }
 
 .disciplina-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 600;
 }
 
 .disciplina-card img {
@@ -143,6 +147,10 @@ footer {
 .dark-mode .indice {
     background-color: #222;
     border: 1px solid #007BFF;
+}
+
+.dark-mode .disciplina-card img {
+    border-bottom: 1.5px solid black;
 }
 
 .dark-mode footer {
