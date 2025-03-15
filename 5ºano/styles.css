@@ -190,7 +190,7 @@ h2{
 }
 
 .wrong {
-  background-color: #f44336;
+  background-color: #f44336 !important;
 }
 
 .hidden {
@@ -218,6 +218,11 @@ h2{
 }
 
 .dark-mode .option:hover {
-  background-color: green;
+  background-color: #ffffff;
   transform: scale(1.05);
+}
+
+.dark-mode .option:active {
+  transform: scale(0.95);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }

@@ -32,3 +32,14 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const menuButton = document.getElementById("menuButton");
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.querySelector("main");
+
+    menuButton.addEventListener("click", function () {
+        sidebar.classList.toggle("open");
+        mainContent.classList.toggle("sidebar-open");
+    });
+});

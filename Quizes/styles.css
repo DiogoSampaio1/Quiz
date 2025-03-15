@@ -25,8 +25,89 @@ h1 {
 
 main {
     padding: 20px;
+    transition: padding 0.3s ease;
 }
 
+main.sidebar-open {
+    padding-left: 270px; /* 250px da barra lateral + 20px de espaço */
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: #333;
+    color: white;
+    transition: left 0.3s ease;
+    padding-top: 20px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.sidebar.open {
+    left: 0 !important;
+    z-index: 1000;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+}
+
+.sidebar-menu {
+    list-style: none;
+    margin-right: 10px; 
+    padding: 0;
+    }
+
+.sidebar-menu li {
+    padding: 10px;
+    text-align: center;
+}
+
+.sidebar-menu a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    transition: background 0.3s;
+}
+
+.sidebar-menu a:hover {
+    background: #444;
+}
+
+.menu-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.menu-button span {
+    display: flex;
+    width: 30px;
+    height: 4px;
+    margin: 6px 0;
+    background: black;
+    transition: 0.3s;
+}
+
+  /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 .indice {
     background-color: #f9f9f9;
     padding: 20px;
@@ -142,6 +223,26 @@ footer {
 
 .dark-mode header {
     background-color: #222;
+}
+
+.dark-mode .sidebar-menu a {
+    color: white;
+}  
+
+.dark-mode .menuButton {
+    background-color: #ffffff;
+}
+
+.dark-mode .overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .menu-button span {
+    background: white;
+}
+
+.dark-mode .sidebar-menu a:hover {
+    color: #4B70F5;
 }
 
 .dark-mode .indice {
