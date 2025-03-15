@@ -46,24 +46,26 @@ body {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  font-size: 30px;
-  text-align: center;
-  font-weight: bold;
-}
-
 h2{
   font-size: 20px;
   text-align: center;
   font-weight: bold;
 }
 
-input {
+.NameForm{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#username{
   width: 90%;
   padding: 10px;
-  margin: 10px 0;
+  margin: 10px auto;
   border: 1px solid #ccc;
   border-radius: 5px;
+  display: flex;
+  text-align: center;
 }
 
 .avatar-container {
@@ -90,20 +92,25 @@ input {
   border: 3px solid white;
 }
 
-button {
+.confirmBtn {
   width: 100%;
   padding: 10px;
   margin-top: 15px;
   background: white;
-  color: black;
-  border: none;
-  border-radius: 5px;
+  color: #222;
+  border: 3px solid #A9A9A9;
+  border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
+  background-image: linear-gradient(to right, transparent 50%, #A9A9A9 50%);
+  background-size: 200%;
+  background-position: 0%;
+  transition: 0.4s;
 }
 
-button:hover {
-  animation: tremer 0.2s ease-in-out infinite alternate;
+.confirmBtn:hover {
+  color: #222;
+  background-position: 100%;
 }
 
 @keyframes tremer {
