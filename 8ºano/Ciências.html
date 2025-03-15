@@ -1,75 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt">
 
-    <head>
-
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Quiz GB - Ciências 8º Ano</title>
-
+    <link rel="icon" type="image/png" href="../Imagens/microscopio.png">
+    <title>Quiz GB - Ciências 7º Ano</title>
     <link rel="stylesheet" href="styles.css">
+</head>
 
-    </head>
+<body class="ciencias">
 
-    <body>
+<main>
 
-    <div class="quiz-container">
+    <div id="startScreen" class="container">
+        <h1 class="NameForm">Escolha um Nome</h1>
+        <input type="text" id="username" placeholder="Insira o seu nome" maxlength="30">
+        <h2>Escolha uma foto de perfil</h2>
+        <div class="avatar-container">
+            <img src="../Imagens/PIXEL_SQUID_GAME_AVATAR.png" class="avatar" data-avatar="img/avatar1.png">
+            <img src="../Imagens/GAJO LARANJA AVATAR.webp" class="avatar" data-avatar="img/avatar2.png">
+            <img src="../Imagens/MORAIS AVATAR.webp" class="avatar" data-avatar="img/avatar3.png">
+            <img src="../Imagens/MULHER AVATAR.webp" class="avatar" data-avatar="img/avatar4.png">
+        </div>
+        <button id="confirmBtn" class="confirmBtn">Confirmar</button>
+    </div>
 
-        <header>
+    <div id="quizContainer" class="quiz-container hidden">
         <h1>Quiz de Ciências</h1>
-        </header>
-
-        <main>
 
         <!-- Pergunta 1 -->
         <div class="question active" id="q1">
-
             <h2>1. Qual é a capital de Portugal?</h2>
             <div class="options">
-            <button class="option" data-answer="correct">Lisboa</button>
-            <button class="option" data-answer="wrong">Madggrid</button>
-            <button class="option" data-answer="wrong">Paris</button>
-            <button class="option" data-answer="wrong">Roma</button>
+                <button class="option" data-answer="correct">Lisboa</button>
+                <button class="option" data-answer="wrong">Madggrid</button>
+                <button class="option" data-answer="wrong">Paris</button>
+                <button class="option" data-answer="wrong">Roma</button>
             </div>
-
         </div>
 
         <!-- Pergunta 2 -->
         <div class="question" id="q2">
-
             <h2>2. Quanto é 2 + 2?</h2>
             <div class="options">
-            <button class="option" data-answer="wrong">3</button>
-            <button class="option" data-answer="correct">4</button>
-            <button class="option" data-answer="wrong">5</button>
-            <button class="option" data-answer="wrong">6</button>
+                <button class="option" data-answer="wrong">3</button>
+                <button class="option" data-answer="correct">4</button>
+                <button class="option" data-answer="wrong">5</button>
+                <button class="option" data-answer="wrong">6</button>
             </div>
-
         </div>
 
         <!-- Pergunta 3 -->
         <div class="question" id="q3">
-
             <h2>3. Qual é a cor do céu em um dia claro?</h2>
             <div class="options">
-            <button class="option" data-answer="wrong">Vermelho</button>
-            <button class="option" data-answer="correct">Azul</button>
-            <button class="option" data-answer="wrong">Verde</button>
-            <button class="option" data-answer="wrong">Amarelo</button>
+                <button class="option" data-answer="wrong">Vermelho</button>
+                <button class="option" data-answer="correct">Azul</button>
+                <button class="option" data-answer="wrong">Verde</button>
+                <button class="option" data-answer="wrong">Amarelo</button>
             </div>
-
         </div>
 
-         <!-- Pergunta 4 -->
-         <div class="question" id="q4">
-
+        <!-- Pergunta 4 -->
+        <div class="question" id="q4">
             <h2>4. Apenas um teste?</h2>
             <div class="options">
-            <button class="option" data-answer="wrong">Verdadeiro</button>
-            <button class="option" data-answer="correct">Falso</button>
+                <button class="option" data-answer="wrong">Verdadeiro</button>
+                <button class="option" data-answer="correct">Falso</button>
             </div>
-
         </div>
 
         <!-- Resultado Final -->
@@ -78,10 +77,18 @@
             <p id="score"></p>
         </div>
 
-        </main>
-    </div>
+        <div id="returnButton" class="Return hidden">
+            <a href="../Quizes/Quizes.html">
+                <span class="white-text">Voltar aos</span> 
+                <span class="blue-text">Quizes</span>
+            </a>
+        </div>
 
-    <script src="scripts.js"></script>
+    </div> <!-- Fechamento do quizContainer -->
 
-    </body>
+</main>
+
+<script src="scripts.js"></script>
+
+</body>
 </html>
