@@ -21,6 +21,12 @@ header {
 h1 {
     font-size: 2.5rem;
     margin: 0;
+    transition: margin-left 0.3s ease;
+}
+
+.h1-ajustado{
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
 }
 
 main {
@@ -221,6 +227,12 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+    transition: margin-left 0.3s ease;
+}
+
+.footer-ajustado{
+    margin-left: 180px;
+    transition: margin-left 0.3s ease;
 }
 
 .dark-mode {

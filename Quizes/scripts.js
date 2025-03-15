@@ -25,7 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
         menuButton.addEventListener("click", function () {
             sidebar.classList.toggle("open");
             mainContent.classList.toggle("sidebar-open");
-            indice.classList.toggle("indice-ajustada")
+            indice.classList.toggle("indice-ajustada");
+            document.querySelector("footer").classList.toggle("footer-ajustado");
+            document.querySelector("h1").classList.toggle("h1-ajustado");
         });
     }
 });
