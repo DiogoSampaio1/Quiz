@@ -103,6 +103,10 @@ main.sidebar-open {
     z-index: 1100;
 }
 
+.menu-button.fixed {
+    position: fixed;
+}
+
 .menu-button span {
     display: flex;
     width: 30px;

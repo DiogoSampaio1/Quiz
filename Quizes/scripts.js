@@ -28,6 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
             indice.classList.toggle("indice-ajustada");
             document.querySelector("footer").classList.toggle("footer-ajustado");
             document.querySelector("h1").classList.toggle("h1-ajustado");
+
+            if (sidebar.classList.contains("open")) {
+                menuButton.classList.add("fixed");
+            } else {
+                menuButton.classList.remove("fixed");
+            }
         });
+        
     }
 });
