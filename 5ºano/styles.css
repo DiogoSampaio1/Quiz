@@ -186,7 +186,7 @@ h2{
 }
 
 .correct {
-  background-color: #4caf50;
+  background-color: #4caf50 !important;
 }
 
 .wrong {
