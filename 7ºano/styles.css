@@ -36,6 +36,20 @@ body {
   background-position: center;
 }
 
+.alemao{
+  background-image: url(../Imagens/Alemão.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.fisica{
+  background-image: url(../Imagens/Físico-Química.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .container {
   width: 90%;
   max-width: 400px;
