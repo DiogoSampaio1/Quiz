@@ -206,8 +206,11 @@ h2{
 .Return {
   text-decoration: none;
   font-size: 18px;
-  
 } 
+
+.Return a {
+  text-decoration: none;
+}
 
 .white-text {
   color: white;
@@ -216,6 +219,10 @@ h2{
 .blue-text {
     color: #007BFF;
     font-weight: bold;
+}
+
+.hidden {
+  display: none;
 }
 
 /*Botão retornar*/

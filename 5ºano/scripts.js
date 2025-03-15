@@ -93,6 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
       resultsDiv.classList.remove('hidden');
       resultsDiv.scrollIntoView({ behavior: 'smooth' });
       scoreDisplay.textContent = `Você acertou ${score} de ${questions.length} perguntas!`;
+
+      document.getElementById("returnButton").classList.remove("hidden");
   }
 
   // Função para processar a resposta selecionada
