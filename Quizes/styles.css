@@ -115,6 +115,12 @@ main.sidebar-open {
     border: 1px solid #ddd;
     border-radius: 8px;
     margin-bottom: 0px;
+    transition: margin-left 0.3s ease;
+}
+
+.indice-ajustada {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
 }
 
 .indice ul {

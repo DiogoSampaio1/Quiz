@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuButton = document.getElementById("menuButton");
     const sidebar = document.getElementById("sidebar");
     const mainContent = document.querySelector("main");
+    const indice = document.querySelector(".indice");
 
     // 🌓 Modo Escuro - Aplica estado inicial
     if (themeToggle) {
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         menuButton.addEventListener("click", function () {
             sidebar.classList.toggle("open");
             mainContent.classList.toggle("sidebar-open");
+            indice.classList.toggle("indice-ajustada")
         });
     }
 });
