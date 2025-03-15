@@ -52,6 +52,7 @@ main.sidebar-open {
 
 .sidebar.open {
     left: 0 !important;
+    width: 250px; 
     z-index: 1000;
 }
 
