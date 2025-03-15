@@ -119,46 +119,68 @@ main.sidebar-open {
   /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-.indice {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 0px;
-    transition: margin-left 0.3s ease;
+.selecao-anos {
+    display: flex;
+    gap: 12px;
+    padding: 15px;
+    border-radius: 12px;
+    background: #15151f;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    justify-content: space-evenly;
+    border: 1px solid #007BFF;
 }
 
-.indice-ajustada {
+.selecao-anos label {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2a2a3d, #3d1d5c); /* Tons mais escuros */
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.selecao-anos label::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250%;
+    height: 250%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 10%, transparent 80%);
+    transition: transform 0.4s ease;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.selecao-anos label:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.selecao-anos label:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 15px rgba(61, 29, 92, 0.5);
+}
+
+.selecao-anos input[type="checkbox"] {
+    display: none;
+}
+
+.selecao-anos input[type="checkbox"]:checked + label {
+    background: linear-gradient(135deg, #1a3d5c, #204d4d); /* Azul escuro + verde escuro */
+    box-shadow: 0 4px 15px rgba(26, 61, 92, 0.5);
+    transform: scale(1.1);
+}
+
+
+.selecao-anos-ajustada {
     margin-left: 250px;
     transition: margin-left 0.3s ease;
-}
-
-.indice ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.indice ul li {
-    margin-right: 20px;
-    padding: 10px 20px;
-    border: 2px solid #007BFF; 
-    border-radius: 8px; 
-    transition: background-color 0.3s, transform 0.3s; 
-}
-
-.indice ul li a {
-    text-decoration: none;
-    color: #007BFF;
-    font-weight: bold;
-    display: inline-block;
-}
-
-.indice ul li:hover {
-    background-color: #ffffff; 
-    color: white;
-    transform: scale(1.05);
 }
 
 .Ano-escolar {
