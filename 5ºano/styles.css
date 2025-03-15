@@ -203,6 +203,21 @@ h2{
 
 /*Botão retornar*/
 
+.Return {
+  text-decoration: none;
+  font-size: 18px;
+  
+} 
+
+.white-text {
+  color: white;
+}
+
+.blue-text {
+    color: #007BFF;
+    font-weight: bold;
+}
+
 /*Botão retornar*/
 
 @media (max-width: 600px) {
