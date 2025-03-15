@@ -50,6 +50,27 @@ body {
   background-position: center;
 }
 
+.frances{
+  background-image: url(../Imagens/Françês.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.geografia{
+  background-image: url(../Imagens/Geografia.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.tic{
+  background-image: url(../Imagens/Tic.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .container {
   width: 90%;
   max-width: 400px;
