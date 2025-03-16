@@ -95,7 +95,7 @@ body {
   max-width: 1200px;
   margin-top: 50px;
   margin: auto;
-  overflow: hidden;
+  overflow: visible;
   padding: 20px 0;
 }
 
@@ -148,17 +148,22 @@ body {
   padding: 10px;
   font-size: 20px;
   border-radius: 50%;
-  text-decoration: none !important;
-  outline: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; 
 }
 
 .carousel-btn.prev {
-  left: 10px;
+  left: -50px;
 }
 
 .carousel-btn.next {
-  right: 10px;
+  right: -50px;
 }
+
 
 .carousel-btn:hover {
   text-decoration: none !important;
@@ -172,6 +177,10 @@ body {
 .quiz-link {
   text-decoration: none; 
   color: inherit; 
+}
+
+.slide {
+  min-width: 100%;
 }
 
 footer {

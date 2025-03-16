@@ -57,20 +57,24 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+const carousel = document.getElementById("carousel");
 const quizzes = [
   { imagem: "../Imagens/matematica.png", titulo: "Quiz Matemática 5ºAno", link: "../5ºano/Matemática.html" },
   { imagem: "../Imagens/Historia.jpg", titulo: "Quiz História 9ºAno", link: "../9ºano/História.html" },
-  { imagem: "../Imagens/Françês.jpg", titulo: "Quiz Françês 8ºAno", link: "../8ºano/Françês.html" },
+  { imagem: "../Imagens/Françês.jpg", titulo: "Quiz Francês 8ºAno", link: "../8ºano/Francês.html" },
   { imagem: "../Imagens/Geografia.jpg", titulo: "Quiz Geografia 7ºAno", link: "../7ºano/Geografia.html" },
   { imagem: "../Imagens/Ingles.png", titulo: "Quiz Inglês 6ºAno", link: "../6ºano/Inglês.html" },
   { imagem: "../Imagens/Físico-Química.jpg", titulo: "Quiz Físico-Química 9ºAno", link: "../9ºano/Fisico-quimica.html" },
   { imagem: "../Imagens/Historia.jpg", titulo: "Quiz História 7ºAno", link: "../7ºano/História.html" },
 ];
 
-const carousel = document.getElementById("carousel");
+// Clonar os primeiros elementos para garantir um loop contínuo
+const totalItems = quizzes.length;
+const cloneCount = 3; // Número de itens a clonar
+const extendedQuizzes = [...quizzes, ...quizzes.slice(0, cloneCount)];
 
 // Adiciona os quizzes no carrossel com links clicáveis
-quizzes.forEach((quiz) => {
+extendedQuizzes.forEach((quiz) => {
   const item = document.createElement("div");
   item.classList.add("carousel-item");
   item.innerHTML = `
@@ -84,21 +88,23 @@ quizzes.forEach((quiz) => {
 
 let currentIndex = 0;
 
-// Função para mover o carrossel manualmente
+// Função para mover o carrossel
 function moveCarousel(direction) {
-  const totalItems = quizzes.length;
-  const visibleItems = 3; // Quantos quizzes aparecem ao mesmo tempo
-  const maxIndex = totalItems - visibleItems;
-
+  const itemWidth = 270; // Largura do item (ajuste conforme necessário)
   currentIndex += direction;
 
-  if (currentIndex < 0) {
-    currentIndex = maxIndex;
-  } else if (currentIndex > maxIndex) {
-    currentIndex = 0;
+  if (currentIndex >= totalItems) {
+    setTimeout(() => {
+      carousel.style.transition = "none";
+      currentIndex = 0;
+      carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    }, 500);
+  } else if (currentIndex < 0) {
+    currentIndex = totalItems - 1;
   }
 
-  carousel.style.transform = `translateX(-${currentIndex * 270}px)`;
+  carousel.style.transition = "transform 0.5s ease-in-out";
+  carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
 }
 
 // Rolar automaticamente a cada 3 segundos
