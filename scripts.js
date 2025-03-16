@@ -57,6 +57,57 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+const quizzes = [
+  { imagem: "../Imagens/matematica.png", titulo: "Quiz Matemática 5ºAno", link: "../5ºano/Matemática.html" },
+  { imagem: "../Imagens/Historia.jpg", titulo: "Quiz História 9ºAno", link: "../9ºano/História.html" },
+  { imagem: "../Imagens/Françês.jpg", titulo: "Quiz Françês 8ºAno", link: "../8ºano/Françês.html" },
+  { imagem: "../Imagens/Geografia.jpg", titulo: "Quiz Geografia 7ºAno", link: "../7ºano/Geografia.html" },
+  { imagem: "../Imagens/Ingles.png", titulo: "Quiz Inglês 6ºAno", link: "../6ºano/Inglês.html" },
+  { imagem: "../Imagens/Físico-Química.jpg", titulo: "Quiz Físico-Química 9ºAno", link: "../9ºano/Fisico-quimica.html" },
+  { imagem: "../Imagens/Historia.jpg", titulo: "Quiz História 7ºAno", link: "../7ºano/História.html" },
+];
+
+const carousel = document.getElementById("carousel");
+
+// Adiciona os quizzes no carrossel com links clicáveis
+quizzes.forEach((quiz) => {
+  const item = document.createElement("div");
+  item.classList.add("carousel-item");
+  item.innerHTML = `
+    <a href="${quiz.link}" class="quiz-link">
+      <img src="${quiz.imagem}" alt="${quiz.titulo}">
+      <p>${quiz.titulo}</p>
+    </a>
+  `;
+  carousel.appendChild(item);
+});
+
+let currentIndex = 0;
+
+// Função para mover o carrossel manualmente
+function moveCarousel(direction) {
+  const totalItems = quizzes.length;
+  const visibleItems = 3; // Quantos quizzes aparecem ao mesmo tempo
+  const maxIndex = totalItems - visibleItems;
+
+  currentIndex += direction;
+
+  if (currentIndex < 0) {
+    currentIndex = maxIndex;
+  } else if (currentIndex > maxIndex) {
+    currentIndex = 0;
+  }
+
+  carousel.style.transform = `translateX(-${currentIndex * 270}px)`;
+}
+
+// Rolar automaticamente a cada 3 segundos
+setInterval(() => {
+  moveCarousel(1);
+}, 3000);
+
+
+// -------------------------------------------------------------------------------------- DATABASE ----------------------------------------------------------------------
 
 // Exibir modal
 function abrirModal(modalId, fecharModalId = null) {
@@ -156,23 +207,3 @@ function CriarQuiz() {
 function Entrar() {
   alert("Função Entrar acionada!");
 }
-
-// Destaques para exibir categorias
-const destaques = [
-  { imagem: 'imagens/exemplo1.jpg', titulo: 'Título do Quiz 1' },
-  { imagem: 'imagens/exemplo2.jpg', titulo: 'Título do Quiz 2' },
-  { imagem: 'imagens/exemplo3.jpg', titulo: 'Título do Quiz 3' },
-];
-
-const destaquesContainer = document.querySelector('.destaques-grid');
-
-// Gerar cartões de destaques
-destaques.forEach((quiz) => {
-  const card = document.createElement('div');
-  card.classList.add('destaque-card');
-  card.innerHTML = `
-    <img src="${quiz.imagem}" alt="${quiz.titulo}" class="destaque-img">
-    <p class="destaque-texto">${quiz.titulo}</p>
-  `;
-  destaquesContainer.appendChild(card);
-});

@@ -1,53 +1,178 @@
-.destaques-container {
-    margin: 40px auto; 
-    padding: 20px;
-    max-width: 1200px; 
-  }
-  
-  .destaques-titulo {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    color: #333; 
-    margin-bottom: 20px;
-  }
-  
-  .destaques-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px; 
-    justify-items: center; 
-  }
-  
-  .destaque-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    width: 100%;
-    max-width: 250px; 
-  }
-  
-  .destaque-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-  }
-  
-  .destaque-img {
-    width: 100%; 
-    height: 150px;
-    object-fit: cover;
-  }
-  
-  .destaque-texto {
-    font-size: 16px;
-    font-weight: bold;
-    color: #555;
-    margin: 10px 0;
-    padding: 0 10px;
-  }
+body {
+  padding-top: 80px;
+}
+
+/* -------------------------------------------------------------------- BARRA LATERAL -------------------------------------------------------------------*/
+
+.sidebar {
+  position: fixed;
+  left: -250px;
+  top: 0;
+  width: 250px;
+  height: 200vh;
+  background: #333;
+  color: white;
+  transition: left 0.3s ease;
+  padding-top: 20px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.sidebar.open {
+  left: 0 !important;
+  width: 250px; 
+  z-index: 1000;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.sidebar-menu li {
+  font-weight: bold;
+  width: 100% !important;
+  padding: 15px 10px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.sidebar-menu a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s;
+  padding: 15px 0;
+  margin-bottom: 15px;
+}
+
+.sidebar-menu a:hover {
+  background: #444;
+}
+
+.menu-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.menu-button.fixed {
+  position: fixed;
+}
+
+.menu-button span {
+  display: flex;
+  width: 30px;
+  height: 4px;
+  margin: 6px 0;
+  background: black;
+  transition: 0.3s;
+}
+
+/* -------------------------------------------------------------------- BARRA LATERAL -------------------------------------------------------------------*/
+
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 50px;
+  margin: auto;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 20px;
+  text-decoration: none;
+}
+
+.carousel-item {
+  min-width: 250px;
+  max-width: 250px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.carousel-item p {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 50%;
+  text-decoration: none !important;
+  outline: none;
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
+.carousel-btn:hover {
+  text-decoration: none !important;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-btn a {
+  text-decoration: none !important;
+}
+
+.quiz-link {
+  text-decoration: none; 
+  color: inherit; 
+}
 
 footer {
   text-align: center;
@@ -104,4 +229,24 @@ footer {
 .dark-mode footer {
   color: #ECDFCC !important;
   background-color: #222;
+}
+
+.dark-mode .sidebar-menu a {
+  color: white;
+}  
+
+.dark-mode .menuButton {
+  background-color: #ffffff;
+}
+
+.dark-mode .overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .menu-button span {
+  background: white;
+}
+
+.dark-mode .sidebar-menu a:hover {
+  color: #4B70F5;
 }
