@@ -20,6 +20,9 @@ if (localStorage.getItem("darkMode") === "enabled") {
     const startScreen = document.getElementById("startScreen");
     const quizContainer = document.getElementById("quizContainer");
     const usernameInput = document.getElementById("username");
+    const userInfo = document.getElementById("userInfo"); // Novo elemento para exibir nome/avatar
+    const userAvatar = document.getElementById("userAvatar"); // Avatar do usuário
+    const userNameDisplay = document.getElementById("userName"); // Nome do usuário
     let selectedAvatar = null;
   
     // Selecionar avatar
@@ -39,6 +42,13 @@ if (localStorage.getItem("darkMode") === "enabled") {
             alert("Por favor, escolha um nome e um avatar antes de continuar!");
             return;
         }
+  
+        // Exibir nome e avatar no canto superior direito
+        userAvatar.src = selectedAvatar;
+        userAvatar.alt = "Avatar do usuário"; 
+        userAvatar.style.display = "block"; 
+        userNameDisplay.textContent = username;
+        userInfo.classList.remove("hidden"); // Mostra a área do usuário
   
         // Esconder tela inicial e mostrar quiz
         startScreen.classList.add("hidden");
@@ -122,4 +132,4 @@ if (localStorage.getItem("darkMode") === "enabled") {
         // Espera antes de avançar para a próxima pergunta (2 segundos)
         setTimeout(showNextQuestion, delayBetweenQuestions);
     }
-  });
+  });  
