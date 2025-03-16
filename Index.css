@@ -88,11 +88,16 @@ body {
 
 /* -------------------------------------------------------------------- BARRA LATERAL -------------------------------------------------------------------*/
 
+.title{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+  font-weight: bold;
+}
 
 .carousel-container {
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1800px;
   margin-top: 50px;
   margin: auto;
   overflow: visible;
@@ -112,8 +117,8 @@ body {
 }
 
 .carousel-item {
-  min-width: 250px;
-  max-width: 250px;
+  min-width: 350px;
+  max-width: 350px;
   background-color: #f9f9f9;
   border-radius: 8px;
   text-align: center;
@@ -181,6 +186,19 @@ body {
 
 .slide {
   min-width: 100%;
+}
+
+.linha-azul {
+  width: 100%;
+  height: 2px;
+  background-color: #007BFF;
+  margin-top: 10px;
+}
+
+.Title2{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: center;
+  font-weight: bold;
 }
 
 footer {
