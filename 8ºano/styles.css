@@ -87,6 +87,23 @@ h2{
   font-weight: bold;
 }
 
+#alertMessage {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 0, 0, 1);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  display: none;
+  z-index: 1000;
+}
+
 .NameForm{
   display: flex;
   justify-content: center;
