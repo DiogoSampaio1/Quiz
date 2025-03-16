@@ -46,7 +46,7 @@ if (localStorage.getItem("darkMode") === "enabled") {
         // Exibir nome e avatar no canto superior direito
         userAvatar.src = selectedAvatar;
         userAvatar.alt = "Avatar do usuário"; 
-userAvatar.style.display = "block"; 
+        userAvatar.style.display = "block"; 
         userNameDisplay.textContent = username;
         userInfo.classList.remove("hidden"); // Mostra a área do usuário
   
