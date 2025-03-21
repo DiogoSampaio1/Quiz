@@ -31,6 +31,89 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const btnEntrar = document.getElementById("btnEntrar");
+  const btnCriarConta = document.querySelector(".criar-conta-link a");
+  const modalLogin = document.getElementById("modalLogin");
+  const modalCriarConta = document.getElementById("modalCriarConta");
+  const formCriarConta = document.getElementById("formCriarConta");
+
+  // 📌 Definir as funções como globais
+  window.abrirModal = function (modalID, fecharModalID = null) {
+    if (fecharModalID) {
+      fecharModal(fecharModalID);
+    }
+    const modal = document.getElementById(modalID);
+    if (modal) {
+      modal.style.display = "block";
+    }
+  };
+
+  window.fecharModal = function (modalID) {
+    const modal = document.getElementById(modalID);
+    if (modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  if (btnEntrar && modalLogin) {
+    btnEntrar.addEventListener("click", function () {
+      abrirModal("modalLogin");
+    });
+  }
+
+  if (btnCriarConta && modalCriarConta) {
+    btnCriarConta.addEventListener("click", function () {
+      abrirModal("modalCriarConta", "modalLogin");
+    });
+  }
+
+  // Fechar modais ao clicar fora
+  window.addEventListener("click", function (event) {
+    if (event.target === modalLogin) {
+      fecharModal("modalLogin");
+    }
+    if (event.target === modalCriarConta) {
+      fecharModal("modalCriarConta");
+    }
+  });
+
+  // 📌 Criar Conta (Corrigido)
+  if (formCriarConta) {
+    formCriarConta.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById("registerUsername").value;
+      const email = document.getElementById("registerEmail").value;
+      const password = document.getElementById("registerSenha").value;
+
+      const userData = { username, email, password };
+
+      try {
+        const response = await fetch("http://localhost:3333/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erro HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
+        alert("Conta criada com sucesso!");
+        fecharModal("modalCriarConta");
+        formCriarConta.reset();
+      } catch (error) {
+        console.error("Erro ao criar conta:", error);
+        alert("Erro ao criar conta. Verifique a conexão com o servidor.");
+      }
+    });
+  }
+});
+
 // Carrossel
 const carousel = document.getElementById("carousel");
 const quizzes = [
