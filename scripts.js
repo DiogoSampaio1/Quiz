@@ -31,63 +31,120 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const btnEntrar = document.getElementById("btnEntrar");
-  const btnCriarConta = document.querySelector(".criar-conta-link a");
-  const modalLogin = document.getElementById("modalLogin");
-  const modalCriarConta = document.getElementById("modalCriarConta");
-  const formCriarConta = document.getElementById("formCriarConta");
+// Botões entrar e etc
 
-  // 📌 Definir as funções como globais
-  window.abrirModal = function (modalID, fecharModalID = null) {
-    if (fecharModalID) {
-      fecharModal(fecharModalID);
-    }
-    const modal = document.getElementById(modalID);
+document.addEventListener("DOMContentLoaded", function () {
+  const formLogin = document.getElementById("formLogin");
+  const formRegister = document.getElementById("formRegister"); // 📌 Adicionado
+  const btnLoginModal = document.getElementById("btnLoginModal");
+  const userInfo = document.getElementById("user-info");
+  const usernameDisplay = document.getElementById("username-display");
+  const logoutBtn = document.getElementById("logout-btn");
+  const criarContaLink = document.getElementById("criarContaLink");
+  const fecharBtns = document.querySelectorAll(".fechar");
+
+  function abrirModal(id) {
+    const modal = document.getElementById(id);
     if (modal) {
       modal.style.display = "block";
+    } else {
+      console.error(`Erro: Modal com id '${id}' não encontrado!`);
     }
-  };
+  }
 
-  window.fecharModal = function (modalID) {
-    const modal = document.getElementById(modalID);
+  function fecharModal(id) {
+    const modal = document.getElementById(id);
     if (modal) {
       modal.style.display = "none";
+    } else {
+      console.error(`Erro: Modal com id '${id}' não encontrado!`);
     }
-  };
+  }
 
-  if (btnEntrar && modalLogin) {
-    btnEntrar.addEventListener("click", function () {
+  function mostrarUsuario(username) {
+    if (btnLoginModal) btnLoginModal.style.display = "none";
+    if (userInfo) userInfo.style.display = "flex";
+    if (usernameDisplay) usernameDisplay.textContent = `Olá, ${username}!`;
+  }
+
+  function esconderUsuario() {
+    if (btnLoginModal) btnLoginModal.style.display = "block";
+    if (userInfo) userInfo.style.display = "none";
+  }
+
+  // Verificar se há um usuário logado ao carregar a página
+  const loggedUser = localStorage.getItem("username");
+  if (loggedUser) {
+    mostrarUsuario(loggedUser);
+  } else {
+    esconderUsuario();
+  }
+
+  // Abrir o modal de login
+  if (btnLoginModal) {
+    btnLoginModal.addEventListener("click", function () {
       abrirModal("modalLogin");
     });
   }
 
-  if (btnCriarConta && modalCriarConta) {
-    btnCriarConta.addEventListener("click", function () {
-      abrirModal("modalCriarConta", "modalLogin");
+  // Abrir o modal de criação de conta
+  if (criarContaLink) {
+    criarContaLink.addEventListener("click", function (event) {
+      event.preventDefault();
+      fecharModal("modalLogin");
+      abrirModal("modalCriarConta");
     });
   }
 
-  // Fechar modais ao clicar fora
-  window.addEventListener("click", function (event) {
-    if (event.target === modalLogin) {
-      fecharModal("modalLogin");
-    }
-    if (event.target === modalCriarConta) {
-      fecharModal("modalCriarConta");
-    }
+  // Fechar modais ao clicar no botão "X"
+  fecharBtns.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const modal = btn.closest(".modal");
+      if (modal) {
+        fecharModal(modal.id);
+      }
+    });
   });
 
-  // 📌 Criar Conta (Corrigido)
-  if (formCriarConta) {
-    formCriarConta.addEventListener("submit", async function (event) {
+  // Evento de login
+  if (formLogin) {
+    formLogin.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById("loginUsername").value;
+      const password = document.getElementById("loginSenha").value;
+
+      try {
+        const response = await fetch("http://localhost:3333/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Falha no login");
+        }
+
+        const data = await response.json();
+        localStorage.setItem("username", data.username);
+        mostrarUsuario(data.username);
+        fecharModal("modalLogin");
+      } catch (error) {
+        alert("Erro ao fazer login. Verifique suas credenciais.");
+      }
+    });
+  }
+
+  // 📌 Evento de Registro (Cadastro)
+  if (formRegister) {
+    formRegister.addEventListener("submit", async function (event) {
       event.preventDefault();
 
       const username = document.getElementById("registerUsername").value;
       const email = document.getElementById("registerEmail").value;
       const password = document.getElementById("registerSenha").value;
-
-      const userData = { username, email, password };
 
       try {
         const response = await fetch("http://localhost:3333/api/register", {
@@ -95,24 +152,35 @@ document.addEventListener("DOMContentLoaded", function () {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(userData),
+          body: JSON.stringify({ username, email, password }),
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-          throw new Error(`Erro HTTP: ${response.status}`);
+          throw new Error(data.message || "Erro no registro");
         }
 
-        const data = await response.json();
-        alert("Conta criada com sucesso!");
+        alert("Usuário registrado com sucesso! Faça login.");
         fecharModal("modalCriarConta");
-        formCriarConta.reset();
+        abrirModal("modalLogin");
       } catch (error) {
-        console.error("Erro ao criar conta:", error);
-        alert("Erro ao criar conta. Verifique a conexão com o servidor.");
+        alert(error.message);
       }
     });
   }
+
+  // Evento de logout
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+      localStorage.removeItem("username");
+      esconderUsuario();
+    });
+  }
 });
+
+
+// /Botões entrar e etc
 
 // Carrossel
 const carousel = document.getElementById("carousel");

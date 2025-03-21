@@ -53,27 +53,34 @@
       <span class="slider"></span>
     </label>
     <button class="botao-CriarQuiz" id="criarQuiz" onclick="abrirCriarQuiz()"><b>Criar Quiz</b></button>
-    <button class="botao-Entrar" id="btnEntrar"><b>Entrar</b></button>
-  </div>
-
-  <!-- Criar Conta -->
-  <div id="modalCriarConta" class="modal">
-    <div class="modal-content">
-      <span class="fechar" onclick="fecharModal('modalCriarConta')">&times;</span>
-      <h2>Criar Conta</h2>
-      <form id="formCriarConta">
-        <input type="text" id="registerUsername" placeholder="Nome de Utilizador" required>
-        <input type="email" id="registerEmail" placeholder="Email" required>
-        <input type="password" id="registerSenha" placeholder="Palavra-passe" required>
-        <button type="submit">Registar</button>
-      </form>
+    <button class="botao-Entrar" id="btnLoginModal"><b>Entrar</b></button>
+    <div id="user-info" class="user-info" style="display: none;">
+      <span id="username-display"></span>
+      <button id="logout-btn">Sair</button>
     </div>
   </div>
+  
+
+  <!-- Criar Conta -->
+<!-- Modal de Registro -->
+<div id="modalCriarConta" class="modal">
+  <div class="modal-content">
+    <span class="fechar" onclick="fecharModal('modalCriarConta')">&times;</span>
+    <h2>Criar Conta</h2>
+    <form id="formRegister">
+      <input type="text" id="registerUsername" placeholder="Nome de Utilizador" required>
+      <input type="email" id="registerEmail" placeholder="Email" required>
+      <input type="password" id="registerSenha" placeholder="Palavra-passe" required>
+      <button class="botao-Registrar" id="btnRegistrar" type="submit">Registrar</button>
+    </form>
+  </div>
+</div>
+
 
   <!-- Login -->
   <div id="modalLogin" class="modal">
     <div class="modal-content">
-      <span class="fechar" onclick="fecharModal('modalLogin')">&times;</span>
+      <span class="fechar">&times;</span>
       <h2>Entrar</h2>
       <form id="formLogin">
         <input type="text" id="loginUsername" placeholder="Nome de Utilizador" required>
@@ -81,11 +88,11 @@
         <button class="botao-Entrar" id="btnEntrar" type="submit">Entrar</button>
         <p class="criar-conta-link">
           Ainda não tem conta? 
-          <a href="#" onclick="abrirModal('modalCriarConta', 'modalLogin')">Criar uma</a>
+          <a href="#" id="criarContaLink">Criar uma</a>
         </p>        
       </form>
     </div>
-  </div>
+</div>
 
   <h1 class="title">QUIZES DESTACADOS</h1>
 

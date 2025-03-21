@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -14,6 +15,8 @@ const port = 3333;
 app.use(express.json());
 app.use(cors());
 app.use(routes); // ✅ Agora `routes` está definido corretamente
+
+app.use("/api", routes);
 
 app.listen(port, () => {
   console.log(`⚡ Backend deu início em http://localhost:${port}`);
