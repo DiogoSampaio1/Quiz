@@ -1,5 +1,13 @@
 body {
   padding-top: 80px;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;  /* Faz o conteúdo ocupar o espaço disponível */
 }
 
 /* -------------------------------------------------------------------- BARRA LATERAL -------------------------------------------------------------------*/
@@ -193,21 +201,88 @@ a {
   margin-top: 10px;
 }
 
-.Title2{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+/* Sobre nós  */
+
+#sobre-nos {
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+  color: white;
   text-align: center;
+  padding: 50px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  margin: 50px auto;
+  max-width: 1000px;
+  transition: transform 0.3s ease-in-out;
+}
+
+#sobre-nos:hover {
+  transform: scale(1.02);
+}
+
+.container {
+  width: 1000px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.title-sobre-nos {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle-sobre-projeto {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #ffcc00;
+}
+
+.descricao {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.descricao span {
+  color: #ffcc00;
   font-weight: bold;
 }
+
+.descricao .destaque {
+  color: #00ffcc;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.title-sobre-nos, .subtitle-sobre-projeto {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Sobre nós  FIM */
 
 footer {
   text-align: center;
   padding: 10px 0;
   background-color: #cfcfcf;
-  color: rgb(0, 0, 0);
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  color: black;
   width: 100%;
+  position: relative;
+  bottom: 0;
 }
 
 .dark-mode {
