@@ -211,6 +211,15 @@ cursor: pointer;
   background-color: #4682b4 !important;
 }
 
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#logout-btn{
+  cursor: pointer;
+}
 
 .fechar {
 float: right;
@@ -234,7 +243,14 @@ color: #1e90ff;
   color: #444;
 }
 
-#modalLogin .botao-Entrar, 
-#modalCriarConta .botao-Registrar {
+.dark-mode #modalLogin .botao-Entrar {
   background-color: #444 !important;
+}
+
+.dark-mode #modalCriarConta .botao-Registrar{
+  background-color: #444 !important;
+}
+
+.dark-mode .modal-content h2{
+  color: #222;
 }
