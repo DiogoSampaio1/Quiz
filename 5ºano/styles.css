@@ -15,7 +15,7 @@ body {
 }
 
 .portugues{
-  background-image: url(../Imagens/Portugues.jpg);
+  background-image: url(../Imagens/Portugues_darkmode.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -301,8 +301,4 @@ h2{
 .dark-mode .blue-text{
   color: #007BFF;
   font-weight: bold;
-}
-
-.dark-mode .portugues {
-  background-image: url(../Imagens/po);
 }
