@@ -302,3 +302,7 @@ h2{
   color: #007BFF;
   font-weight: bold;
 }
+
+.dark-mode .portugues{
+  background-image: url(ss);
+}
