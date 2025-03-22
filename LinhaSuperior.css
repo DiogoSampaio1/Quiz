@@ -157,6 +157,7 @@ background-color: white;
 margin: 10% auto;
 padding: 20px;
 width: 30%;
+max-width: 600px;
 border-radius: 8px;
 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
@@ -171,12 +172,17 @@ padding: 10px;
 margin: 10px 0;
 border: 1px solid #ccc;
 border-radius: 5px;
+box-sizing: border-box;
+}
+
+#modalLogin .botao-Entrar, 
+#modalCriarConta .botao-Registrar {
+  background-color: #1e90ff !important;
 }
 
 .modal-content button {
 width: 100%;
 padding: 10px;
-background-color: #1e90ff;
 color: white;
 border: none;
 border-radius: 5px;
@@ -200,14 +206,17 @@ cursor: pointer;
   text-decoration: underline;
 }
 
-.modal-content button:hover {
-background-color: #4682b4;
+#modalLogin .botao-Entrar:hover,
+#modalCriarConta .botao-Registrar:hover {
+  background-color: #4682b4 !important;
 }
+
 
 .fechar {
 float: right;
 font-size: 1.5rem;
 cursor: pointer;
+color: #1e90ff;
 }
 
 .dark-mode .linha-superior {
@@ -221,3 +230,11 @@ cursor: pointer;
   border: 1px solid #444;
 }
 
+.dark-mode .fechar {
+  color: #444;
+}
+
+#modalLogin .botao-Entrar, 
+#modalCriarConta .botao-Registrar {
+  background-color: #444 !important;
+}

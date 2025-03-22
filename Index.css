@@ -169,7 +169,6 @@ body {
   right: -50px;
 }
 
-
 .carousel-btn:hover {
   text-decoration: none !important;
   background-color: rgba(0, 0, 0, 0.8);
@@ -179,9 +178,8 @@ body {
   text-decoration: none !important;
 }
 
-.quiz-link {
-  text-decoration: none; 
-  color: inherit; 
+a {
+  text-decoration: none !important;
 }
 
 .slide {
