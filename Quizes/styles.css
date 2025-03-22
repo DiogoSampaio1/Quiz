@@ -136,6 +136,7 @@ main.sidebar-open {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     justify-content: space-evenly;
     border: 1px solid #007BFF;
+    transition: margin-left 0.3s ease;
 }
 
 .selecao-anos label {
@@ -149,7 +150,7 @@ main.sidebar-open {
     color: white;
     padding: 10px 15px;
     border-radius: 8px;
-    background: linear-gradient(135deg, #2a2a3d, #3d1d5c); /* Tons mais escuros */
+    background: linear-gradient(135deg, #2a2a3d, #3d1d5c);
     transition: transform 0.2s ease, box-shadow 0.3s ease;
     overflow: hidden;
 }
@@ -180,7 +181,7 @@ main.sidebar-open {
 }
 
 .selecao-anos input[type="checkbox"]:checked + label {
-    background: linear-gradient(135deg, #1a3d5c, #204d4d); /* Azul escuro + verde escuro */
+    background: linear-gradient(135deg, #1a3d5c, #204d4d);
     box-shadow: 0 4px 15px rgba(26, 61, 92, 0.5);
     transform: scale(1.1);
 }
@@ -191,7 +192,7 @@ main.sidebar-open {
     transition: margin-left 0.3s ease;
 }
 
-.Ano-escolar {
+/* .Ano-escolar {
     margin-bottom: 50px;
 }
 
@@ -203,7 +204,7 @@ main.sidebar-open {
     font-size: 24px;
     margin-bottom: 20px;
     text-align: left;
-}
+} */
 
 .disciplinas-container {
     display: grid;
