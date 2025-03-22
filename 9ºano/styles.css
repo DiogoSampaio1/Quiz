@@ -22,7 +22,7 @@ body {
 }
 
 .ciencias{
-  background-image: url(../Imagens/Ciencias.png);
+  background-image: url(../Imagens/Ciências_darkmode.webp);
 }
 
 .historia{
@@ -30,7 +30,7 @@ body {
 }
 
 .ingles{
-  background-image: url(../Imagens/Ingles.png);
+  background-image: url(../Imagens/Inglês_darkmode.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -51,7 +51,7 @@ body {
 }
 
 .frances{
-  background-image: url(../Imagens/Françês.jpg);
+  background-image: url(../Imagens/Françês_darkmode.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
