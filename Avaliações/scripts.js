@@ -156,5 +156,26 @@ function loadCommentsFromLocalStorage() {
     });
 }
 
+
+// PASSWORD PARA DEVS
+function checkPassword() {
+    const passwordInput = document.getElementById("passwordInput").value;
+    const correctPassword = "DevToolByDiogo";
+    const alertBox = document.getElementById("customAlert");
+
+    if (passwordInput === correctPassword) {
+        document.getElementById("devScreen").style.display = "none";
+    } else {
+        alertBox.style.display = "block";
+        setTimeout(() => {
+            alertBox.style.display = "none";
+        }, 2000);
+    }
+}
+
+function goHome() {
+    window.location.href = "../Index.html";
+}
+
 // Carrega os comentários ao carregar a página
 document.addEventListener('DOMContentLoaded', loadCommentsFromLocalStorage);

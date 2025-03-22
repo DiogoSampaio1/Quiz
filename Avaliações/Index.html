@@ -19,13 +19,11 @@
     <!-- Sidebar Menu -->
     <div id="sidebar" class="sidebar">
         <div class="sidebar-header">
-            <h2>Menu</h2>
-            <button id="closeSidebar">&times;</button>
     </div>
         <ul class="sidebar-menu">
             <li><a href="../Index.html">Página Inicial</a></li>
-            <li><a href="Quizes/Quizes.html">Quizes</a></li>
-            <li><a href="Avaliações/Index.html">Avaliações</a></li>
+            <li><a href="../Quizes/Quizes.html">Quizes</a></li>
+            <li><a href="../Avaliações/Index.html">Avaliações</a></li>
         </ul>
     </div>
   
@@ -35,13 +33,27 @@
     <span></span>
     <span></span>
   </div>
+
     <h1>Avaliações</h1>
+
 </header>
-        
-        <div class="form-container">
-            <textarea id="commentInput" placeholder="Escreva sua avaliação..." rows="4"></textarea>
-            <button id="publishBtn">Publicar</button>
-        </div>
+
+    <div id="devScreen" class="dev-screen">
+        <h2>🚧 Em Desenvolvimento 🚧</h2>
+        <p>Insira a password para aceder:</p>
+        <input type="password" id="passwordInput" placeholder="Digite a password..." />
+        <button onclick="checkPassword()">Entrar</button>
+        <button onclick="goHome()" class="back-button">Voltar</button>
+    </div>
+
+    <div id="customAlert" class="custom-alert">
+        ❌ Senha incorreta! 🚫
+    </div>    
+
+    <div class="form-container">
+        <textarea id="commentInput" placeholder="Escreva sua avaliação..." rows="4" maxlength="100"></textarea>
+        <button id="publishBtn">Publicar</button>
+    </div>
 
         <div id="commentsSection" class="comments-section">
             <!-- Comentários serão inseridos aqui dinamicamente -->

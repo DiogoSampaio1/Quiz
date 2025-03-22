@@ -127,12 +127,13 @@ main.sidebar-open {
   /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 .selecao-anos {
     display: flex;
     gap: 12px;
     padding: 15px;
     border-radius: 12px;
-    background: #15151f;
+    background: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     justify-content: space-evenly;
     border: 1px solid #007BFF;
@@ -150,7 +151,7 @@ main.sidebar-open {
     color: white;
     padding: 10px 15px;
     border-radius: 8px;
-    background: linear-gradient(135deg, #2a2a3d, #3d1d5c);
+    background: linear-gradient(135deg, #007BFF, #0056b3);
     transition: transform 0.2s ease, box-shadow 0.3s ease;
     overflow: hidden;
 }
@@ -302,6 +303,14 @@ footer {
 .dark-mode .indice {
     background-color: #222;
     border: 1px solid #007BFF;
+}
+
+.dark-mode .selecao-anos{
+    background: #15151f;
+}
+
+.dark-mode .selecao-anos label {
+    background: linear-gradient(135deg, #2a2a3d, blue);
 }
 
 .dark-mode .disciplina-card img {
