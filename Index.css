@@ -127,7 +127,7 @@ main {
 .carousel-item {
   min-width: 350px;
   max-width: 350px;
-  background-color: #f9f9f9;
+  background-color: #007BFF;
   border-radius: 8px;
   text-align: center;
   padding: 10px;
@@ -147,7 +147,7 @@ main {
   margin-top: 10px;
   font-size: 16px;
   font-weight: bold;
-  color: #555;
+  color: white;
 }
 
 .carousel-btn {
@@ -204,7 +204,7 @@ a {
 /* Sobre nós  */
 
 #sobre-nos {
-  background: linear-gradient(to right, #1e3c72, #2a5298);
+  background: linear-gradient(to right, black, blue);
   color: white;
   text-align: center;
   padding: 50px 20px;
@@ -349,4 +349,16 @@ footer {
 
 .dark-mode .sidebar-menu a:hover {
   color: #4B70F5;
+}
+
+.dark-mode .carousel-item{
+  background-color: #f9f9f9;
+}
+
+.dark-mode .carousel-item p {
+  color: #555;
+}
+
+.dark-mode #sobre-nos{
+  background: linear-gradient(to right, black, #2a5298);
 }
