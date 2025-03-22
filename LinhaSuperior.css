@@ -1,5 +1,5 @@
 .linha-superior {
-  position: fixed;
+  position: absolute;
   top: 0; 
   left: 0;
   width: 100%;
@@ -10,7 +10,7 @@
 }
 
 .barra-container {
-  position: fixed;
+  position: absolute;
   top: 15px;
   left: 45%;
   transform: translateX(-50%);
@@ -44,7 +44,7 @@
 }
 
 .botões-container {
-  position: fixed;
+  position: absolute;
   top: 15px;
   right: 15px;
   display: flex;
