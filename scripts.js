@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   menuButton.addEventListener("click", () => {
     sidebar.classList.toggle("open");
+    menuButton.classList.toggle("fixed", sidebar.classList.contains("open"));
   });
 
   closeSidebar.addEventListener("click", () => {
@@ -137,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 📌 Evento de Registro (Cadastro)
+  // 📌 Evento de Registo ()
   if (formRegister) {
     formRegister.addEventListener("submit", async function (event) {
       event.preventDefault();
