@@ -95,6 +95,46 @@ main {
   transition: 0.3s;
 }
 
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  margin-top: 450px;
+}
+
+.botao-form {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; 
+  background-color: white; 
+  color: black; 
+  font-weight: bold;
+  padding: 10px 40px;
+  border-radius: 80px; 
+  text-decoration: none; 
+  transition: background 0.3s ease;
+}
+
+.botao-form:hover {
+  background-color: #0056b3;
+}
+
+.botao-form:hover span {
+  color: white; 
+}
+
+.botao-form img {
+  width: 24px;
+  height: auto;
+}
+
+.botao-form span {
+  margin-left: 8px;
+  color: black;
+}
+
 /* -------------------------------------------------------------------- BARRA LATERAL -------------------------------------------------------------------*/
 
 .title{
