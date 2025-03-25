@@ -120,7 +120,7 @@ main.sidebar-open {
     width: 30px;
     height: 4px;
     margin: 6px 0;
-    background: black;
+    background: white;
     transition: 0.3s;
 }
 

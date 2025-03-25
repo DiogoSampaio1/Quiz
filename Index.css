@@ -90,7 +90,7 @@ main {
   width: 30px;
   height: 4px;
   margin: 6px 0;
-  background: black;
+  background: #007BFF;
   transition: 0.3s;
 }
 
