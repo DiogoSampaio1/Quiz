@@ -61,6 +61,7 @@ main {
 }
 
 .sidebar-menu a {
+  font-family: Arial, sans-serif;
   color: white;
   text-decoration: none;
   display: block;
