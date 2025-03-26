@@ -202,7 +202,49 @@ h1 {
     transition: 0.3s;
 }
 
-  /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+.icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    margin-top: 100%;
+  }
+  
+  .botao-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; 
+    background-color: white; 
+    color: black; 
+    font-weight: bold;
+    padding: 10px 40px;
+    border-radius: 80px; 
+    text-decoration: none; 
+    transition: background 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .botao-form:hover {
+    background-color: #0056b3;
+  }
+  
+  .botao-form:hover span {
+    color: white; 
+  }
+  
+  .botao-form img {
+    width: 24px;
+    height: auto;
+  }
+  
+  .botao-form span {
+    margin-left: 8px;
+    color: black;
+  }
+
+/* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
