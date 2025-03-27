@@ -140,6 +140,18 @@ main {
   color: black;
 }
 
+@media (max-width: 768px) {
+  .icons {
+    padding: 2vh;
+    margin-top: 5vh;
+  }
+
+  .botao-form {
+    padding: 8px 30px;
+    font-size: 14px;
+  }
+}
+
 /* -------------------------------------------------------------------- BARRA LATERAL -------------------------------------------------------------------*/
 
 .title{
