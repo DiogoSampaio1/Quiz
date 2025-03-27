@@ -220,10 +220,9 @@ main {
     margin-top: 3vh;
   }
 
-  /* Ajuste para o layout dos botões */
   .icons {
-    flex-direction: row; /* Alinha os botões na horizontal */
-    gap: 10px; /* Espaçamento entre os botões */
+    flex-direction: row; 
+    gap: 10px; 
   }
 }
 
@@ -237,7 +236,7 @@ main {
 
   .icons {
     padding: 4vh;
-    flex-direction: column; /* Alinha os botões na vertical novamente em telas muito pequenas */
+    flex-direction: column;
   }
 }
 

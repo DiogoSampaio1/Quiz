@@ -207,23 +207,29 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 15px;
-    margin-top: 100%;
+    min-height: 100vh;
+    padding: 2vh;
+    box-sizing: border-box;
+    overflow: hidden;
   }
   
   .botao-form {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px; 
-    background-color: white; 
-    color: black; 
+    gap: 8px;
+    background-color: white;
+    color: black;
     font-weight: bold;
-    padding: 10px 40px;
-    border-radius: 80px; 
-    text-decoration: none; 
+    padding: 10px 5%;
+    border-radius: 80px;
+    text-decoration: none;
     transition: background 0.3s ease;
-    margin-bottom: 20px;
+    max-width: 90%;
+    min-width: 1.5vw;
+    width: clamp(150px, 50%, 300px);
+    font-size: 1rem;
+    position: relative;
   }
   
   .botao-form:hover {
@@ -231,7 +237,7 @@ h1 {
   }
   
   .botao-form:hover span {
-    color: white; 
+    color: white;
   }
   
   .botao-form img {
@@ -242,6 +248,55 @@ h1 {
   .botao-form span {
     margin-left: 8px;
     color: black;
+  }
+  
+  .botao-avaliacoes {
+    margin-bottom: 20px;
+  }
+  
+  .botao-gama-barros {
+    margin-bottom: 1vh;
+  }
+  
+  @media (max-height: 700px) {
+    .botao-form {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .botao-form {
+      padding: 8px 4%;
+      font-size: 0.9rem;
+      width: clamp(120px, 60%, 250px);
+    }
+  
+    .icons {
+      padding: 3vh;
+      margin-top: 3vh;
+    }
+  
+    .icons {
+      flex-direction: row; 
+      gap: 10px; 
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .botao-form {
+      padding: 6px 3%;
+      font-size: 0.8rem;
+      border-radius: 40px;
+      width: clamp(100px, 80%, 200px);
+    }
+  
+    .icons {
+      padding: 4vh;
+      flex-direction: column;
+    }
   }
 
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
