@@ -98,16 +98,16 @@ main {
 .icons {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centraliza verticalmente */
+  justify-content: center;
   align-items: center;
-  height: 100dvh; /* altura da tela visível, respeita barra de tarefas e menus */
-  padding-bottom: 40px; /* espaço entre os botões e o final da tela */
-  box-sizing: border-box; /* garante que o padding não estoure a altura */
-  transform: translateY(20px);
+  min-height: 100vh; /* Garante que a altura mínima seja a da tela */
+  padding-bottom: 40px;
+  box-sizing: border-box;
 }
 
 .botao-form {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   gap: 8px; 
@@ -140,6 +140,13 @@ main {
 .botao-form span {
   margin-left: 8px;
   color: black;
+}
+
+@media (max-height: 700px) {
+  .botao-form {
+    position: fixed;
+    bottom: 20px;
+  }
 }
 
 @media (max-width: 768px) {
