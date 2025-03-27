@@ -98,12 +98,13 @@ main {
 .icons {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centraliza na vertical */
-  align-items: center; /* Centraliza na horizontal */
-  min-height: 90vh; /* Faz ocupar 100% da altura da tela */
-  padding: 20px; /* Mantém um espaçamento sem exagero */
+  justify-content: center; /* centraliza verticalmente */
+  align-items: center;
+  height: 100dvh; /* altura da tela visível, respeita barra de tarefas e menus */
+  padding-bottom: 40px; /* espaço entre os botões e o final da tela */
+  box-sizing: border-box; /* garante que o padding não estoure a altura */
+  transform: translateY(20px);
 }
-
 
 .botao-form {
   display: flex;
