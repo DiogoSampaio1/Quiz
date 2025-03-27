@@ -96,22 +96,17 @@ main {
   transition: 0.3s;
 }
 
-/* Ensure the icons container is responsive */
 .icons {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* Full height of the viewport */
   padding: 2vh;
-  /* Relative padding for responsiveness */
   box-sizing: border-box;
   overflow: hidden;
-  /* Prevent content overflow */
 }
 
-/* Make the button responsive */
 .botao-form {
   display: flex;
   justify-content: center;
@@ -121,23 +116,17 @@ main {
   color: black;
   font-weight: bold;
   padding: 10px 5%;
-  /* Percentage-based padding for flexibility */
   border-radius: 80px;
   text-decoration: none;
   transition: background 0.3s ease;
   margin-bottom: 20px;
   max-width: 90%;
-  /* Limit the width to a percentage of the screen */
   min-width: 150px;
   width: clamp(150px, 50%, 300px);
-  /* Dynamically adjust width */
   font-size: 1rem;
-  /* Use relative font size */
   position: relative;
-  /* Ensure it stays within the container */
 }
 
-/* Hover effect */
 .botao-form:hover {
   background-color: #0056b3;
 }
@@ -146,7 +135,6 @@ main {
   color: white;
 }
 
-/* Ensure the button's span and image are responsive */
 .botao-form img {
   width: 24px;
   height: auto;
@@ -157,14 +145,21 @@ main {
   color: black;
 }
 
-/* Adjustments for smaller screens */
+/* Classe específica para o botão de Avaliações */
+.botao-avaliacoes {
+  margin-bottom: 20px;
+}
+
+.botao-gama-barros {
+  margin-bottom: 20px;
+}
+
 @media (max-height: 700px) {
   .botao-form {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    /* Center the button horizontally */
   }
 }
 
@@ -173,12 +168,17 @@ main {
     padding: 8px 4%;
     font-size: 0.9rem;
     width: clamp(120px, 60%, 250px);
-    /* Adjust width dynamically */
   }
 
   .icons {
     padding: 3vh;
     margin-top: 3vh;
+  }
+
+  /* Ajuste para o layout dos botões */
+  .icons {
+    flex-direction: row; /* Alinha os botões na horizontal */
+    gap: 10px; /* Espaçamento entre os botões */
   }
 }
 
@@ -188,11 +188,11 @@ main {
     font-size: 0.8rem;
     border-radius: 40px;
     width: clamp(100px, 80%, 200px);
-    /* Further adjust for smaller screens */
   }
 
   .icons {
     padding: 4vh;
+    flex-direction: column; /* Alinha os botões na vertical novamente em telas muito pequenas */
   }
 }
 
