@@ -100,7 +100,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 50%;
   margin-top: 100%;
 }
 
