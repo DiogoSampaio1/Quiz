@@ -116,7 +116,10 @@ main {
   border-radius: 80px; 
   text-decoration: none; 
   transition: background 0.3s ease;
+  max-width: 300px;
+  min-width: 150px;
   margin-bottom: 20px;
+  width: auto;
 }
 
 .botao-form:hover {
