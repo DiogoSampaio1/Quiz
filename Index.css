@@ -1,4 +1,5 @@
 body {
+  font-family: Arial, sans-serif;
   padding-top: 80px;
   height: 100%;
   margin: 0;
@@ -8,7 +9,6 @@ body {
 
 main {
   flex: 1;
-  /* Faz o conteúdo ocupar o espaço disponível */
 }
 
 /* -------------------------------------------------------------------- Dev Screen -------------------------------------------------------------------*/
