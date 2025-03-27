@@ -98,11 +98,12 @@ main {
 .icons {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 5vh;
-  margin-top: 35vh;
+  justify-content: center; /* Centraliza na vertical */
+  align-items: center; /* Centraliza na horizontal */
+  min-height: 90vh; /* Faz ocupar 100% da altura da tela */
+  padding: 20px; /* Mantém um espaçamento sem exagero */
 }
+
 
 .botao-form {
   display: flex;
