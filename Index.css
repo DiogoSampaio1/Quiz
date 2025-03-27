@@ -99,21 +99,21 @@ main {
 /* Ensure the icons container is responsive */
 .icons {
   display: flex;
-  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* Ensures it adapts to the screen height */
+  /* Full height of the viewport */
   padding: 2vh;
-  /* Use relative padding for better responsiveness */
+  /* Relative padding for responsiveness */
   box-sizing: border-box;
+  overflow: hidden;
+  /* Prevent content overflow */
 }
 
 /* Make the button responsive */
 .botao-form {
   display: flex;
-  position: relative;
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -121,7 +121,7 @@ main {
   color: black;
   font-weight: bold;
   padding: 10px 5%;
-  /* Use percentage-based padding for flexibility */
+  /* Percentage-based padding for flexibility */
   border-radius: 80px;
   text-decoration: none;
   transition: background 0.3s ease;
@@ -129,11 +129,15 @@ main {
   max-width: 90%;
   /* Limit the width to a percentage of the screen */
   min-width: 150px;
-  width: auto;
+  width: clamp(150px, 50%, 300px);
+  /* Dynamically adjust width */
   font-size: 1rem;
   /* Use relative font size */
+  position: relative;
+  /* Ensure it stays within the container */
 }
 
+/* Hover effect */
 .botao-form:hover {
   background-color: #0056b3;
 }
@@ -142,6 +146,7 @@ main {
   color: white;
 }
 
+/* Ensure the button's span and image are responsive */
 .botao-form img {
   width: 24px;
   height: auto;
@@ -152,18 +157,23 @@ main {
   color: black;
 }
 
+/* Adjustments for smaller screens */
 @media (max-height: 700px) {
   .botao-form {
     position: fixed;
     bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Center the button horizontally */
   }
 }
 
-/* Adjustments for smaller screens */
 @media (max-width: 768px) {
   .botao-form {
     padding: 8px 4%;
     font-size: 0.9rem;
+    width: clamp(120px, 60%, 250px);
+    /* Adjust width dynamically */
   }
 
   .icons {
@@ -177,6 +187,8 @@ main {
     padding: 6px 3%;
     font-size: 0.8rem;
     border-radius: 40px;
+    width: clamp(100px, 80%, 200px);
+    /* Further adjust for smaller screens */
   }
 
   .icons {
