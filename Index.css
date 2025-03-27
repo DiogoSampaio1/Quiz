@@ -7,7 +7,8 @@ body {
 }
 
 main {
-  flex: 1;  /* Faz o conteúdo ocupar o espaço disponível */
+  flex: 1;
+  /* Faz o conteúdo ocupar o espaço disponível */
 }
 
 /* -------------------------------------------------------------------- BARRA LATERAL -------------------------------------------------------------------*/
@@ -28,7 +29,7 @@ main {
 
 .sidebar.open {
   left: 0 !important;
-  width: 250px; 
+  width: 250px;
   z-index: 1000;
 }
 
@@ -95,33 +96,42 @@ main {
   transition: 0.3s;
 }
 
+/* Ensure the icons container is responsive */
 .icons {
   display: flex;
   position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Garante que a altura mínima seja a da tela */
-  padding-bottom: 40px;
+  min-height: 100vh;
+  /* Ensures it adapts to the screen height */
+  padding: 2vh;
+  /* Use relative padding for better responsiveness */
   box-sizing: border-box;
 }
 
+/* Make the button responsive */
 .botao-form {
   display: flex;
   position: relative;
   justify-content: center;
   align-items: center;
-  gap: 8px; 
-  background-color: white; 
-  color: black; 
+  gap: 8px;
+  background-color: white;
+  color: black;
   font-weight: bold;
-  padding: 10px 40px;
-  border-radius: 80px; 
-  text-decoration: none; 
+  padding: 10px 5%;
+  /* Use percentage-based padding for flexibility */
+  border-radius: 80px;
+  text-decoration: none;
   transition: background 0.3s ease;
-  max-width: 300px;
+  margin-bottom: 20px;
+  max-width: 90%;
+  /* Limit the width to a percentage of the screen */
   min-width: 150px;
   width: auto;
+  font-size: 1rem;
+  /* Use relative font size */
 }
 
 .botao-form:hover {
@@ -129,7 +139,7 @@ main {
 }
 
 .botao-form:hover span {
-  color: white; 
+  color: white;
 }
 
 .botao-form img {
@@ -149,29 +159,34 @@ main {
   }
 }
 
+/* Adjustments for smaller screens */
 @media (max-width: 768px) {
-  .icons {
-    padding: 2vh;
-    margin-top: 3vh;
+  .botao-form {
+    padding: 8px 4%;
+    font-size: 0.9rem;
   }
 
-  .botao-form {
-    padding: 8px 30px;
-    font-size: 14px;
+  .icons {
+    padding: 3vh;
+    margin-top: 3vh;
   }
 }
 
 @media (max-width: 480px) {
   .botao-form {
-    padding: 6px 20px;
-    font-size: 12px;
+    padding: 6px 3%;
+    font-size: 0.8rem;
     border-radius: 40px;
+  }
+
+  .icons {
+    padding: 4vh;
   }
 }
 
 /* -------------------------------------------------------------------- BARRA LATERAL -------------------------------------------------------------------*/
 
-.title{
+.title {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   text-align: center;
   font-weight: bold;
@@ -241,7 +256,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10; 
+  z-index: 10;
 }
 
 .carousel-btn.prev {
@@ -335,16 +350,18 @@ a {
 
 @keyframes fadeIn {
   from {
-      opacity: 0;
-      transform: translateY(-10px);
+    opacity: 0;
+    transform: translateY(-10px);
   }
+
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.title-sobre-nos, .subtitle-sobre-projeto {
+.title-sobre-nos,
+.subtitle-sobre-projeto {
   animation: fadeIn 1s ease-in-out;
 }
 
@@ -369,7 +386,7 @@ footer {
   background-color: #222;
   box-shadow: 0px 2px 5px rgba(255, 255, 255, 0.1);
 }
-  
+
 .dark-mode .barra-pesquisa {
   background-color: white;
   color: black;
@@ -384,15 +401,15 @@ footer {
 .dark-mode .botao-CriarQuiz {
   background-color: #008cff;
 }
-  
+
 .dark-mode .botao-Entrar {
   background-color: #1B1A55 !important;
 }
-  
+
 .dark-mode a {
   color: #1e90ff;
 }
-  
+
 .dark-mode a:hover {
   color: #ffcc00;
 }
@@ -400,7 +417,7 @@ footer {
 .dark-mode h2 {
   color: white;
 }
-  
+
 .dark-mode footer {
   color: #ECDFCC !important;
   background-color: #222;
@@ -408,7 +425,7 @@ footer {
 
 .dark-mode .sidebar-menu a {
   color: white;
-}  
+}
 
 .dark-mode .menuButton {
   background-color: #ffffff;
@@ -426,7 +443,7 @@ footer {
   color: #4B70F5;
 }
 
-.dark-mode .carousel-item{
+.dark-mode .carousel-item {
   background-color: #f9f9f9;
 }
 
@@ -434,6 +451,6 @@ footer {
   color: #555;
 }
 
-.dark-mode #sobre-nos{
+.dark-mode #sobre-nos {
   background: linear-gradient(to right, black, #2a5298);
 }
