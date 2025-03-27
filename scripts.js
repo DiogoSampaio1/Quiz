@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Menu Lateral
   const menuButton = document.getElementById("menuButton");
   const sidebar = document.getElementById("sidebar");
   const closeSidebar = document.getElementById("closeSidebar");
@@ -30,13 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem("darkMode", themeToggle.checked ? "enabled" : "disabled");
     });
   }
-});
 
-// Botões entrar e etc
-
-document.addEventListener("DOMContentLoaded", function () {
+  // Botões entrar e etc.
   const formLogin = document.getElementById("formLogin");
-  const formRegister = document.getElementById("formRegister"); // 📌 Adicionado
+  const formRegister = document.getElementById("formRegister");
   const btnLoginModal = document.getElementById("btnLoginModal");
   const userInfo = document.getElementById("user-info");
   const usernameDisplay = document.getElementById("username-display");
@@ -73,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (userInfo) userInfo.style.display = "none";
   }
 
-  // Verificar se há um usuário logado ao carregar a página
   const loggedUser = localStorage.getItem("username");
   if (loggedUser) {
     mostrarUsuario(loggedUser);
@@ -81,14 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
     esconderUsuario();
   }
 
-  // Abrir o modal de login
   if (btnLoginModal) {
     btnLoginModal.addEventListener("click", function () {
       abrirModal("modalLogin");
     });
   }
 
-  // Abrir o modal de criação de conta
   if (criarContaLink) {
     criarContaLink.addEventListener("click", function (event) {
       event.preventDefault();
@@ -97,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Fechar modais ao clicar no botão "X"
   fecharBtns.forEach((btn) => {
     btn.addEventListener("click", function () {
       const modal = btn.closest(".modal");
@@ -107,7 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Evento de login
   if (formLogin) {
     formLogin.addEventListener("submit", async function (event) {
       event.preventDefault();
@@ -138,7 +131,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 📌 Evento de Registo ()
   if (formRegister) {
     formRegister.addEventListener("submit", async function (event) {
       event.preventDefault();
@@ -171,45 +163,58 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Evento de logout
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
       localStorage.removeItem("username");
       esconderUsuario();
     });
   }
-});
 
+  // Carrossel
+  const carousel = document.getElementById("carousel");
+  const quizzes = [
+    { imagem: "Imagens/matematica.png", titulo: "Quiz Matemática 5ºAno", link: "5ºano/Matemática.html" },
+    { imagem: "Imagens/Historia.jpg", titulo: "Quiz História 9ºAno", link: "9ºano/História.html" },
+    { imagem: "Imagens/Françês.jpg", titulo: "Quiz Francês 8ºAno", link: "8ºano/Francês.html" },
+    { imagem: "Imagens/Geografia.jpg", titulo: "Quiz Geografia 7ºAno", link: "7ºano/Geografia.html" },
+    { imagem: "Imagens/Ingles.png", titulo: "Quiz Inglês 6ºAno", link: "6ºano/Inglês.html" },
+    { imagem: "Imagens/Físico-Química.jpg", titulo: "Quiz Físico-Química 9ºAno", link: "9ºano/Fisico-quimica.html" },
+    { imagem: "Imagens/Historia.jpg", titulo: "Quiz História 7ºAno", link: "7ºano/História.html" },
+  ];
 
-// /Botões entrar e etc
+  if (carousel) {
+    quizzes.forEach((quiz) => {
+      const item = document.createElement("div");
+      item.classList.add("carousel-item");
+      item.innerHTML = `<a href="${quiz.link}"><img src="${quiz.imagem}" alt="${quiz.titulo}"><p>${quiz.titulo}</p></a>`;
+      carousel.appendChild(item);
+    });
 
-// Carrossel
-const carousel = document.getElementById("carousel");
-const quizzes = [
-  { imagem: "Imagens/matematica.png", titulo: "Quiz Matemática 5ºAno", link: "5ºano/Matemática.html" },
-  { imagem: "Imagens/Historia.jpg", titulo: "Quiz História 9ºAno", link: "9ºano/História.html" },
-  { imagem: "Imagens/Françês.jpg", titulo: "Quiz Francês 8ºAno", link: "8ºano/Francês.html" },
-  { imagem: "Imagens/Geografia.jpg", titulo: "Quiz Geografia 7ºAno", link: "7ºano/Geografia.html" },
-  { imagem: "Imagens/Ingles.png", titulo: "Quiz Inglês 6ºAno", link: "6ºano/Inglês.html" },
-  { imagem: "Imagens/Físico-Química.jpg", titulo: "Quiz Físico-Química 9ºAno", link: "9ºano/Fisico-quimica.html" },
-  { imagem: "Imagens/Historia.jpg", titulo: "Quiz História 7ºAno", link: "7ºano/História.html" },
-];
+    let currentIndex = 0;
+    const itemWidth = 270;
 
-if (carousel) {
-  quizzes.forEach((quiz) => {
-    const item = document.createElement("div");
-    item.classList.add("carousel-item");
-    item.innerHTML = `<a href="${quiz.link}"><img src="${quiz.imagem}" alt="${quiz.titulo}"><p>${quiz.titulo}</p></a>`;
-    carousel.appendChild(item);
-  });
+    function moveCarousel(direction) {
+      currentIndex = (currentIndex + direction + quizzes.length) % quizzes.length;
+      carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    }
 
-  let currentIndex = 0;
-  const itemWidth = 270;
-
-  function moveCarousel(direction) {
-    currentIndex = (currentIndex + direction + quizzes.length) % quizzes.length;
-    carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    setInterval(() => moveCarousel(1), 3000);
   }
 
-  setInterval(() => moveCarousel(1), 3000);
-}
+  // Tela de boas-vindas (overlay)
+  const overlayContainer = document.getElementById("overlay-container");
+  const btnFeito = document.getElementById("btnFeito");
+
+  if (overlayContainer && btnFeito) {
+    if (!localStorage.getItem("firstVisit")) {
+      overlayContainer.style.display = "flex";
+      localStorage.setItem("firstVisit", "true");
+    } else {
+      overlayContainer.style.display = "none";
+    }
+
+    btnFeito.addEventListener("click", function () {
+      overlayContainer.style.display = "none";
+    });
+  }
+});
