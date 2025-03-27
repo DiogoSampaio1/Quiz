@@ -206,15 +206,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnFeito = document.getElementById("btnFeito");
 
   if (overlayContainer && btnFeito) {
-    if (!localStorage.getItem("firstVisit")) {
+    // Verificar se o botão "Entendido!" foi clicado anteriormente
+    if (localStorage.getItem("overlayDismissed") !== "true") {
+      // Se o overlay não foi descartado, mostre o overlay
       overlayContainer.style.display = "flex";
-      localStorage.setItem("firstVisit", "true");
     } else {
+      // Se já foi descartado, esconder o overlay
       overlayContainer.style.display = "none";
     }
 
     btnFeito.addEventListener("click", function () {
+      // Esconde o overlay e marca que foi descartado
       overlayContainer.style.display = "none";
+      localStorage.setItem("overlayDismissed", "true");
     });
   }
 });
