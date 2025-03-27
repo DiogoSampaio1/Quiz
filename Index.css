@@ -13,29 +13,29 @@ main {
 
 /* -------------------------------------------------------------------- Dev Screen -------------------------------------------------------------------*/
 
-/* Overlay que cobre toda a tela */
 .overlay-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro */
+  background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Certifique-se de que fica acima de todo o conteúdo */
+  z-index: 9999; 
 }
 
-/* Retângulo vermelho centralizado */
 .popup-container {
-  background-color: red;
+  background-color: #222;
+  color: white;
   padding: 20px;
-  border-radius: 10px;
+  border: 2px solid white;
+  border-radius: 30px;
   text-align: center;
+  max-width: 500px;
 }
 
-/* Estilo do texto e botão */
 .popup-content p {
   color: white;
   font-size: 20px;
