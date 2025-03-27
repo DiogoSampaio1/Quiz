@@ -145,13 +145,12 @@ main {
   color: black;
 }
 
-/* Classe específica para o botão de Avaliações */
 .botao-avaliacoes {
   margin-bottom: 20px;
 }
 
 .botao-gama-barros {
-  margin-bottom: 140px;
+  margin-bottom: 1.4vh;
 }
 
 @media (max-height: 700px) {
