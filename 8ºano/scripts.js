@@ -80,44 +80,54 @@ document.addEventListener("DOMContentLoaded", function () {
         initializeQuiz();
     });
 
-    const questions = document.querySelectorAll('.question');
-    const resultsDiv = document.getElementById('results');
-    const scoreDisplay = document.getElementById('score');
+    const questions = Array.from(document.querySelectorAll(".question"));
+    const resultsDiv = document.getElementById("results");
+    const scoreDisplay = document.getElementById("score");
 
     let currentQuestion = 0;
     let score = 0;
     const delayBetweenQuestions = 2000;
 
-    function initializeQuiz() {
-        questions.forEach((question, index) => {
-            if (index === 0) {
-                question.classList.add('active');
-            } else {
-                question.classList.remove('active');
-            }
-        });
-
-        resultsDiv.classList.add('hidden');
-
-        document.querySelectorAll('.option').forEach((button) => {
-            button.addEventListener('click', selectAnswer);
-        });
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
     }
 
+    function initializeQuiz() {
+        shuffleArray(questions);
+        questions.forEach((question, index) => {
+            // Atualiza o número da pergunta dinamicamente
+            const questionTitle = question.querySelector("h2");
+            questionTitle.textContent = `${index + 1}. ${questionTitle.textContent.substring(questionTitle.textContent.indexOf(" ") + 1)}`;
+            
+            quizContainer.appendChild(question);
+            question.classList.remove("active");
+        });
+    
+        questions[0].classList.add("active");
+        resultsDiv.classList.add("hidden");
+    
+        document.querySelectorAll(".option").forEach((button) => {
+            button.addEventListener("click", selectAnswer);
+        });
+    }    
+
     function showNextQuestion() {
-        questions[currentQuestion].classList.remove('active');
+        questions[currentQuestion].classList.remove("active");
         currentQuestion++;
 
         if (currentQuestion < questions.length) {
-            questions[currentQuestion].classList.add('active');
+            questions[currentQuestion].classList.add("active");
         } else {
             showResults();
         }
     }
 
     function showResults() {
-        resultsDiv.classList.remove('hidden');
-        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        resultsDiv.classList.remove("hidden");
+        resultsDiv.scrollIntoView({ behavior: "smooth" });
         scoreDisplay.textContent = `Você acertou ${score} de ${questions.length} perguntas!`;
 
         document.getElementById("returnButton").classList.remove("hidden");
@@ -125,20 +135,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function selectAnswer(e) {
         const selectedButton = e.target;
-        const isCorrect = selectedButton.dataset.answer === 'correct';
+        const isCorrect = selectedButton.dataset.answer === "correct";
 
         if (isCorrect) {
             score++;
-            selectedButton.classList.add('correct');
+            selectedButton.classList.add("correct");
         } else {
-            selectedButton.classList.add('wrong');
+            selectedButton.classList.add("wrong");
         }
 
-        const options = questions[currentQuestion].querySelectorAll('.option');
+        const options = questions[currentQuestion].querySelectorAll(".option");
         options.forEach((button) => {
             button.disabled = true;
-            if (button.dataset.answer === 'correct') {
-                button.classList.add('correct');
+            if (button.dataset.answer === "correct") {
+                button.classList.add("correct");
             }
         });
 
