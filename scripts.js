@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
           throw new Error(data.message || "Erro no registo");
         }
 
-        alert("Usuário registado com sucesso! Faça login.");
+        alert("Utilizador registado com sucesso! Faça login.");
         fecharModal("modalCriarConta");
         abrirModal("modalLogin");
       } catch (error) {
