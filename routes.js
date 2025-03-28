@@ -27,9 +27,9 @@ router.post("/register", async (req, res) => {
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
 
-    console.log("Usuário salvo no banco:", newUser);
+    console.log("Utilizador salvo no banco:", newUser);
 
-    res.status(201).json({ message: "Usuário registrado com sucesso!", user: newUser });
+    res.status(201).json({ message: "Utilizador registado com sucesso!", user: newUser });
   } catch (error) {
     res.status(500).json({ message: "Erro no servidor", error });
   }
@@ -42,19 +42,19 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      console.log("Usuário não encontrado!");
-      return res.status(401).json({ message: "Usuário não encontrado" });
+      console.log("Utilizador não encontrado!");
+      return res.status(401).json({ message: "Utilizador não encontrado" });
     }
 
-    console.log("Senha digitada:", password);
-    console.log("Senha salva no banco:", user.password);
+    console.log("Password Inserida:", password);
+    console.log("Password guardada na Database:", user.password);
 
     // 🔥 Apenas comparar diretamente!
     const senhaCorreta = await bcrypt.compare(password, user.password);
-    console.log("Senha correta?", senhaCorreta);
+    console.log("Password correta?", senhaCorreta);
 
     if (!senhaCorreta) {
-      return res.status(401).json({ message: "Senha incorreta" });
+      return res.status(401).json({ message: "Password incorreta" });
     }
 
     res.json({ username: user.username, message: "Login bem-sucedido!" });

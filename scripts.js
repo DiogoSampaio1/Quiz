@@ -60,22 +60,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function mostrarUsuario(username) {
+  function mostrarUser(username) {
     if (btnLoginModal) btnLoginModal.style.display = "none";
     if (userInfo) userInfo.style.display = "flex";
     if (usernameDisplay) usernameDisplay.textContent = `Olá, ${username}!`;
   }
 
-  function esconderUsuario() {
+  function esconderUser() {
     if (btnLoginModal) btnLoginModal.style.display = "block";
     if (userInfo) userInfo.style.display = "none";
   }
 
   const loggedUser = localStorage.getItem("username");
   if (loggedUser) {
-    mostrarUsuario(loggedUser);
+    mostrarUser(loggedUser);
   } else {
-    esconderUsuario();
+    esconderUser();
   }
 
   if (btnLoginModal) {
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const data = await response.json();
         localStorage.setItem("username", data.username);
-        mostrarUsuario(data.username);
+        mostrarUser(data.username);
         fecharModal("modalLogin");
       } catch (error) {
         alert("Erro ao fazer login. Verifique suas credenciais.");
@@ -151,10 +151,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || "Erro no registro");
+          throw new Error(data.message || "Erro no registo");
         }
 
-        alert("Usuário registrado com sucesso! Faça login.");
+        alert("Usuário registado com sucesso! Faça login.");
         fecharModal("modalCriarConta");
         abrirModal("modalLogin");
       } catch (error) {
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
       localStorage.removeItem("username");
-      esconderUsuario();
+      esconderUser();
     });
   }
 
