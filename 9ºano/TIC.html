@@ -29,47 +29,116 @@
     <div id="quizContainer" class="quiz-container hidden">
         <h1>Quiz de TIC</h1>
 
-        <!-- Pergunta 1 -->
-        <div class="question active" id="q1">
-            <h2>1. Qual é a capital de Portugal?</h2>
-            <div class="options">
-                <button class="option" data-answer="correct">Lisboa</button>
-                <button class="option" data-answer="wrong">Madggrid</button>
-                <button class="option" data-answer="wrong">Paris</button>
-                <button class="option" data-answer="wrong">Roma</button>
-            </div>
+    <!-- Pergunta 1 -->
+    <div class="question active" id="q1">
+        <h2>1. No Microsoft Word, qual é a função da ferramenta "Quebra de Página"?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">Alterar o layout da página.</button>
+            <button class="option" data-answer="correct">Criar uma nova página no documento, separando o conteúdo atual da próxima página.</button>
+            <button class="option" data-answer="wrong">Iniciar uma nova secção sem alterar o formato do documento.</button>
+            <button class="option" data-answer="wrong">Inserir um título no início do documento.</button>
         </div>
+    </div>
 
-        <!-- Pergunta 2 -->
-        <div class="question" id="q2">
-            <h2>2. Quanto é 2 + 2?</h2>
-            <div class="options">
-                <button class="option" data-answer="wrong">3</button>
-                <button class="option" data-answer="correct">4</button>
-                <button class="option" data-answer="wrong">5</button>
-                <button class="option" data-answer="wrong">6</button>
-            </div>
+    <!-- Pergunta 2 -->
+    <div class="question" id="q2">
+        <h2>2. Qual é a principal diferença entre as funções "Procurar" e "Substituir" no Microsoft Word?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">"Procurar" é usada para localizar imagens, enquanto "Substituir" encontra e muda o formato de texto.</button>
+            <button class="option" data-answer="wrong">Não há diferença entre as duas funções.</button>
+            <button class="option" data-answer="correct">A função "Procurar" permite localizar palavras, e a função "Substituir" permite alterar palavras automaticamente.</button>
+            <button class="option" data-answer="wrong">A função "Procurar" encontra palavras, e a função "Substituir" apenas destaca as palavras encontradas.</button>
         </div>
+    </div>
 
-        <!-- Pergunta 3 -->
-        <div class="question" id="q3">
-            <h2>3. Qual é a cor do céu em um dia claro?</h2>
-            <div class="options">
-                <button class="option" data-answer="wrong">Vermelho</button>
-                <button class="option" data-answer="correct">Azul</button>
-                <button class="option" data-answer="wrong">Verde</button>
-                <button class="option" data-answer="wrong">Amarelo</button>
-            </div>
+    <!-- Pergunta 3 -->
+    <div class="question" id="q3">
+        <h2>3. No Excel, o que acontece se utilizarmos a fórmula `=SOMA(A1:A5)`?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">Exibe o valor de A1 multiplicado por A5.</button>
+            <button class="option" data-answer="wrong">Calcula a soma dos valores de A1 até A5, mas não inclui A1 e A5.</button>
+            <button class="option" data-answer="correct">Soma os valores das células de A1 até A5, incluindo as células A1 e A5.</button>
+            <button class="option" data-answer="wrong">A fórmula calcula a média de A1 a A5.</button>
         </div>
+    </div>
 
-        <!-- Pergunta 4 -->
-        <div class="question" id="q4">
-            <h2>4. Apenas um teste?</h2>
-            <div class="options">
-                <button class="option" data-answer="wrong">Verdadeiro</button>
-                <button class="option" data-answer="correct">Falso</button>
-            </div>
+    <!-- Pergunta 4 -->
+    <div class="question" id="q4">
+        <h2>4. No Excel, qual fórmula pode ser usada para calcular a média de um conjunto de números nas células A1 até A10?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">`=MÁXIMO(A1:A10)`</button>
+            <button class="option" data-answer="correct">`=MÉDIA(A1:A10)`</button>
+            <button class="option" data-answer="wrong">`=SOMA(A1:A10)/10`</button>
+            <button class="option" data-answer="wrong">`=MÍNIMO(A1:A10)`</button>
         </div>
+    </div>
+
+    <!-- Pergunta 5 -->
+    <div class="question" id="q5">
+        <h2>5. No Microsoft Word, qual é a função da opção "Espaçamento entre linhas"?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">Ajustar a quantidade de espaço entre o texto e as margens.</button>
+            <button class="option" data-answer="correct">Alterar a quantidade de espaço entre as linhas do texto, como 1,5 ou 2 linhas.</button>
+            <button class="option" data-answer="wrong">Definir a largura da fonte utilizada no documento.</button>
+            <button class="option" data-answer="wrong">Aumentar o número de páginas do documento.</button>
+        </div>
+    </div>
+
+    <!-- Pergunta 6 -->
+    <div class="question" id="q6">
+        <h2>6. Qual é a função da opção "Congelar Painéis" no Excel?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">Alinha todas as células na parte superior da página.</button>
+            <button class="option" data-answer="wrong">Salva a planilha com a protecção contra alterações.</button>
+            <button class="option" data-answer="correct">Congela a linha ou coluna seleccionada, permitindo a rolagem do restante da planilha.</button>
+            <button class="option" data-answer="wrong">Congela as células seleccionadas, tornando-as imutáveis.</button>
+        </div>
+    </div>
+
+    <!-- Pergunta 7 -->
+    <div class="question" id="q7">
+        <h2>7. No Microsoft Word, como podemos alterar a orientação da página de Retrato para Paisagem?</h2>
+        <div class="options">
+            <button class="option" data-answer="correct">Na guia "Layout", seleccionar "Orientação" e escolher "Paisagem".</button>
+            <button class="option" data-answer="wrong">Na guia "Design", seleccionar "Alterar Orientação" para "Paisagem".</button>
+            <button class="option" data-answer="wrong">Na guia "Inserir", seleccionar "Orientação" e escolher "Paisagem".</button>
+            <button class="option" data-answer="wrong">Na guia "Exibição", seleccionar "Orientação" e escolher "Paisagem".</button>
+        </div>
+    </div>
+
+    <!-- Pergunta 8 -->
+    <div class="question" id="q8">
+        <h2>8. No Excel, o que faz a fórmula `=SE(A1>10, "Maior", "Menor")`?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">Soma o valor de A1 com 10, retornando "Maior" ou "Menor" conforme o resultado.</button>
+            <button class="option" data-answer="wrong">Calcula a média dos valores na célula A1.</button>
+            <button class="option" data-answer="correct">Verifica se o valor de A1 é maior que 10 e retorna "Maior", caso contrário retorna "Menor".</button>
+            <button class="option" data-answer="wrong">Verifica se o valor de A1 é maior que 10 e retorna 1, caso contrário retorna 0.</button>
+        </div>
+    </div>
+
+    <!-- Pergunta 9 -->
+    <div class="question" id="q9">
+        <h2>9. O que é uma "Tabulação" no Microsoft Word?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">Uma ferramenta para inserir imagens no documento.</button>
+            <button class="option" data-answer="wrong">Um tipo de formato de parágrafo.</button>
+            <button class="option" data-answer="correct">Uma forma de definir o alinhamento do texto, como alinhamento à esquerda, ao centro ou à direita.</button>
+            <button class="option" data-answer="wrong">Um tipo de formatação para destacar títulos e subtítulos.</button>
+        </div>
+    </div>
+
+    <!-- Pergunta 10 -->
+    <div class="question" id="q10">
+        <h2>10. Qual das alternativas abaixo é uma função avançada do Excel para analisar grandes volumes de dados?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">`=SOMA.SE()`</button>
+            <button class="option" data-answer="wrong">`=ÍNDICE()`</button>
+            <button class="option" data-answer="correct">Tabelas Dinâmicas</button>
+            <button class="option" data-answer="wrong">`=MÍNIMO()`</button>
+        </div>
+    </div>
+
 
         <!-- Resultado Final -->
         <div id="results" class="hidden">

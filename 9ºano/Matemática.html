@@ -35,47 +35,116 @@
     <div id="quizContainer" class="quiz-container hidden">
         <h1>Quiz de Matemática</h1>
 
-        <!-- Pergunta 1 -->
-        <div class="question active" id="q1">
-            <h2>1. Qual é a capital de Portugal?</h2>
-            <div class="options">
-                <button class="option" data-answer="correct">Lisboa</button>
-                <button class="option" data-answer="wrong">Madggrid</button>
-                <button class="option" data-answer="wrong">Paris</button>
-                <button class="option" data-answer="wrong">Roma</button>
-            </div>
+    <!-- Pergunta 1 -->
+    <div class="question active" id="q1">
+        <h2>1. Qual é a solução da equação \(2x - 5 = 9\)?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">\(x = 4\)</button>
+            <button class="option" data-answer="wrong">\(x = 3\)</button>
+            <button class="option" data-answer="correct">\(x = 7\)</button>
+            <button class="option" data-answer="wrong">\(x = 2\)</button>
         </div>
+    </div>
 
-        <!-- Pergunta 2 -->
-        <div class="question" id="q2">
-            <h2>2. Quanto é 2 + 2?</h2>
-            <div class="options">
-                <button class="option" data-answer="wrong">3</button>
-                <button class="option" data-answer="correct">4</button>
-                <button class="option" data-answer="wrong">5</button>
-                <button class="option" data-answer="wrong">6</button>
-            </div>
+    <!-- Pergunta 2 -->
+    <div class="question" id="q2">
+        <h2>2. Qual é o valor de \(x\) na inequação \(3x + 4 < 10\)?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">\(x > 3\)</button>
+            <button class="option" data-answer="correct">\(x < 2\)</button>
+            <button class="option" data-answer="wrong">\(x > 2\)</button>
+            <button class="option" data-answer="wrong">\(x < 3\)</button>
         </div>
+    </div>
 
-        <!-- Pergunta 3 -->
-        <div class="question" id="q3">
-            <h2>3. Qual é a cor do céu em um dia claro?</h2>
-            <div class="options">
-                <button class="option" data-answer="wrong">Vermelho</button>
-                <button class="option" data-answer="correct">Azul</button>
-                <button class="option" data-answer="wrong">Verde</button>
-                <button class="option" data-answer="wrong">Amarelo</button>
-            </div>
+    <!-- Pergunta 3 -->
+    <div class="question" id="q3">
+        <h2>3. Qual é a área de um triângulo com base 6 cm e altura 8 cm?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">48 cm²</button>
+            <button class="option" data-answer="wrong">36 cm²</button>
+            <button class="option" data-answer="correct">12 cm²</button>
+            <button class="option" data-answer="wrong">24 cm²</button>
         </div>
+    </div>
 
-        <!-- Pergunta 4 -->
-        <div class="question" id="q4">
-            <h2>4. Apenas um teste?</h2>
-            <div class="options">
-                <button class="option" data-answer="wrong">Verdadeiro</button>
-                <button class="option" data-answer="correct">Falso</button>
-            </div>
+    <!-- Pergunta 4 -->
+    <div class="question" id="q4">
+        <h2>4. Se uma progressão aritmética tem a razão \(r = 3\) e o primeiro termo \(a_1 = 2\), qual é o quinto termo?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">17</button>
+            <button class="option" data-answer="correct">16</button>
+            <button class="option" data-answer="wrong">14</button>
+            <button class="option" data-answer="wrong">20</button>
         </div>
+    </div>
+
+    <!-- Pergunta 5 -->
+    <div class="question" id="q5">
+        <h2>5. Qual é a forma factorizada do polinómio \(x^2 - 9\)?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong"> \((x - 3)(x - 3)\)</button>
+            <button class="option" data-answer="wrong"> \((x + 9)(x - 9)\)</button>
+            <button class="option" data-answer="correct"> \((x + 3)(x - 3)\)</button>
+            <button class="option" data-answer="wrong"> \((x + 5)(x - 1)\)</button>
+        </div>
+    </div>
+
+    <!-- Pergunta 6 -->
+    <div class="question" id="q6">
+        <h2>6. Qual é a equação da reta que passa pelos pontos \(A(1, 2)\) e \(B(3, 6)\)?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">\(y = 3x + 1\)</button>
+            <button class="option" data-answer="wrong">\(y = 4x - 2\)</button>
+            <button class="option" data-answer="correct">\(y = 2x + 1\)</button>
+            <button class="option" data-answer="wrong">\(y = 2x - 1\)</button>
+        </div>
+    </div>
+
+    <!-- Pergunta 7 -->
+    <div class="question" id="q7">
+        <h2>7. Qual é o volume de um cilindro com raio 4 cm e altura 10 cm? (Considere \(\pi \approx 3,14\))</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">125,6 cm³</button>
+            <button class="option" data-answer="wrong">400 cm³</button>
+            <button class="option" data-answer="correct">502,4 cm³</button>
+            <button class="option" data-answer="wrong">160 cm³</button>
+        </div>
+    </div>
+
+    <!-- Pergunta 8 -->
+    <div class="question" id="q8">
+        <h2>8. Qual é a razão entre dois termos consecutivos de uma progressão geométrica que começa com 2 e tem o segundo termo igual a 6?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">1,5</button>
+            <button class="option" data-answer="wrong">4</button>
+            <button class="option" data-answer="correct">3</button>
+            <button class="option" data-answer="wrong">2</button>
+        </div>
+    </div>
+
+    <!-- Pergunta 9 -->
+    <div class="question" id="q9">
+        <h2>9. Qual é o valor de \(\sin 30^\circ\)?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">\( \sqrt{2}/2\)</button>
+            <button class="option" data-answer="wrong">\(3/2\)</button>
+            <button class="option" data-answer="correct">\(1/2\)</button>
+            <button class="option" data-answer="wrong">\( \sqrt{3}/2\)</button>
+        </div>
+    </div>
+
+    <!-- Pergunta 10 -->
+    <div class="question" id="q10">
+        <h2>10. Qual é o perímetro de um quadrado com lado 5 cm?</h2>
+        <div class="options">
+            <button class="option" data-answer="wrong">10 cm</button>
+            <button class="option" data-answer="wrong">15 cm</button>
+            <button class="option" data-answer="wrong">25 cm</button>
+            <button class="option" data-answer="correct">20 cm</button>
+        </div>
+    </div>
+
 
         <!-- Resultado Final -->
         <div id="results" class="hidden">
