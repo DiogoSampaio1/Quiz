@@ -25,6 +25,7 @@
   width: 250px;
 }
 
+/* Barra de pesquisa */
 .barra-pesquisa {
   width: 150%;
   padding: 10px 10px 10px 40px;
@@ -33,6 +34,7 @@
   border-radius: 100px;
 }
 
+/* Icon da lupa dentro da barra de pesquisa */
 .icon-lupa {
   position: absolute;
   top: 50%;
@@ -43,6 +45,7 @@
   pointer-events: none;
 }
 
+/* Botões no geral */
 .botões-container {
   position: absolute;
   top: 15px;
@@ -52,6 +55,7 @@
   z-index: 1000;
 }
 
+/* botão dark mode e light mode e tudo o que ele faz */
 .theme-switch {
   top: 3px;
   position: relative;
@@ -60,7 +64,6 @@
   height: 34px;
 }
 
-/* Escondendo a checkbox padrão */
 .theme-switch input {
   opacity: 0;
   width: 0;
@@ -117,7 +120,7 @@ input:checked + .slider:after {
   opacity: 1;
 }
 
-
+/* Botões da linha superiorBotões da linha superior */
 .botao-CriarQuiz {
   background-color: #000000;
   color: white;
@@ -140,7 +143,7 @@ input:checked + .slider:after {
   transition: background-color 0.3s ease;
 }
 
-/* Estilo dos Modais */
+/* Modals de Criar e Entrar na conta */
 .modal {
 display: none;
 position: fixed;
@@ -211,23 +214,43 @@ cursor: pointer;
   background-color: #4682b4 !important;
 }
 
+/* Nome da pessoa "Logada" */
 .user-info {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-#logout-btn{
-  cursor: pointer;
-}
-
+/* Cruz de fechar modal  */
 .fechar {
-float: right;
-font-size: 1.5rem;
-cursor: pointer;
-color: #1e90ff;
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #1e90ff;
+  }
+
+/* Botão de LogOut */
+#logout-btn{
+  background-color: #FF5733;
+  color: white;
+  font-size: 16px;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s;
 }
 
+#logout-btn:hover {
+  background-color: #c44f29;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark Mode Commands */
 .dark-mode .linha-superior {
   background-color: #181818;
   box-shadow: 0px 2px 5px rgba(255, 255, 255, 0.1);
