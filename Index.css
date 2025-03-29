@@ -148,7 +148,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 98vh;
   padding: 2vh;
   box-sizing: border-box;
   overflow: hidden;
