@@ -13,6 +13,21 @@
 </head>
 <body>
 <main>
+
+  <!--Dev screen para criar quiz -->
+  <div id="devScreen" class="dev-screen" style="display: none;">
+    <h2>🚧 Em Desenvolvimento 🚧</h2>
+    <p>Insira a password para aceder:</p>
+    <input type="password" id="passwordInput" placeholder="Insira a password..." />
+    <button onclick="checkPassword()">Entrar</button>
+    <button onclick="goHome()" class="back-button">Voltar</button>
+</div>
+
+<div id="customAlert" class="custom-alert">
+    ❌ Senha incorreta! 🚫
+</div>  
+
+
   <!-- Overlay para clicar fora do menu -->
   <div id="overlay" class="overlay" onclick="closeMenu()"></div>
 

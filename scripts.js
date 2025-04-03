@@ -222,3 +222,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+const botaoCriarQuiz = document.getElementById("criarQuiz");
+
+if (botaoCriarQuiz) {
+    botaoCriarQuiz.addEventListener("click", function (event) {
+        event.preventDefault();
+        document.getElementById("devScreen").style.display = "flex";
+    });
+};
+
+// PASSWORD PARA DEVS
+function checkPassword() {
+  const passwordInput = document.getElementById("passwordInput").value;
+  const correctPassword = "o";
+  const alertBox = document.getElementById("customAlert");
+
+  if (passwordInput === correctPassword) {
+      document.getElementById("devScreen").style.display = "none";
+  } else {
+      alertBox.style.display = "block";
+      setTimeout(() => {
+          alertBox.style.display = "none";
+      }, 2000);
+  }
+}
+
+function goHome() {
+  window.location.href = "../Index.html";
+}
