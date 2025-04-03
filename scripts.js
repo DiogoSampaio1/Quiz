@@ -235,7 +235,7 @@ if (botaoCriarQuiz) {
 // PASSWORD PARA DEVS
 function checkPassword() {
   const passwordInput = document.getElementById("passwordInput").value;
-  const correctPassword = "o";
+  const correctPassword = "SoProfs!";
   const alertBox = document.getElementById("customAlert");
 
   if (passwordInput === correctPassword) {
