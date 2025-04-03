@@ -39,5 +39,11 @@ function updatePreview() {
 
 form.addEventListener('submit', function (event) {
     event.preventDefault();
+    
     alert('Quiz Criado com Sucesso!');
+    
+    form.reset(); 
+    questionPreview.textContent = '';
+    answersPreview.innerHTML = '';
+    correctAnswerPreview.textContent = '';
 });
