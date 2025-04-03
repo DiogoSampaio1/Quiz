@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../Imagens/bloco-de-anotacoes.png">
-
     <title>Criar Quizzes</title>
-
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -17,10 +15,49 @@
         <h2>Clique na tela para continuar...</h2>
     </div>
 
-    <div class="avaliações">
-        <h1>TESTE!</h1>
-    </div>
+    <div class="container" style="display: none;">
+        <header>
+            <h1>Criar Quiz</h1>
+        </header>
 
+        <main>
+            <form id="quiz-form">
+                <div class="question-container">
+                    <label for="question-text">Pergunta</label>
+                    <input type="text" id="question-text" placeholder="Digite a pergunta..." required>
+                </div>
+                <div class="answers-container">
+                    <label for="answer-1">Resposta 1</label>
+                    <input type="text" id="answer-1" placeholder="Digite a resposta 1" required>
+                    
+                    <label for="answer-2">Resposta 2</label>
+                    <input type="text" id="answer-2" placeholder="Digite a resposta 2" required>
+                    
+                    <label for="answer-3">Resposta 3</label>
+                    <input type="text" id="answer-3" placeholder="Digite a resposta 3" required>
+                    
+                    <label for="answer-4">Resposta 4</label>
+                    <input type="text" id="answer-4" placeholder="Digite a resposta 4" required>
+                </div>
+                <div class="correct-answer-container">
+                    <label for="correct-answer">Resposta Correta</label>
+                    <select id="correct-answer" required>
+                        <option value="1">Resposta 1</option>
+                        <option value="2">Resposta 2</option>
+                        <option value="3">Resposta 3</option>
+                        <option value="4">Resposta 4</option>
+                    </select>
+                </div>
+                <button type="submit">Criar Pergunta</button>
+            </form>
+            <div id="quiz-preview">
+                <h2>Pré-visualização do Quiz</h2>
+                <div id="question-preview"></div>
+                <ul id="answers-preview"></ul>
+                <p id="correct-answer-preview"></p>
+            </div>
+        </main>
+    </div>
 
     <script src="scripts.js"></script>
 </body>
