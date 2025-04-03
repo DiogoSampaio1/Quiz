@@ -1,285 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../Imagens/bloco-de-anotacoes.png">
-    <title>Criar Quizzes</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Quiz - Quiz Maker</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="start">
-        <h1>BEM VINDO!</h1>
-        <br>
-        <h2>Clique na tela para continuar...</h2>
+  <div class="container">
+    <h1>Criar Quiz</h1>
+
+    <div class="quiz-form">
+      <div id="question-form">
+        <div class="question-container">
+          <label for="question" id="question-title">Pergunta 1:</label>
+          <input type="text" id="question" placeholder="Digite a pergunta" />
+        </div>
+        <div class="answers-container">
+          <label for="answer1">Resposta 1:</label>
+          <input type="text" id="answer1" placeholder="Resposta 1" />
+          <label for="answer2">Resposta 2:</label>
+          <input type="text" id="answer2" placeholder="Resposta 2" />
+          <label for="answer3">Resposta 3:</label>
+          <input type="text" id="answer3" placeholder="Resposta 3" />
+          <label for="answer4">Resposta 4:</label>
+          <input type="text" id="answer4" placeholder="Resposta 4" />
+        </div>
+        <div class="correct-answer-container">
+          <label for="correct-answer">Resposta Correta:</label>
+          <select id="correct-answer">
+            <option value="">Escolha a resposta correta</option>
+            <option value="1">Resposta 1</option>
+            <option value="2">Resposta 2</option>
+            <option value="3">Resposta 3</option>
+            <option value="4">Resposta 4</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <div class="container" style="display: none;">
-        <header>
-            <h1>Criar Quiz</h1>
-        </header>
-        <main>
-            <form id="quiz-form">
-                <!-- Pergunta 1 -->
-                <div class="question-container" id="question-1">
-                    <label for="question-text-1">Pergunta 1</label>
-                    <input type="text" id="question-text-1" placeholder="Insira a pergunta..." required>
-                </div>
-                <div class="answers-container" id="answers-1">
-                    <label for="answer-1-1">Resposta 1</label>
-                    <input type="text" id="answer-1-1" placeholder="Insira a resposta 1" required>
-                    <label for="answer-1-2">Resposta 2</label>
-                    <input type="text" id="answer-1-2" placeholder="Insira a resposta 2" required>
-                    <label for="answer-1-3">Resposta 3</label>
-                    <input type="text" id="answer-1-3" placeholder="Insira a resposta 3" required>
-                    <label for="answer-1-4">Resposta 4</label>
-                    <input type="text" id="answer-1-4" placeholder="Insira a resposta 4" required>
-                </div>
-                <div class="correct-answer-container" id="correct-answer-1">
-                    <label for="correct-answer-1">Resposta Correta</label>
-                    <select id="correct-answer-1" required>
-                        <option value="1">Resposta 1</option>
-                        <option value="2">Resposta 2</option>
-                        <option value="3">Resposta 3</option>
-                        <option value="4">Resposta 4</option>
-                    </select>
-                </div>
 
-                <!-- Pergunta 2 -->
-                <div class="question-container" id="question-2" style="display: none;">
-                    <label for="question-text-2">Pergunta 2</label>
-                    <input type="text" id="question-text-2" placeholder="Insira a pergunta..." required>
-                </div>
-                <div class="answers-container" id="answers-2" style="display: none;">
-                    <label for="answer-2-1">Resposta 1</label>
-                    <input type="text" id="answer-2-1" placeholder="Insira a resposta 1" required>
-                    <label for="answer-2-2">Resposta 2</label>
-                    <input type="text" id="answer-2-2" placeholder="Insira a resposta 2" required>
-                    <label for="answer-2-3">Resposta 3</label>
-                    <input type="text" id="answer-2-3" placeholder="Insira a resposta 3" required>
-                    <label for="answer-2-4">Resposta 4</label>
-                    <input type="text" id="answer-2-4" placeholder="Insira a resposta 4" required>
-                </div>
-                <div class="correct-answer-container" id="correct-answer-2" style="display: none;">
-                    <label for="correct-answer-2">Resposta Correta</label>
-                    <select id="correct-answer-2" required>
-                        <option value="1">Resposta 1</option>
-                        <option value="2">Resposta 2</option>
-                        <option value="3">Resposta 3</option>
-                        <option value="4">Resposta 4</option>
-                    </select>
-                </div>
-
-                <!-- Pergunta 3 -->
-                <div class="question-container" id="question-3" style="display: none;">
-                    <label for="question-text-3">Pergunta 3</label>
-                    <input type="text" id="question-text-3" placeholder="Insira a pergunta..." required>
-                </div>
-                <div class="answers-container" id="answers-3" style="display: none;">
-                    <label for="answer-3-1">Resposta 1</label>
-                    <input type="text" id="answer-3-1" placeholder="Insira a resposta 1" required>
-                    <label for="answer-3-2">Resposta 2</label>
-                    <input type="text" id="answer-3-2" placeholder="Insira a resposta 2" required>
-                    <label for="answer-3-3">Resposta 3</label>
-                    <input type="text" id="answer-3-3" placeholder="Insira a resposta 3" required>
-                    <label for="answer-3-4">Resposta 4</label>
-                    <input type="text" id="answer-3-4" placeholder="Insira a resposta 4" required>
-                </div>
-                <div class="correct-answer-container" id="correct-answer-3" style="display: none;">
-                    <label for="correct-answer-3">Resposta Correta</label>
-                    <select id="correct-answer-3" required>
-                        <option value="1">Resposta 1</option>
-                        <option value="2">Resposta 2</option>
-                        <option value="3">Resposta 3</option>
-                        <option value="4">Resposta 4</option>
-                    </select>
-                </div>
-
-                <!-- Pergunta 4 -->
-                <div class="question-container" id="question-4" style="display: none;">
-                    <label for="question-text-4">Pergunta 4</label>
-                    <input type="text" id="question-text-4" placeholder="Insira a pergunta..." required>
-                </div>
-                <div class="answers-container" id="answers-4" style="display: none;">
-                    <label for="answer-4-1">Resposta 1</label>
-                    <input type="text" id="answer-4-1" placeholder="Insira a resposta 1" required>
-                    <label for="answer-4-2">Resposta 2</label>
-                    <input type="text" id="answer-4-2" placeholder="Insira a resposta 2" required>
-                    <label for="answer-4-3">Resposta 3</label>
-                    <input type="text" id="answer-4-3" placeholder="Insira a resposta 3" required>
-                    <label for="answer-4-4">Resposta 4</label>
-                    <input type="text" id="answer-4-4" placeholder="Insira a resposta 4" required>
-                </div>
-                <div class="correct-answer-container" id="correct-answer-4" style="display: none;">
-                    <label for="correct-answer-4">Resposta Correta</label>
-                    <select id="correct-answer-4" required>
-                        <option value="1">Resposta 1</option>
-                        <option value="2">Resposta 2</option>
-                        <option value="3">Resposta 3</option>
-                        <option value="4">Resposta 4</option>
-                    </select>
-                </div>
-
-                <!-- Pergunta 5 -->
-                <div class="question-container" id="question-5" style="display: none;">
-                    <label for="question-text-5">Pergunta 5</label>
-                    <input type="text" id="question-text-5" placeholder="Insira a pergunta..." required>
-                </div>
-                <div class="answers-container" id="answers-5" style="display: none;">
-                    <label for="answer-5-1">Resposta 1</label>
-                    <input type="text" id="answer-5-1" placeholder="Insira a resposta 1" required>
-                    <label for="answer-5-2">Resposta 2</label>
-                    <input type="text" id="answer-5-2" placeholder="Insira a resposta 2" required>
-                    <label for="answer-5-3">Resposta 3</label>
-                    <input type="text" id="answer-5-3" placeholder="Insira a resposta 3" required>
-                    <label for="answer-5-4">Resposta 4</label>
-                    <input type="text" id="answer-5-4" placeholder="Insira a resposta 4" required>
-                </div>
-                <div class="correct-answer-container" id="correct-answer-5" style="display: none;">
-                    <label for="correct-answer-5">Resposta Correta</label>
-                    <select id="correct-answer-5" required>
-                        <option value="1">Resposta 1</option>
-                        <option value="2">Resposta 2</option>
-                        <option value="3">Resposta 3</option>
-                        <option value="4">Resposta 4</option>
-                    </select>
-                </div>
-
-                <!-- Pergunta 6 -->
-                <div class="question-container" id="question-6" style="display: none;">
-                    <label for="question-text-6">Pergunta 6</label>
-                    <input type="text" id="question-text-6" placeholder="Insira a pergunta..." required>
-                </div>
-                <div class="answers-container" id="answers-6" style="display: none;">
-                    <label for="answer-6-1">Resposta 1</label>
-                    <input type="text" id="answer-6-1" placeholder="Insira a resposta 1" required>
-                    <label for="answer-6-2">Resposta 2</label>
-                    <input type="text" id="answer-6-2" placeholder="Insira a resposta 2" required>
-                    <label for="answer-6-3">Resposta 3</label>
-                    <input type="text" id="answer-6-3" placeholder="Insira a resposta 3" required>
-                    <label for="answer-6-4">Resposta 4</label>
-                    <input type="text" id="answer-6-4" placeholder="Insira a resposta 4" required>
-                </div>
-                <div class="correct-answer-container" id="correct-answer-6" style="display: none;">
-                    <label for="correct-answer-6">Resposta Correta</label>
-                    <select id="correct-answer-6" required>
-                        <option value="1">Resposta 1</option>
-                        <option value="2">Resposta 2</option>
-                        <option value="3">Resposta 3</option>
-                        <option value="4">Resposta 4</option>
-                    </select>
-                </div>
-
-                   <!-- Pergunta 7 -->
-                   <div class="question-container" id="question-7" style="display: none;">
-                    <label for="question-text-7">Pergunta 7</label>
-                    <input type="text" id="question-text-7" placeholder="Insira a pergunta..." required>
-                </div>
-                <div class="answers-container" id="answers-7" style="display: none;">
-                    <label for="answer-7-1">Resposta 1</label>
-                    <input type="text" id="answer-7-1" placeholder="Insira a resposta 1" required>
-                    <label for="answer-7-2">Resposta 2</label>
-                    <input type="text" id="answer-7-2" placeholder="Insira a resposta 2" required>
-                    <label for="answer-7-3">Resposta 3</label>
-                    <input type="text" id="answer-7-3" placeholder="Insira a resposta 3" required>
-                    <label for="answer-7-4">Resposta 4</label>
-                    <input type="text" id="answer-7-4" placeholder="Insira a resposta 4" required>
-                </div>
-                <div class="correct-answer-container" id="correct-answer-7" style="display: none;">
-                    <label for="correct-answer-7">Resposta Correta</label>
-                    <select id="correct-answer-7" required>
-                        <option value="1">Resposta 1</option>
-                        <option value="2">Resposta 2</option>
-                        <option value="3">Resposta 3</option>
-                        <option value="4">Resposta 4</option>
-                    </select>
-                </div>
-
-                   <!-- Pergunta 8 -->
-                   <div class="question-container" id="question-8" style="display: none;">
-                    <label for="question-text-8">Pergunta 8</label>
-                    <input type="text" id="question-text-8" placeholder="Insira a pergunta..." required>
-                </div>
-                <div class="answers-container" id="answers-8" style="display: none;">
-                    <label for="answer-8-1">Resposta 1</label>
-                    <input type="text" id="answer-8-1" placeholder="Insira a resposta 1" required>
-                    <label for="answer-8-2">Resposta 2</label>
-                    <input type="text" id="answer-8-2" placeholder="Insira a resposta 2" required>
-                    <label for="answer-8-3">Resposta 3</label>
-                    <input type="text" id="answer-8-3" placeholder="Insira a resposta 3" required>
-                    <label for="answer-8-4">Resposta 4</label>
-                    <input type="text" id="answer-8-4" placeholder="Insira a resposta 4" required>
-                </div>
-                <div class="correct-answer-container" id="correct-answer-8" style="display: none;">
-                    <label for="correct-answer-8">Resposta Correta</label>
-                    <select id="correct-answer-8" required>
-                        <option value="1">Resposta 1</option>
-                        <option value="2">Resposta 2</option>
-                        <option value="3">Resposta 3</option>
-                        <option value="4">Resposta 4</option>
-                    </select>
-                </div>
-
-                  <!-- Pergunta 9 -->
-                  <div class="question-container" id="question-9" style="display: none;">
-                    <label for="question-text-9">Pergunta 9</label>
-                    <input type="text" id="question-text-9" placeholder="Insira a pergunta..." required>
-                </div>
-                <div class="answers-container" id="answers-9" style="display: none;">
-                    <label for="answer-9-1">Resposta 1</label>
-                    <input type="text" id="answer-9-1" placeholder="Insira a resposta 1" required>
-                    <label for="answer-9-2">Resposta 2</label>
-                    <input type="text" id="answer-9-2" placeholder="Insira a resposta 2" required>
-                    <label for="answer-9-3">Resposta 3</label>
-                    <input type="text" id="answer-9-3" placeholder="Insira a resposta 3" required>
-                    <label for="answer-9-4">Resposta 4</label>
-                    <input type="text" id="answer-9-4" placeholder="Insira a resposta 4" required>
-                </div>
-                <div class="correct-answer-container" id="correct-answer-9" style="display: none;">
-                    <label for="correct-answer-9">Resposta Correta</label>
-                    <select id="correct-answer-9" required>
-                        <option value="1">Resposta 1</option>
-                        <option value="2">Resposta 2</option>
-                        <option value="3">Resposta 3</option>
-                        <option value="4">Resposta 4</option>
-                    </select>
-                </div>
-
-                 <!-- Pergunta 10 -->
-                 <div class="question-container" id="question-10" style="display: none;">
-                    <label for="question-text-10">Pergunta 10</label>
-                    <input type="text" id="question-text-10" placeholder="Insira a pergunta..." required>
-                </div>
-                <div class="answers-container" id="answers-10" style="display: none;">
-                    <label for="answer-10-1">Resposta 1</label>
-                    <input type="text" id="answer-10-1" placeholder="Insira a resposta 1" required>
-                    <label for="answer-10-2">Resposta 2</label>
-                    <input type="text" id="answer-10-2" placeholder="Insira a resposta 2" required>
-                    <label for="answer-10-3">Resposta 3</label>
-                    <input type="text" id="answer-10-3" placeholder="Insira a resposta 3" required>
-                    <label for="answer-10-4">Resposta 4</label>
-                    <input type="text" id="answer-10-4" placeholder="Insira a resposta 4" required>
-                </div>
-                <div class="correct-answer-container" id="correct-answer-10" style="display: none;">
-                    <label for="correct-answer-10">Resposta Correta</label>
-                    <select id="correct-answer-10" required>
-                        <option value="1">Resposta 1</option>
-                        <option value="2">Resposta 2</option>
-                        <option value="3">Resposta 3</option>
-                        <option value="4">Resposta 4</option>
-                    </select>
-                </div>
-
-                <button type="button" id="next-button">Próxima Pergunta</button>
-                <button type="submit" style="display: none;">Criar Quiz</button>
-            </form>
-            <div id="quiz-preview">
-                <h2>Pré-visualização do Quiz</h2>
-                <div id="question-preview"></div>
-                <ul id="answers-preview"></ul>
-                <p id="correct-answer-preview"></p>
-            </div>
-        </main>
+    <div class="buttons">
+      <button id="next-btn" class="btn">Próxima Pergunta</button>
+      <button id="prev-btn" class="btn" disabled>Voltar</button>
+      <button id="submit-btn" class="btn" disabled>Submeter Quiz</button>
     </div>
-    <script src="scripts.js"></script>
+
+    <div id="quiz-preview" class="preview">
+      <h2>Pré-visualização do Quiz:</h2>
+      <div id="preview-content"></div>
+    </div>
+
+    <div id="message-error" class="message message-error" style="display: none;">
+      <p><strong>Erro:</strong> Todos os campos precisam ser preenchidos antes de avançar!</p>
+    </div>
+
+    <!-- Popup de Confirmação -->
+    <div id="popup" class="popup">
+    <div class="popup-content">
+      <p>Quiz submetido com sucesso! Redirecionando...</p>
+    </div>
+  </div>
+  
+
+  <script src="scripts.js"></script>
 </body>
 </html>

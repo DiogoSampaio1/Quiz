@@ -1,74 +1,101 @@
-window.onload = function() {
-    const start = document.getElementsByClassName('start')[0];
-    const content = document.getElementsByClassName('container')[0];
-    start.addEventListener('click', function() {
-        start.style.display = 'none';
-        content.style.display = 'block';
-    });
-};
-
-const form = document.getElementById('quiz-form');
-const nextButton = document.getElementById('next-button');
-const questionPreview = document.getElementById('question-preview');
-const answersPreview = document.getElementById('answers-preview');
-const correctAnswerPreview = document.getElementById('correct-answer-preview');
 let currentQuestion = 1;
-const totalQuestions = 10;  // Definindo o total de perguntas
+let quizData = [];
+
+const nextBtn = document.getElementById("next-btn");
+const prevBtn = document.getElementById("prev-btn");
+const submitBtn = document.getElementById("submit-btn");
+const questionInput = document.getElementById("question");
+const answer1Input = document.getElementById("answer1");
+const answer2Input = document.getElementById("answer2");
+const answer3Input = document.getElementById("answer3");
+const answer4Input = document.getElementById("answer4");
+const correctAnswerSelect = document.getElementById("correct-answer");
+const previewContent = document.getElementById("preview-content");
+const questionTitle = document.getElementById("question-title");
+const messageError = document.getElementById("message-error");
+const popup = document.getElementById("popup");
 
 function updatePreview() {
-    const questionText = document.getElementById(`question-text-${currentQuestion}`).value;
-    const answers = [
-        document.getElementById(`answer-${currentQuestion}-1`).value,
-        document.getElementById(`answer-${currentQuestion}-2`).value,
-        document.getElementById(`answer-${currentQuestion}-3`).value,
-        document.getElementById(`answer-${currentQuestion}-4`).value
-    ];
-    const correctAnswer = document.getElementById(`correct-answer-${currentQuestion}`).value;
-
-    questionPreview.textContent = questionText; // Atualiza o texto da pergunta na pré-visualização
-    answersPreview.innerHTML = '';
-    answers.forEach((answer, index) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${index + 1}. ${answer}`;
-        answersPreview.appendChild(listItem);
-    });
-    correctAnswerPreview.textContent = `Resposta Correta: Resposta ${correctAnswer}`;
+  let previewText = "";
+  quizData.forEach((question, index) => {
+    previewText += `<strong>Pergunta ${index + 1}:</strong> ${question.question}<br>`;
+    previewText += `<strong>Respostas:</strong> ${question.answers.join(", ")}<br>`;
+    previewText += `<strong>Resposta Correta:</strong> ${question.correctAnswer}<br><br>`;
+  });
+  previewContent.innerHTML = previewText;
 }
 
-function showNextQuestion() {
-    // Checando se há mais perguntas para exibir
-    if (currentQuestion < totalQuestions) {
-        document.getElementById(`question-${currentQuestion}`).style.display = 'none';
-        document.getElementById(`answers-${currentQuestion}`).style.display = 'none';
-        document.getElementById(`correct-answer-${currentQuestion}`).style.display = 'none';
-
-        currentQuestion++;
-
-        // Exibindo a próxima pergunta, respostas e opção de resposta correta
-        document.getElementById(`question-${currentQuestion}`).style.display = 'block';
-        document.getElementById(`answers-${currentQuestion}`).style.display = 'block';
-        document.getElementById(`correct-answer-${currentQuestion}`).style.display = 'block';
-
-        updatePreview();
+function saveCurrentQuestion() {
+    // Verificar se todos os campos foram preenchidos
+    if (questionInput.value && answer1Input.value && answer2Input.value && answer3Input.value && answer4Input.value && correctAnswerSelect.value) {
+      quizData[currentQuestion - 1] = {
+        question: questionInput.value,
+        answers: [
+          answer1Input.value,
+          answer2Input.value,
+          answer3Input.value,
+          answer4Input.value
+        ],
+        correctAnswer: `Resposta ${correctAnswerSelect.value}`
+      };
+      // Esconder a mensagem de erro com animação suave
+      messageError.classList.remove("fade-out");
+      messageError.style.display = "none"; // Ocultar a mensagem de erro
+      return true;
     } else {
-        nextButton.style.display = 'none';  // Esconde o botão de próxima pergunta
-        form.querySelector('[type="submit"]').style.display = 'block';  // Exibe o botão de criar o quiz
+      // Exibir a mensagem de erro de forma centralizada e com animação
+      messageError.style.display = "block";
+      messageError.classList.remove("fade-out");
+  
+      // Timeout para esconder a mensagem após 3 segundos
+      setTimeout(() => {
+        messageError.classList.add("fade-out"); // Adiciona a animação de fadeOut
+      }, 3000); // Espera 3 segundos antes de desaparecer a mensagem
+  
+      return false;
     }
+  }
+  
+
+function loadQuestion() {
+  if (currentQuestion <= 10) {
+    questionInput.value = quizData[currentQuestion - 1]?.question || "";
+    answer1Input.value = quizData[currentQuestion - 1]?.answers[0] || "";
+    answer2Input.value = quizData[currentQuestion - 1]?.answers[1] || "";
+    answer3Input.value = quizData[currentQuestion - 1]?.answers[2] || "";
+    answer4Input.value = quizData[currentQuestion - 1]?.answers[3] || "";
+    correctAnswerSelect.value = quizData[currentQuestion - 1]?.correctAnswer?.slice(-1) || "";
+  }
+
+  questionTitle.innerText = `Pergunta ${currentQuestion}:`;
+
+  prevBtn.disabled = currentQuestion === 1;
+  nextBtn.disabled = currentQuestion === 10;
+  submitBtn.disabled = currentQuestion < 10;
+
+  updatePreview();
 }
 
-form.addEventListener('input', updatePreview);
-nextButton.addEventListener('click', showNextQuestion);
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert('Quiz Criado com Sucesso!');
-    form.reset();
-    questionPreview.textContent = '';
-    answersPreview.innerHTML = '';
-    correctAnswerPreview.textContent = '';
-    currentQuestion = 1;
-
-    // Exibe a primeira pergunta novamente
-    document.getElementById(`question-${currentQuestion}`).style.display = 'block';
-    document.getElementById(`answers-${currentQuestion}`).style.display = 'block';
-    document.getElementById(`correct-answer-${currentQuestion}`).style.display = 'block';
+nextBtn.addEventListener("click", () => {
+  if (saveCurrentQuestion()) {
+    currentQuestion++;
+    loadQuestion();
+  }
 });
+
+prevBtn.addEventListener("click", () => {
+  currentQuestion--;
+  loadQuestion();
+});
+
+submitBtn.addEventListener("click", () => {
+    if (saveCurrentQuestion()) {
+      popup.classList.add("show");
+  
+      setTimeout(() => {
+        window.location.href = "../Index.html"; 
+      }, 3000); 
+    }
+  });  
+
+loadQuestion();
