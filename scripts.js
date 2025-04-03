@@ -239,7 +239,7 @@ function checkPassword() {
   const alertBox = document.getElementById("customAlert");
 
   if (passwordInput === correctPassword) {
-      document.getElementById("devScreen").style.display = "none";
+      window.location.href = "../Criação de Quizzes/index.html";
   } else {
       alertBox.style.display = "block";
       setTimeout(() => {
