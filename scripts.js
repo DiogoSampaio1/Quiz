@@ -249,5 +249,5 @@ function checkPassword() {
 }
 
 function goHome() {
-  window.location.href = "../Index.html";
+  window.location.reload();
 }
