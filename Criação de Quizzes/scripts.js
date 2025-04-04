@@ -1,12 +1,23 @@
-window.onload = function() {
-  const start = document.querySelector('.start');
-  const content = document.querySelector('.container');
+let user = document.getElementById("creator-name");
 
-  start.addEventListener('click', function() {
-      start.style.display = 'none';
-      content.style.display = 'block';
-  });
-};
+function resetUserName() {
+  user.value = "";
+}
+resetUserName();
+document.getElementById("Creator-name").addEventListener("click", function() {
+  if (user.value.trim() !== "") { 
+    document.getElementById("start").style.display = "none";
+    document.getElementById("container").style.display = "block";
+  } else {
+    alert("Por favor, insira o seu nome antes de avançar!");
+  }
+});
+
+let title = document.getElementById("quiz-title");
+function resetTitleName() {
+  title.value = "";
+}
+resetTitleName();
 
 let currentQuestion = 1;
 let quizData = [];
@@ -99,13 +110,51 @@ prevBtn.addEventListener("click", () => {
 });
 
 submitBtn.addEventListener("click", () => {
-    if (saveCurrentQuestion()) {
+  if (saveCurrentQuestion()) {
+    const quizTitle = document.getElementById("quiz-title").value
+    const quizCreator = document.getElementById("creator-name").value;
+
+    if (!quizTitle) {
+      alert("O título do quiz é obrigatório!");
+      return;
+    }
+
+    const formattedQuiz = {
+      titulo: quizTitle, 
+      criador: quizCreator,
+      perguntas: quizData.map(q => ({
+        pergunta: q.question,
+        opcoes: q.answers,
+        correta: parseInt(q.correctAnswer.replace("Resposta ", "")) - 1
+      }))
+    };
+
+    // Fazer o fetch
+    fetch("http://localhost:3333/quiz", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formattedQuiz)
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("Erro ao guardar o quiz.");
+      }
+      return res.json();
+    })
+    .then(data => {
+      console.log("Quiz salvo:", data);
       popup.classList.add("show");
-  
       setTimeout(() => {
         window.location.href = "../Index.html"; 
-      }, 3000); 
-    }
-  });  
+      }, 3000);
+    })
+    .catch(err => {
+      console.error("Erro:", err);
+      alert("Houve um erro ao guardar o quiz. Verifica os dados e tenta novamente.");
+    });
+  }
+});
 
 loadQuestion();

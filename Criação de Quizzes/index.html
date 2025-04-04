@@ -3,35 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../Imagens/bloco-de-anotacoes.png">
+
   <title>Criar Quiz</title>
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   
-  <div class="start">
+  <div class="start" id="start">
     <h1>BEM VINDO!</h1>
     <br>
-    <h2>Clique na tela para continuar...</h2>
+    <input type="text" id="creator-name" placeholder="Insira o seu Nome" maxlength="25" required>
+    <button class="Creator-name" id="Creator-name">Avançar</button>
   </div>
 
-  <div class="container">
+  <div class="Quiz-title">
+    <h1>Título do Quiz</h1>
+    <input type="text" id="quiz-title" placeholder="Título do Quiz" maxlength="50" required>
+  </div>
+
+
+  <div class="container" id="container" style="display: none;">
     <h1>Criar Quiz</h1>
 
     <div class="quiz-form">
       <div id="question-form">
         <div class="question-container">
           <label for="question" id="question-title">Pergunta 1:</label>
-          <input type="text" id="question" placeholder="Insira a pergunta" />
+          <input type="text" id="question" placeholder="Insira a pergunta" maxlength="200"/>
         </div>
         <div class="answers-container">
           <label for="answer1">Resposta 1:</label>
-          <input type="text" id="answer1" placeholder="Resposta 1" />
+          <input type="text" id="answer1" placeholder="Resposta 1" maxlength="100"/>
           <label for="answer2">Resposta 2:</label>
-          <input type="text" id="answer2" placeholder="Resposta 2" />
+          <input type="text" id="answer2" placeholder="Resposta 2" maxlength="100"/>
           <label for="answer3">Resposta 3:</label>
-          <input type="text" id="answer3" placeholder="Resposta 3" />
+          <input type="text" id="answer3" placeholder="Resposta 3" maxlength="100"/>
           <label for="answer4">Resposta 4:</label>
-          <input type="text" id="answer4" placeholder="Resposta 4" />
+          <input type="text" id="answer4" placeholder="Resposta 4" maxlength="100"/>
         </div>
         <div class="correct-answer-container">
           <label for="correct-answer">Resposta Correta:</label>

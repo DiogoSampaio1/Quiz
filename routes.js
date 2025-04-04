@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("./models/User");
+const Quiz = require("./models/Quiz");
 
 const router = express.Router(); // Usa o Router do Express
 
@@ -64,5 +65,29 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/quiz", async (req, res) => {
+  const { titulo, criador, perguntas } = req.body;
+
+  if (!titulo || !perguntas || perguntas.length !== 10) {
+    return res.status(400).json({ message: "É necessário fornecer o título e exatamente 10 perguntas" });
+  }
+
+  // Validar estrutura de cada pergunta
+  for (let i = 0; i < perguntas.length; i++) {
+    const p = perguntas[i];
+    if (!p.pergunta || !Array.isArray(p.opcoes) || p.opcoes.length !== 4 || typeof p.correta !== "number") {
+      return res.status(400).json({ message: `Erro na pergunta ${i + 1}. Todos os campos são obrigatórios.` });
+    }
+  }
+
+  try {
+    const novoQuiz = new Quiz({ titulo, criador, perguntas });
+    await novoQuiz.save();
+    res.status(201).json({ message: "Quiz guardado com sucesso!", quiz: novoQuiz });
+  } catch (error) {
+    console.error("Erro ao guardar quiz:", error);
+    res.status(500).json({ message: "Erro ao guardar o quiz", error });
+  }
+});
 
 module.exports = router;

@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const User = require("./models/User");
+const Quiz = require("./models/Quiz");
 const connectToDatabase = require("./database");
 const routes = require("./routes"); // 🔥 Importa as rotas corretamente
 
