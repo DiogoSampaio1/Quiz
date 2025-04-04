@@ -1,3 +1,13 @@
+window.onload = function() {
+  const start = document.querySelector('.start');
+  const content = document.querySelector('.container');
+
+  start.addEventListener('click', function() {
+      start.style.display = 'none';
+      content.style.display = 'block';
+  });
+};
+
 let currentQuestion = 1;
 let quizData = [];
 
