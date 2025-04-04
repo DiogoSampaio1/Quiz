@@ -7,78 +7,204 @@
 
   <title>Criar Quiz</title>
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../Index.css">
+  <style>
+    .quiz-form {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--background-color);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .question-container {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+    }
+
+    .options-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .option-input {
+      padding: 0.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+    }
+
+    .correct-option {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .correct-option select {
+      margin-left: 0.5rem;
+      padding: 0.5rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--primary-color);
+      color: white;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background-color: var(--primary-hover-color);
+    }
+
+    .add-question {
+      background-color: #4CAF50;
+    }
+
+    .remove-question {
+      background-color: #f44336;
+    }
+
+    .submit-quiz {
+      background-color: #2196F3;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+    }
+  </style>
 </head>
 <body>
-  
-  <div class="start" id="start">
-    <h1>BEM VINDO!</h1>
-    <br>
-    <input type="text" id="creator-name" placeholder="Insira o seu Nome" maxlength="25" required>
-    <button class="Creator-name" id="Creator-name">Avançar</button>
-  </div>
+  <header>
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <nav id="closeSidebar"></nav>
+      </div>
+      <ul class="sidebar-menu">
+        <li><a href="../Index.html">Página Inicial</a></li>
+        <li><a href="../Quizes/Quizes.html">Quizes</a></li>
+        <li><a href="../Avaliações/Index.html">Avaliações</a></li>
+        <li><a href="list.html">Ver Quizzes Criados</a></li>
+      </ul>
+    </div>
 
-  <div class="Quiz-title">
-    <h1>Título do Quiz</h1>
-    <input type="text" id="quiz-title" placeholder="Título do Quiz" maxlength="50" required>
-  </div>
+    <!-- Botão de abrir menu -->
+    <div id="menuButton" class="menu-button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
+    <h1>Criar Novo Quiz</h1>
+  </header>
 
-  <div class="container" id="container" style="display: none;">
-    <h1>Criar Quiz</h1>
+  <main>
+    <form id="quizForm" class="quiz-form">
+      <div class="form-group">
+        <label for="quizTitle">Título do Quiz:</label>
+        <input type="text" id="quizTitle" required>
+      </div>
 
-    <div class="quiz-form">
-      <div id="question-form">
-        <div class="question-container">
-          <label for="question" id="question-title">Pergunta 1:</label>
-          <input type="text" id="question" placeholder="Insira a pergunta" maxlength="200"/>
+      <div id="questions-container">
+        <!-- As perguntas serão adicionadas aqui -->
+      </div>
+
+      <button type="button" class="add-question" onclick="addQuestion()">Adicionar Pergunta</button>
+      <button type="submit" class="submit-quiz">Criar Quiz</button>
+    </form>
+  </main>
+
+  <script>
+    let questionCount = 0;
+
+    function addQuestion() {
+      if (questionCount >= 10) {
+        alert('Máximo de 10 perguntas atingido!');
+        return;
+      }
+
+      const container = document.getElementById('questions-container');
+      const questionDiv = document.createElement('div');
+      questionDiv.className = 'question-container';
+      questionDiv.innerHTML = `
+        <div class="form-group">
+          <label>Pergunta ${questionCount + 1}:</label>
+          <input type="text" class="question-input" required>
         </div>
-        <div class="answers-container">
-          <label for="answer1">Resposta 1:</label>
-          <input type="text" id="answer1" placeholder="Resposta 1" maxlength="100"/>
-          <label for="answer2">Resposta 2:</label>
-          <input type="text" id="answer2" placeholder="Resposta 2" maxlength="100"/>
-          <label for="answer3">Resposta 3:</label>
-          <input type="text" id="answer3" placeholder="Resposta 3" maxlength="100"/>
-          <label for="answer4">Resposta 4:</label>
-          <input type="text" id="answer4" placeholder="Resposta 4" maxlength="100"/>
+        <div class="options-container">
+          <input type="text" class="option-input" placeholder="Opção 1" required>
+          <input type="text" class="option-input" placeholder="Opção 2" required>
+          <input type="text" class="option-input" placeholder="Opção 3" required>
+          <input type="text" class="option-input" placeholder="Opção 4" required>
         </div>
-        <div class="correct-answer-container">
-          <label for="correct-answer">Resposta Correta:</label>
-          <select id="correct-answer">
-            <option value="">Escolha a resposta correta</option>
-            <option value="1">Resposta 1</option>
-            <option value="2">Resposta 2</option>
-            <option value="3">Resposta 3</option>
-            <option value="4">Resposta 4</option>
+        <div class="correct-option">
+          <label>Resposta correta:</label>
+          <select class="correct-option-select" required>
+            <option value="0">Opção 1</option>
+            <option value="1">Opção 2</option>
+            <option value="2">Opção 3</option>
+            <option value="3">Opção 4</option>
           </select>
         </div>
-      </div>
-    </div>
+        <button type="button" class="remove-question" onclick="this.parentElement.remove(); questionCount--;">Remover Pergunta</button>
+      `;
+      container.appendChild(questionDiv);
+      questionCount++;
+    }
 
-    <div class="buttons">
-      <button id="next-btn" class="btn">Próxima Pergunta</button>
-      <button id="prev-btn" class="btn" disabled>Voltar</button>
-      <button id="submit-btn" class="btn" disabled>Submeter Quiz</button>
-    </div>
+    document.getElementById('quizForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
 
-    <div id="quiz-preview" class="preview">
-      <h2>Pré-visualização do Quiz:</h2>
-      <div id="preview-content"></div>
-    </div>
+      if (questionCount === 0) {
+        alert('Adicione pelo menos uma pergunta!');
+        return;
+      }
 
-    <div id="message-error" class="message message-error" style="display: none;">
-      <p><strong>Erro:</strong> Todos os campos precisam de ser preenchidos antes de avançar!</p>
-    </div>
+      const quizTitle = document.getElementById('quizTitle').value;
+      const questions = [];
 
-    <!-- Popup de Confirmação -->
-    <div id="popup" class="popup">
-    <div class="popup-content">
-      <p>Quiz submetido com sucesso! Redirecionando...</p>
-    </div>
-  </div>
-  
+      document.querySelectorAll('.question-container').forEach(container => {
+        const question = container.querySelector('.question-input').value;
+        const options = Array.from(container.querySelectorAll('.option-input')).map(input => input.value);
+        const correctOption = parseInt(container.querySelector('.correct-option-select').value);
 
-  <script src="scripts.js"></script>
+        questions.push({
+          pergunta: question,
+          opcoes: options,
+          correta: correctOption
+        });
+      });
+
+      try {
+        const response = await fetch('http://localhost:3333/api/quiz', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            titulo: quizTitle,
+            criador: localStorage.getItem('username') || 'Anônimo',
+            perguntas: questions
+          })
+        });
+
+        if (!response.ok) throw new Error('Erro ao criar quiz');
+
+        alert('Quiz criado com sucesso!');
+        window.location.href = 'list.html';
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao criar quiz. Tente novamente.');
+      }
+    });
+
+    // Adiciona a primeira pergunta automaticamente
+    addQuestion();
+  </script>
 </body>
 </html>

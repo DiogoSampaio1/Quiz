@@ -45,6 +45,13 @@
 
             <h1>Quizes por Disciplinas</h1>
 
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="sidebar">
+                <a href="../Index.html">Página Inicial</a>
+                <a href="Quizes.html">Quizes</a>
+                <a href="../Avaliações/Avaliações.html">Avaliações</a>
+                <a href="../Criação de Quizzes/index.html">Criar Quiz</a>
+            </div>
         </header>
 
         <!-- Índice -->
@@ -417,6 +424,15 @@
 
         </div>
     </section>
+
+    <!-- ----------------------------------------------------------- Outros ----------------------------------------------------------- -->
+    <section id="outro-ano" class="Ano-escolar">
+        <h2>Outros</h2>
+        <div class="disciplinas-container" id="user-quizzes-container">
+            <!-- Os quizzes criados pelos usuários serão carregados aqui -->
+        </div>
+    </section>
+
     </main>
 
         <footer>
@@ -424,5 +440,39 @@
         </footer>
 
         <script src="scripts.js"></script>
+        <script>
+            // Carregar quizzes criados pelos usuários
+            async function loadUserQuizzes() {
+                try {
+                    const response = await fetch('http://localhost:3333/api/quizzes');
+                    if (!response.ok) throw new Error('Erro ao carregar quizzes');
+                    
+                    const quizzes = await response.json();
+                    const container = document.getElementById('user-quizzes-container');
+                    
+                    if (quizzes.length === 0) {
+                        container.innerHTML = '<div class="disciplina-card"><p>Nenhum quiz criado ainda.</p></div>';
+                        return;
+                    }
+
+                    container.innerHTML = quizzes.map(quiz => `
+                        <div class="disciplina-card">
+                            <a href="../Criação de Quizzes/play.html?id=${quiz._id}">
+                                <img src="../Imagens/OUTROS.png" alt="Outros" class="quiz-header-image">
+                                <img src="../Imagens/user-quiz.png" alt="${quiz.titulo}" class="quiz-image">
+                                <p>${quiz.titulo} (Criado por: ${quiz.criador || 'Anônimo'})</p>
+                            </a>
+                        </div>
+                    `).join('');
+                } catch (error) {
+                    console.error('Erro ao carregar quizzes:', error);
+                    document.getElementById('user-quizzes-container').innerHTML = 
+                        '<div class="disciplina-card"><p>Erro ao carregar os quizzes. Tente novamente mais tarde.</p></div>';
+                }
+            }
+
+            // Carregar os quizzes quando a página carregar
+            document.addEventListener('DOMContentLoaded', loadUserQuizzes);
+        </script>
     </body>
 </html>

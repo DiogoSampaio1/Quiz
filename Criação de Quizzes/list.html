@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes Criados</title>
+    <link rel="stylesheet" href="../Index.css">
+    <style>
+        .quizzes-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-card {
+            background: var(--background-color);
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .quiz-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .quiz-card h3 {
+            margin: 1rem 0;
+            color: var(--text-color);
+        }
+
+        .quiz-card p {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .quiz-card .creator {
+            font-style: italic;
+            color: var(--text-color);
+        }
+
+        .quiz-card a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+
+        .create-quiz-btn {
+            display: block;
+            width: 200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .create-quiz-btn:hover {
+            background-color: var(--primary-hover-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Sidebar Menu -->
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <nav id="closeSidebar"></nav>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="../Index.html">Página Inicial</a></li>
+                <li><a href="../Quizes/Quizes.html">Quizes</a></li>
+                <li><a href="../Avaliações/Index.html">Avaliações</a></li>
+                <li><a href="index.html">Criar Quiz</a></li>
+            </ul>
+        </div>
+
+        <!-- Botão de abrir menu -->
+        <div id="menuButton" class="menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <h1>Quizzes Criados</h1>
+    </header>
+
+    <main class="quizzes-container">
+        <a href="index.html" class="create-quiz-btn">Criar Novo Quiz</a>
+        <div id="quizzes-grid" class="quiz-grid">
+            <div class="loading">Carregando quizzes...</div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const response = await fetch('http://localhost:3333/api/quizzes');
+                if (!response.ok) throw new Error('Erro ao carregar quizzes');
+                
+                const quizzes = await response.json();
+                const container = document.getElementById('quizzes-grid');
+                
+                if (quizzes.length === 0) {
+                    container.innerHTML = '<div class="loading">Nenhum quiz criado ainda.</div>';
+                    return;
+                }
+
+                container.innerHTML = quizzes.map(quiz => `
+                    <div class="quiz-card">
+                        <a href="play.html?id=${quiz._id}">
+                            <img src="../Imagens/user-quiz.png" alt="${quiz.titulo}">
+                            <h3>${quiz.titulo}</h3>
+                            <p>${quiz.perguntas.length} perguntas</p>
+                            <p class="creator">Criado por: ${quiz.criador || 'Anônimo'}</p>
+                        </a>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Erro ao carregar quizzes:', error);
+                document.getElementById('quizzes-grid').innerHTML = 
+                    '<div class="loading">Erro ao carregar os quizzes. Tente novamente mais tarde.</div>';
+            }
+        });
+    </script>
+</body>
+</html> 
