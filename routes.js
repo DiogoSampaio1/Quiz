@@ -113,4 +113,18 @@ router.get("/quiz/:id", async (req, res) => {
   }
 });
 
+// Senha para validação do Criar Quiz
+const correctPassword = "SoProfs!";
+
+// Rota para validar a senha
+router.post('/api/validate-password', (req, res) => {
+  const { password } = req.body;
+
+  if (password === correctPassword) {
+    return res.json({ valid: true });
+  } else {
+    return res.status(400).json({ valid: false, message: 'Senha incorreta' });
+  }
+});
+
 module.exports = router;

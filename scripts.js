@@ -232,22 +232,33 @@ if (botaoCriarQuiz) {
     });
 };
 
-// PASSWORD PARA DEVS
 function checkPassword() {
   const passwordInput = document.getElementById("passwordInput").value;
-  const correctPassword = "SoProfs!";
   const alertBox = document.getElementById("customAlert");
 
-  if (passwordInput === correctPassword) {
-      window.location.href = "../Criação de Quizzes/index.html";
-  } else {
+  fetch("http://localhost:3333/api/validate-password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password: passwordInput }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.valid) {
+        window.location.href = "../Criação de Quizzes/index.html";
+      } else {
+        alertBox.style.display = "block";
+        setTimeout(() => {
+          alertBox.style.display = "none";
+        }, 2000);
+      }
+    })
+    .catch(() => {
+      // Caso haja erro na requisição
       alertBox.style.display = "block";
       setTimeout(() => {
-          alertBox.style.display = "none";
+        alertBox.style.display = "none";
       }, 2000);
-  }
-}
-
-function goHome() {
-  window.location.reload();
+    });
 }
