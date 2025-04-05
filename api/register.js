@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import User from '../models/User';
-import connectToDatabase from '../database.js';
+import connectToDatabase from '../database';
 
 // Função serverless para o registro
 export default async function handler(req, res) {
