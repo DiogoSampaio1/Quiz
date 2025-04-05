@@ -50,7 +50,8 @@ app.get('/', (_req, res) => {
       register: { path: '/api/register', method: 'POST' },
       quizzes: { path: '/api/quizzes', method: 'GET' },
       createQuiz: { path: '/api/quiz', method: 'POST' },
-      getQuiz: { path: '/api/quiz/:id', method: 'GET' }
+      getQuiz: { path: '/api/quiz/:id', method: 'GET' },
+      password: { path: '/api/validate-password', method: 'POST' }
     }
   });
 });
@@ -77,7 +78,8 @@ app.use('*', (req, res) => {
     register: { path: '/api/register', method: 'POST' },
     quizzes: { path: '/api/quizzes', method: 'GET' },
     createQuiz: { path: '/api/quiz', method: 'POST' },
-    getQuiz: { path: '/api/quiz/:id', method: 'GET' }
+    getQuiz: { path: '/api/quiz/:id', method: 'GET' },
+    password: { path: '/api/validate-password', method: 'POST' }
   };
 
   // Verifica se a rota existe mas o método está errado
