@@ -1,24 +1,39 @@
-// require("dotenv").config();
+require("dotenv").config();
 
-// const express = require("express");
-// const mongoose = require("mongoose");
-// const cors = require("cors");
-// const User = require("./models/User");
-// const Quiz = require("./models/Quiz");
-// const connectToDatabase = require("./database");
-// const routes = require("./routes"); // 🔥 Importa as rotas corretamente
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const User = require("./models/User");
+const Quiz = require("./models/Quiz");
+const connectToDatabase = require("./database");
+const routes = require("./routes");
 
-// connectToDatabase();
+// Conecta ao banco de dados
+connectToDatabase();
 
-// const app = express();
-// const port = 3333;
+const app = express();
 
-// app.use(express.json());
-// app.use(cors());
-// app.use(routes); // ✅ Agora `routes` está definido corretamente
+// Configurações do CORS para permitir acesso do frontend
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://quizgb.netlify.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 
-// app.use("/api", routes);
+app.use(express.json());
+app.use(routes);
 
-// app.listen(port, () => {
-//   console.log(`⚡ Backend deu início em http://localhost:${port}`);
-// });
+// Rota de teste para verificar se a API está funcionando
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'API is running' });
+});
+
+// Para desenvolvimento local
+if (process.env.NODE_ENV !== 'production') {
+  const port = process.env.PORT || 3333;
+  app.listen(port, () => {
+    console.log(`⚡ Backend running on http://localhost:${port}`);
+  });
+}
+
+module.exports = app;
