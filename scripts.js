@@ -118,12 +118,9 @@ document.addEventListener("DOMContentLoaded", function () {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Origin": "https://quizgb.netlify.app"
+            "Accept": "application/json"
           },
-          credentials: 'include',
-          mode: 'cors',
-          body: JSON.stringify({ username, password }),
+          body: JSON.stringify({ username, password })
         });
 
         if (!response.ok) {

@@ -11,22 +11,12 @@ const routes = require("./routes");
 const app = express();
 
 // Configuração do CORS
-app.use(cors());
-
-// Configuração específica para rotas da API
-app.use('/api', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://quizgb.netlify.app');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  
-  // Handle preflight
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-  
-  next();
-});
+app.use(cors({
+  origin: 'https://quizgb.netlify.app',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
+}));
 
 app.use(express.json());
 
