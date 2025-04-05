@@ -27,6 +27,22 @@ app.use((err, req, res, next) => {
   next();
 });
 
+// Middleware para garantir conexão com o banco antes de acessar rotas da API
+const ensureDbConnection = async (req, res, next) => {
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      await connectToDatabase();
+    }
+    next();
+  } catch (error) {
+    console.error('Database connection error:', error);
+    res.status(500).json({ message: 'Database connection error' });
+  }
+};
+
+// Configura as rotas da API com middleware de conexão
+app.use('/api', ensureDbConnection, routes);
+
 // Rota raiz
 app.get('/', (_req, res) => {
   res.json({ 
@@ -46,28 +62,12 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: 'API is running' });
 });
 
-// Middleware para garantir conexão com o banco antes de acessar rotas da API
-const ensureDbConnection = async (req, res, next) => {
-  try {
-    if (mongoose.connection.readyState !== 1) {
-      await connectToDatabase();
-    }
-    next();
-  } catch (error) {
-    console.error('Database connection error:', error);
-    res.status(500).json({ message: 'Database connection error' });
-  }
-};
-
 // Redirecionamento de rotas antigas para novas com prefixo /api
 app.use('/login', (req, res) => res.redirect(307, '/api/login'));
 app.use('/register', (req, res) => res.redirect(307, '/api/register'));
 app.use('/quiz', (req, res) => res.redirect(307, '/api/quiz'));
 app.use('/quizzes', (req, res) => res.redirect(307, '/api/quizzes'));
 app.use('/validate-password', (req, res) => res.redirect(307, '/api/validate-password'));
-
-// Configura as rotas da API com middleware de conexão
-app.use('/api', ensureDbConnection, routes);
 
 // Rota para capturar erros 404
 app.use('*', (req, res) => {
