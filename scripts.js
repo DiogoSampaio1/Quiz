@@ -110,9 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const username = document.getElementById("loginUsername").value;
       const password = document.getElementById("loginSenha").value;
 
-      // URL da API
       const loginUrl = 'https://quiz-ivory-chi.vercel.app/api/login';
-      
       console.log("Tentando fazer login em:", loginUrl);
 
       try {
@@ -120,13 +118,17 @@ document.addEventListener("DOMContentLoaded", function () {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
+            "Accept": "application/json",
+            "Origin": "https://quizgb.netlify.app"
           },
+          credentials: 'include',
+          mode: 'cors',
           body: JSON.stringify({ username, password }),
         });
 
         if (!response.ok) {
-          throw new Error("Falha no login");
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Falha no login");
         }
 
         const data = await response.json();

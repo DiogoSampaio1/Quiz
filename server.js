@@ -1,5 +1,4 @@
 require("dotenv").config();
-import connectToDatabase from "./database";
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -11,34 +10,23 @@ const routes = require("./routes");
 
 const app = express();
 
-// Configuração do CORS mais permissiva para desenvolvimento
-const corsOptions = {
-  origin: function (origin, callback) {
-    const allowedOrigins = [
-      'http://localhost:3000',
-      'http://localhost:5000',
-      'https://quizgb.netlify.app',
-      'http://quizgb.netlify.app'
-    ];
-    
-    // Permite requisições sem origin (como mobile apps ou Postman)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
-};
+// Configuração do CORS
+app.use(cors());
 
-app.use(cors(corsOptions));
-
-// Middleware para preflight requests
-app.options('*', cors(corsOptions));
+// Configuração específica para rotas da API
+app.use('/api', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://quizgb.netlify.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
+  next();
+});
 
 app.use(express.json());
 
