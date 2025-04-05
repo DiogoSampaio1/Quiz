@@ -267,4 +267,8 @@ function checkPassword() {
         alertBox.style.display = "none";
       }, 3000);
     });
+    
+    function goHome() {
+      window.location.href = "../index.html";
+    };
 }
