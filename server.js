@@ -28,12 +28,12 @@ app.use((err, req, res, next) => {
 });
 
 // Rota raiz
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.json({ message: 'Quiz API is running', docs: '/api/docs' });
 });
 
 // Rota de teste para verificar se a API está funcionando
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: 'API is running' });
 });
 
@@ -54,9 +54,12 @@ const ensureDbConnection = async (req, res, next) => {
 app.use('/api', ensureDbConnection, routes);
 
 // Rota para capturar erros 404
-app.use((req, res) => {
+app.use('*', (req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
+
+// Tenta conectar ao banco de dados no início
+connectToDatabase().catch(console.error);
 
 // Para desenvolvimento local
 if (process.env.NODE_ENV !== 'production') {
@@ -64,9 +67,6 @@ if (process.env.NODE_ENV !== 'production') {
   app.listen(port, () => {
     console.log(`⚡ Backend running on http://localhost:${port}`);
   });
-} else {
-  // Conecta ao banco de dados no início para ambiente de produção
-  connectToDatabase().catch(console.error);
 }
 
 module.exports = app;
