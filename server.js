@@ -29,7 +29,16 @@ app.use((err, req, res, next) => {
 
 // Rota raiz
 app.get('/', (_req, res) => {
-  res.json({ message: 'Quiz API is running', docs: '/api/docs' });
+  res.json({ 
+    message: 'Quiz API is running',
+    docs: '/api/docs',
+    endpoints: {
+      login: '/api/login',
+      register: '/api/register',
+      quizzes: '/api/quizzes',
+      createQuiz: '/api/quiz'
+    }
+  });
 });
 
 // Rota de teste para verificar se a API está funcionando
@@ -50,12 +59,27 @@ const ensureDbConnection = async (req, res, next) => {
   }
 };
 
+// Redirecionamento de rotas antigas para novas com prefixo /api
+app.use('/login', (req, res) => res.redirect(307, '/api/login'));
+app.use('/register', (req, res) => res.redirect(307, '/api/register'));
+app.use('/quiz', (req, res) => res.redirect(307, '/api/quiz'));
+app.use('/quizzes', (req, res) => res.redirect(307, '/api/quizzes'));
+app.use('/validate-password', (req, res) => res.redirect(307, '/api/validate-password'));
+
 // Configura as rotas da API com middleware de conexão
 app.use('/api', ensureDbConnection, routes);
 
 // Rota para capturar erros 404
 app.use('*', (req, res) => {
-  res.status(404).json({ message: 'Route not found' });
+  res.status(404).json({ 
+    message: 'Route not found',
+    availableEndpoints: {
+      login: '/api/login',
+      register: '/api/register',
+      quizzes: '/api/quizzes',
+      createQuiz: '/api/quiz'
+    }
+  });
 });
 
 // Tenta conectar ao banco de dados no início
