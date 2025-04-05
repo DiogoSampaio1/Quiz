@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("API_CONFIG:", window.API_CONFIG); // Debug log
+
   // Menu Lateral
   const menuButton = document.getElementById("menuButton");
   const sidebar = document.getElementById("sidebar");
@@ -108,8 +110,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const username = document.getElementById("loginUsername").value;
       const password = document.getElementById("loginSenha").value;
 
+      // Debug logs
+      console.log("Tentando fazer login com:", { username });
+      console.log("URL do login:", window.API_CONFIG.endpoints.login);
+
       try {
-        const response = await fetch(API_CONFIG.endpoints.login, {
+        const response = await fetch(window.API_CONFIG.endpoints.login, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -126,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mostrarUser(data.username);
         fecharModal("modalLogin");
       } catch (error) {
+        console.error("Erro no login:", error); // Debug log
         alert("Erro ao fazer login. Verifique suas credenciais.");
       }
     });
