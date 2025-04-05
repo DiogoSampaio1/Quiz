@@ -110,15 +110,17 @@ document.addEventListener("DOMContentLoaded", function () {
       const username = document.getElementById("loginUsername").value;
       const password = document.getElementById("loginSenha").value;
 
-      // Debug logs
-      console.log("Tentando fazer login com:", { username });
-      console.log("URL do login:", window.API_CONFIG.endpoints.login);
+      // URL da API
+      const loginUrl = 'https://quiz-ivory-chi.vercel.app/api/login';
+      
+      console.log("Tentando fazer login em:", loginUrl);
 
       try {
-        const response = await fetch(window.API_CONFIG.endpoints.login, {
+        const response = await fetch(loginUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
           },
           body: JSON.stringify({ username, password }),
         });
@@ -132,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mostrarUser(data.username);
         fecharModal("modalLogin");
       } catch (error) {
-        console.error("Erro no login:", error); // Debug log
+        console.error("Erro no login:", error);
         alert("Erro ao fazer login. Verifique suas credenciais.");
       }
     });

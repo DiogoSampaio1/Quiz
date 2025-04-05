@@ -1,14 +1,11 @@
-// URL base da API
-const API_BASE_URL = 'https://quiz-ivory-chi.vercel.app';
-
-// Configuração da API
+// Configuração global da API
 window.API_CONFIG = {
-    baseUrl: API_BASE_URL,
+    baseUrl: 'https://quiz-ivory-chi.vercel.app',
     endpoints: {
-        login: `${API_BASE_URL}/api/login`,
-        register: `${API_BASE_URL}/api/register`,
-        validatePassword: `${API_BASE_URL}/api/validate-password`,
-        quizzes: `${API_BASE_URL}/api/quizzes`,
-        quiz: `${API_BASE_URL}/api/quiz`
+        login: 'https://quiz-ivory-chi.vercel.app/api/login',
+        register: 'https://quiz-ivory-chi.vercel.app/api/register',
+        validatePassword: 'https://quiz-ivory-chi.vercel.app/api/validate-password',
+        quizzes: 'https://quiz-ivory-chi.vercel.app/api/quizzes',
+        quiz: 'https://quiz-ivory-chi.vercel.app/api/quiz'
     }
 }; 
