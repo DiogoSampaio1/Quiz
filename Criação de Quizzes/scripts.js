@@ -130,7 +130,7 @@ submitBtn.addEventListener("click", () => {
     };
 
     // Fazer o fetch
-    fetch("http://localhost:3333/quiz", {
+    fetch(API_CONFIG.endpoints.quiz, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
