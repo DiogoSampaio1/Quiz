@@ -444,8 +444,12 @@
             // Carregar quizzes criados pelos usuários
             async function loadUserQuizzes() {
                 try {
-                    const response = await fetch('http://localhost:3333/api/quizzes');
-                    if (!response.ok) throw new Error('Erro ao carregar quizzes');
+                    console.log("Tentando carregar quizzes de:", window.API_CONFIG.endpoints.quizzes);
+                    const response = await fetch(window.API_CONFIG.endpoints.quizzes);
+                    
+                    if (!response.ok) {
+                        throw new Error('Erro ao carregar quizzes: ' + response.statusText);
+                    }
                     
                     const quizzes = await response.json();
                     const container = document.getElementById('user-quizzes-container');

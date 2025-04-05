@@ -1,9 +1,10 @@
-// Aplica o dark mode antes da renderização para evitar "flash" de branco
-if (localStorage.getItem("darkMode") === "enabled") {
-    document.body.classList.add("dark-mode");
-}
-  
+// Espera o DOM carregar antes de aplicar o dark mode
 document.addEventListener("DOMContentLoaded", function () {
+    // Aplica o dark mode se estiver ativado
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+
     console.log("API_CONFIG:", window.API_CONFIG); // Debug log
 
     const themeToggle = document.getElementById("theme-toggle");
@@ -57,41 +58,4 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".selecao-anos input[type='checkbox']").forEach(checkbox => {
         checkbox.checked = true;
     });
-
-    // Carregar quizzes criados pelos usuários
-    async function loadUserQuizzes() {
-        try {
-            console.log("Tentando carregar quizzes de:", window.API_CONFIG.endpoints.quizzes);
-            const response = await fetch(window.API_CONFIG.endpoints.quizzes);
-            
-            if (!response.ok) {
-                throw new Error('Erro ao carregar quizzes: ' + response.statusText);
-            }
-            
-            const quizzes = await response.json();
-            const container = document.getElementById('user-quizzes-container');
-            
-            if (!container) {
-                console.error('Container de quizzes não encontrado');
-                return;
-            }
-
-            quizzes.forEach(quiz => {
-                const quizCard = document.createElement('div');
-                quizCard.className = 'disciplina-card';
-                quizCard.innerHTML = `
-                    <a href="../Criação de Quizzes/play.html?id=${quiz._id}">
-                        <img src="../Imagens/user-quiz.png" alt="${quiz.titulo}">
-                        <p>${quiz.titulo} (Criado por: ${quiz.criador || 'Anônimo'})</p>
-                    </a>
-                `;
-                container.appendChild(quizCard);
-            });
-        } catch (error) {
-            console.error('Erro ao carregar quizzes:', error);
-        }
-    }
-
-    // Carregar os quizzes quando a página carregar
-    loadUserQuizzes();
 });
