@@ -1,4 +1,5 @@
 require("dotenv").config();
+import connectToDatabase from "./database";
 
 const express = require("express");
 const mongoose = require("mongoose");
