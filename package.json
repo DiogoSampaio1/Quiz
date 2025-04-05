@@ -7,11 +7,15 @@
     "mongoose": "^8.12.1"
   },
   "devDependencies": {
+    "start" : "node server.js",
     "dotenv": "^8.2.0",
     "nodemon": "^3.1.9"
   },
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
