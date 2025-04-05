@@ -31,13 +31,19 @@ app.use((err, req, res, next) => {
 (async () => {
   try {
     await connectToDatabase();
-    // Só configura as rotas depois de conectar ao banco
-    app.use(routes);
+
+    // Rota raiz
+    app.get('/', (req, res) => {
+      res.json({ message: 'Quiz API is running', docs: '/api/docs' });
+    });
 
     // Rota de teste para verificar se a API está funcionando
     app.get('/api/health', (req, res) => {
       res.json({ status: 'ok', message: 'API is running' });
     });
+
+    // Configura as rotas da API
+    app.use('/api', routes);
 
     // Rota para capturar erros 404
     app.use((req, res) => {
