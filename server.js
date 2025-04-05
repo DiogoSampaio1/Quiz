@@ -27,40 +27,46 @@ app.use((err, req, res, next) => {
   next();
 });
 
-// Conecta ao banco de dados antes de configurar as rotas
-(async () => {
+// Rota raiz
+app.get('/', (req, res) => {
+  res.json({ message: 'Quiz API is running', docs: '/api/docs' });
+});
+
+// Rota de teste para verificar se a API está funcionando
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'API is running' });
+});
+
+// Middleware para garantir conexão com o banco antes de acessar rotas da API
+const ensureDbConnection = async (req, res, next) => {
   try {
-    await connectToDatabase();
-
-    // Rota raiz
-    app.get('/', (req, res) => {
-      res.json({ message: 'Quiz API is running', docs: '/api/docs' });
-    });
-
-    // Rota de teste para verificar se a API está funcionando
-    app.get('/api/health', (req, res) => {
-      res.json({ status: 'ok', message: 'API is running' });
-    });
-
-    // Configura as rotas da API
-    app.use('/api', routes);
-
-    // Rota para capturar erros 404
-    app.use((req, res) => {
-      res.status(404).json({ message: 'Route not found' });
-    });
-
-    // Para desenvolvimento local
-    if (process.env.NODE_ENV !== 'production') {
-      const port = process.env.PORT || 3333;
-      app.listen(port, () => {
-        console.log(`⚡ Backend running on http://localhost:${port}`);
-      });
+    if (mongoose.connection.readyState !== 1) {
+      await connectToDatabase();
     }
+    next();
   } catch (error) {
-    console.error('Failed to connect to database:', error);
-    process.exit(1);
+    console.error('Database connection error:', error);
+    res.status(500).json({ message: 'Database connection error' });
   }
-})();
+};
+
+// Configura as rotas da API com middleware de conexão
+app.use('/api', ensureDbConnection, routes);
+
+// Rota para capturar erros 404
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
+// Para desenvolvimento local
+if (process.env.NODE_ENV !== 'production') {
+  const port = process.env.PORT || 3333;
+  app.listen(port, () => {
+    console.log(`⚡ Backend running on http://localhost:${port}`);
+  });
+} else {
+  // Conecta ao banco de dados no início para ambiente de produção
+  connectToDatabase().catch(console.error);
+}
 
 module.exports = app;
