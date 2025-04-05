@@ -211,6 +211,7 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script>
     let currentQuiz = null;
     let currentQuestionIndex = 0;
@@ -229,7 +230,7 @@
       }
 
       try {
-        const res = await fetch(`http://localhost:3333/api/quiz/${quizId}`);
+        const res = await fetch(`${API_CONFIG.endpoints.quiz}/${quizId}`);
         if (!res.ok) throw new Error('Erro no servidor');
         currentQuiz = await res.json();
         document.getElementById('quiz-title').textContent = currentQuiz.titulo;
