@@ -11,16 +11,34 @@ const routes = require("./routes");
 
 const app = express();
 
-// Configurações do CORS para permitir acesso do frontend
-app.use(cors({
-  origin: ['http://localhost:3000', 'https://quizgb.netlify.app', 'http://quizgb.netlify.app'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+// Configuração do CORS mais permissiva para desenvolvimento
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://localhost:5000',
+      'https://quizgb.netlify.app',
+      'http://quizgb.netlify.app'
+    ];
+    
+    // Permite requisições sem origin (como mobile apps ou Postman)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
+};
+
+app.use(cors(corsOptions));
 
 // Middleware para preflight requests
-app.options('*', cors());
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 
