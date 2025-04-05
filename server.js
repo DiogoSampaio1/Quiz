@@ -6,7 +6,7 @@ const cors = require("cors");
 const User = require("./models/User");
 const Quiz = require("./models/Quiz");
 const connectToDatabase = require("./database");
-const apiRoutes = require("./routes");
+const routes = require("./routes");
 
 const app = express();
 
@@ -59,22 +59,8 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: 'API is running' });
 });
 
-// Configura as rotas da API
-const router = express.Router();
-
-// Login
-router.post('/login', apiRoutes.post('/login'));
-// Register
-router.post('/register', apiRoutes.post('/register'));
-// Quiz routes
-router.post('/quiz', apiRoutes.post('/quiz'));
-router.get('/quizzes', apiRoutes.get('/quizzes'));
-router.get('/quiz/:id', apiRoutes.get('/quiz/:id'));
-// Validate password
-router.post('/validate-password', apiRoutes.post('/validate-password'));
-
 // Aplica o middleware de conexão com o banco e as rotas
-app.use('/api', ensureDbConnection, router);
+app.use('/api', ensureDbConnection, routes);
 
 // Redirecionamento de rotas antigas para novas com prefixo /api
 app.all('/login', (req, res) => res.redirect(307, '/api/login'));
