@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const password = document.getElementById("loginSenha").value;
 
       try {
-        const response = await fetch("https://quiz-ivory-chi.vercel.app/api/login", {
+        const response = await fetch(API_CONFIG.endpoints.login, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const password = document.getElementById("registerSenha").value;
 
       try {
-        const response = await fetch("https://quiz-ivory-chi.vercel.app/api/register", {
+        const response = await fetch(API_CONFIG.endpoints.register, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -206,17 +206,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnFeito = document.getElementById("btnFeito");
 
   if (overlayContainer && btnFeito) {
-    // Verificar se o botão "Entendido!" foi clicado anteriormente
     if (localStorage.getItem("overlayDismissed") !== "true") {
-      // Se o overlay não foi descartado, mostre o overlay
       overlayContainer.style.display = "flex";
     } else {
-      // Se já foi descartado, esconder o overlay
       overlayContainer.style.display = "none";
     }
 
     btnFeito.addEventListener("click", function () {
-      // Esconde o overlay e marca que foi descartado
       overlayContainer.style.display = "none";
       localStorage.setItem("overlayDismissed", "true");
     });
@@ -236,7 +232,7 @@ function checkPassword() {
   const passwordInput = document.getElementById("passwordInput").value;
   const alertBox = document.getElementById("customAlert");
 
-  fetch("https://quiz-ivory-chi.vercel.app/api/validate-password", {
+  fetch(API_CONFIG.endpoints.validatePassword, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -248,17 +244,19 @@ function checkPassword() {
       if (data.valid) {
         window.location.href = "../Criação de Quizzes/index.html";
       } else {
+        alertBox.textContent = "Senha incorreta!";
         alertBox.style.display = "block";
         setTimeout(() => {
           alertBox.style.display = "none";
-        }, 2000);
+        }, 3000);
       }
     })
-    .catch(() => {
-      // Caso haja erro na requisição
+    .catch(error => {
+      console.error("Erro:", error);
+      alertBox.textContent = "Erro ao validar a senha";
       alertBox.style.display = "block";
       setTimeout(() => {
         alertBox.style.display = "none";
-      }, 2000);
+      }, 3000);
     });
 }
