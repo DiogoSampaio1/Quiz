@@ -60,7 +60,7 @@ if (localStorage.getItem("darkMode") === "enabled") {
     // Carregar quizzes criados pelos usuários
     async function loadUserQuizzes() {
         try {
-            const response = await fetch('http://localhost:3333/api/quizzes');
+            const response = await fetch(API_CONFIG.endpoints.quizzes);
             if (!response.ok) throw new Error('Erro ao carregar quizzes');
             
             const quizzes = await response.json();
