@@ -46,10 +46,11 @@ app.get('/', (_req, res) => {
     message: 'Quiz API is running',
     docs: '/api/docs',
     endpoints: {
-      login: '/api/login',
-      register: '/api/register',
-      quizzes: '/api/quizzes',
-      createQuiz: '/api/quiz'
+      login: { path: '/api/login', method: 'POST' },
+      register: { path: '/api/register', method: 'POST' },
+      quizzes: { path: '/api/quizzes', method: 'GET' },
+      createQuiz: { path: '/api/quiz', method: 'POST' },
+      getQuiz: { path: '/api/quiz/:id', method: 'GET' }
     }
   });
 });
@@ -71,16 +72,34 @@ app.all('/validate-password', (req, res) => res.redirect(307, '/api/validate-pas
 
 // Rota para capturar erros 404
 app.use('*', (req, res) => {
+  const endpoints = {
+    login: { path: '/api/login', method: 'POST' },
+    register: { path: '/api/register', method: 'POST' },
+    quizzes: { path: '/api/quizzes', method: 'GET' },
+    createQuiz: { path: '/api/quiz', method: 'POST' },
+    getQuiz: { path: '/api/quiz/:id', method: 'GET' }
+  };
+
+  // Verifica se a rota existe mas o método está errado
+  const path = req.originalUrl.replace(/\/$/, ''); // Remove trailing slash if present
+  const endpoint = Object.values(endpoints).find(e => e.path === path);
+  
+  if (endpoint) {
+    return res.status(405).json({
+      message: `Method ${req.method} not allowed for this route`,
+      error: `This endpoint only accepts ${endpoint.method} requests`,
+      correctUsage: `Use ${endpoint.method} ${path}`,
+      availableEndpoints: endpoints
+    });
+  }
+
+  // Se a rota não existe
   res.status(404).json({ 
     message: 'Route not found',
     method: req.method,
     path: req.originalUrl,
-    availableEndpoints: {
-      login: '/api/login',
-      register: '/api/register',
-      quizzes: '/api/quizzes',
-      createQuiz: '/api/quiz'
-    }
+    availableEndpoints: endpoints,
+    help: 'Make sure you are using the correct HTTP method for each endpoint'
   });
 });
 
