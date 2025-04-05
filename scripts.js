@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const password = document.getElementById("loginSenha").value;
 
       try {
-        const response = await fetch("https://quiz-8k40o0b7k-diogos-projects-01cfc8b4.vercel.app/api/login", {
+        const response = await fetch("https://quiz-ivory-chi.vercel.app/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const password = document.getElementById("registerSenha").value;
 
       try {
-        const response = await fetch("https://quiz-8k40o0b7k-diogos-projects-01cfc8b4.vercel.app/api/register", {
+        const response = await fetch("https://quiz-ivory-chi.vercel.app/api/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -236,7 +236,7 @@ function checkPassword() {
   const passwordInput = document.getElementById("passwordInput").value;
   const alertBox = document.getElementById("customAlert");
 
-  fetch("https://quiz-8k40o0b7k-diogos-projects-01cfc8b4.vercel.app/api/validate-password", {
+  fetch("https://quiz-ivory-chi.vercel.app/api/validate-password", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
