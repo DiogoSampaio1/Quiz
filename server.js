@@ -6,7 +6,7 @@ const cors = require("cors");
 const User = require("./models/User");
 const Quiz = require("./models/Quiz");
 const connectToDatabase = require("./database");
-const routes = require("./routes");
+const apiRoutes = require("./routes");
 
 const app = express();
 
@@ -40,9 +40,6 @@ const ensureDbConnection = async (req, res, next) => {
   }
 };
 
-// Configura as rotas da API com middleware de conexão
-app.use('/api', ensureDbConnection, routes);
-
 // Rota raiz
 app.get('/', (_req, res) => {
   res.json({ 
@@ -62,17 +59,36 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: 'API is running' });
 });
 
+// Configura as rotas da API
+const router = express.Router();
+
+// Login
+router.post('/login', apiRoutes.post('/login'));
+// Register
+router.post('/register', apiRoutes.post('/register'));
+// Quiz routes
+router.post('/quiz', apiRoutes.post('/quiz'));
+router.get('/quizzes', apiRoutes.get('/quizzes'));
+router.get('/quiz/:id', apiRoutes.get('/quiz/:id'));
+// Validate password
+router.post('/validate-password', apiRoutes.post('/validate-password'));
+
+// Aplica o middleware de conexão com o banco e as rotas
+app.use('/api', ensureDbConnection, router);
+
 // Redirecionamento de rotas antigas para novas com prefixo /api
-app.use('/login', (req, res) => res.redirect(307, '/api/login'));
-app.use('/register', (req, res) => res.redirect(307, '/api/register'));
-app.use('/quiz', (req, res) => res.redirect(307, '/api/quiz'));
-app.use('/quizzes', (req, res) => res.redirect(307, '/api/quizzes'));
-app.use('/validate-password', (req, res) => res.redirect(307, '/api/validate-password'));
+app.all('/login', (req, res) => res.redirect(307, '/api/login'));
+app.all('/register', (req, res) => res.redirect(307, '/api/register'));
+app.all('/quiz', (req, res) => res.redirect(307, '/api/quiz'));
+app.all('/quizzes', (req, res) => res.redirect(307, '/api/quizzes'));
+app.all('/validate-password', (req, res) => res.redirect(307, '/api/validate-password'));
 
 // Rota para capturar erros 404
 app.use('*', (req, res) => {
   res.status(404).json({ 
     message: 'Route not found',
+    method: req.method,
+    path: req.originalUrl,
     availableEndpoints: {
       login: '/api/login',
       register: '/api/register',
