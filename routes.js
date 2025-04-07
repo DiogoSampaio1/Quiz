@@ -116,4 +116,36 @@ router.post('/validate-password', (req, res) => {
   }
 });
 
+// Rota para Guardar Comments
+router.post('/comments', async (req, res) => { 
+  const { comentario } = req.body;
+  
+  // Verifica se o comentário não está vazio
+  if (!comentario || comentario.trim() === "") {
+    return res.status(400).send("Comentário não pode estar vazio.");
+  }
+
+  try {
+    const newComment = new Comment({ comentario });
+    await newComment.save();
+    res.status(201).json(newComment);
+  } catch (err) {
+    res.status(500).send("Erro ao salvar o comentário.");
+  }
+});
+
+// Rota para Encontrar Comments
+router.get("/comments", async (req, res) => {
+  try {
+    const comentarios = await Comment.find(); // Buscar todos os comentários do banco de dados
+    if (comentarios.length === 0) {
+      return res.status(404).json({ message: "Nenhum comentário encontrado" });
+    }
+    res.json(comentarios); // Retorna os comentários encontrados
+  } catch (error) {
+    console.error("Erro ao encontrar Comentários:", error);
+    res.status(500).json({ message: "Erro ao encontrar Comentários", error: error.message });
+  }
+});
+
 module.exports = router;
