@@ -26,14 +26,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Função para carregar avaliações da API
     async function loadComments() {
         try {
-            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.avaliacoes}`);
+            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.comment}`);
             if (!response.ok) throw new Error('Erro ao carregar avaliações');
             
-            const avaliacoes = await response.json();
+            const comentarios = await response.json();
             commentsSection.innerHTML = '<h2>Avaliações Publicadas</h2>';
             
-            avaliacoes.forEach((avaliacao, index) => {
-                createComment(avaliacao.texto, avaliacao._id);
+            comentarios.forEach((comentario) => {
+                createComment(comentario.comentario, comentario._id);
             });
         } catch (error) {
             console.error('Erro:', error);
@@ -128,12 +128,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.avaliacoes}/${commentId}`, {
+            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.comment}/${commentId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ texto: newText })
+                body: JSON.stringify({ comentario: newText })
             });
 
             if (!response.ok) throw new Error('Erro ao atualizar avaliação');
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const commentId = commentDiv.dataset.id;
 
         try {
-            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.avaliacoes}/${commentId}`, {
+            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.comment}/${commentId}`, {
                 method: 'DELETE'
             });
 
@@ -195,18 +195,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.avaliacoes}`, {
+            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.comment}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ texto: commentText })
+                body: JSON.stringify({ comentario: commentText })
             });
 
             if (!response.ok) throw new Error('Erro ao publicar avaliação');
 
-            const novaAvaliacao = await response.json();
-            createComment(commentText, novaAvaliacao._id);
+            const novoComentario = await response.json();
+            createComment(commentText, novoComentario._id);
             commentInput.value = '';
         } catch (error) {
             console.error('Erro:', error);

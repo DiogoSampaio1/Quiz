@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("./models/User");
 const Quiz = require("./models/Quiz");
+const Comment = require("./models/Comments");
 
 const router = express.Router();
 
@@ -146,6 +147,49 @@ router.get("/comments", async (req, res) => {
     console.error("Erro ao encontrar Comentários:", error);
     res.status(500).json({ message: "Erro ao encontrar Comentários", error: error.message });
   }
+});
+
+// Rota para atualizar um comentário
+router.put('/comments/:id', async (req, res) => {
+    const { id } = req.params;
+    const { comentario } = req.body;
+
+    if (!comentario || comentario.trim() === "") {
+        return res.status(400).send("Comentário não pode estar vazio.");
+    }
+
+    try {
+        const updatedComment = await Comment.findByIdAndUpdate(
+            id,
+            { comentario },
+            { new: true }
+        );
+
+        if (!updatedComment) {
+            return res.status(404).send("Comentário não encontrado.");
+        }
+
+        res.json(updatedComment);
+    } catch (err) {
+        res.status(500).send("Erro ao atualizar o comentário.");
+    }
+});
+
+// Rota para deletar um comentário
+router.delete('/comments/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deletedComment = await Comment.findByIdAndDelete(id);
+
+        if (!deletedComment) {
+            return res.status(404).send("Comentário não encontrado.");
+        }
+
+        res.json({ message: "Comentário removido com sucesso." });
+    } catch (err) {
+        res.status(500).send("Erro ao remover o comentário.");
+    }
 });
 
 module.exports = router;
