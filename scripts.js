@@ -301,7 +301,7 @@ async function checkPassword() {
         
         if (data.valid) {
             // Redireciona para a página de criação de quiz
-            window.location.href = "Quizes/CriarQuiz.html";
+            window.location.href = "../Criação de Quizzes/Index.html";
         } else {
             showAlert("Senha incorreta!");
         }
