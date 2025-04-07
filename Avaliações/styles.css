@@ -1,10 +1,4 @@
-/* Preloader e Loading */
-.js-loading *,
-.js-loading *:before,
-.js-loading *:after {
-    animation-play-state: paused !important;
-}
-
+/* Preloader */
 #preloader {
     position: fixed;
     top: 0;
@@ -16,13 +10,7 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    opacity: 1;
     transition: opacity 0.3s ease-out;
-}
-
-#preloader.fade-out {
-    opacity: 0;
-    pointer-events: none;
 }
 
 .loader {
@@ -39,29 +27,11 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Controle de Visibilidade */
-.container {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.container.visible {
-    opacity: 1;
-}
-
 /* Estilos Gerais */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-html {
-    visibility: hidden;
-}
-
-html.ready {
-    visibility: visible;
 }
 
 body {
@@ -72,10 +42,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-}
-
-body.ready {
-    opacity: 1;
 }
 
 .container {
