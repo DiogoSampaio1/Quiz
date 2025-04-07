@@ -43,26 +43,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Variável para controlar o modo de edição
     let currentEditMode = null;
-    let currentUser = null;
+    let currentUser = window.Auth.checkAuthState();
 
-    // Verifica se o usuário está logado
-    async function checkAuth() {
-        try {
-            const response = await fetch(buildApiUrl(window.API_CONFIG.endpoints.login), {
-                credentials: 'include'
-            });
-            
-            if (response.ok) {
-                const data = await response.json();
-                currentUser = data.user;
-                updateUIForLoggedInUser();
-            } else {
-                updateUIForLoggedOutUser();
-            }
-        } catch (error) {
-            console.error('Erro ao verificar autenticação:', error);
-            updateUIForLoggedOutUser();
-        }
+    // Atualiza a UI baseado no estado de autenticação inicial
+    if (currentUser) {
+        updateUIForLoggedInUser();
+    } else {
+        updateUIForLoggedOutUser();
     }
 
     // Atualiza a UI para usuário logado
@@ -85,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             if (currentUser) {
                 publishBtn.click();
+            } else {
+                showAlert("Por favor, inicia sessão para deixar uma avaliação");
             }
         }
     });
@@ -103,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Carregar avaliações ao iniciar a página
-    checkAuth();
     loadComments();
 
     // Alternar visibilidade do menu lateral
@@ -157,17 +145,13 @@ document.addEventListener("DOMContentLoaded", function () {
             const editBtn = document.createElement('button');
             editBtn.textContent = 'Editar';
             editBtn.classList.add('edit-btn');
-            editBtn.onclick = () => {
-                toggleEdit(commentDiv, commentTextP, editBtn);
-            };
+            editBtn.onclick = () => toggleEdit(commentDiv, commentTextP, editBtn);
             commentActions.appendChild(editBtn);
 
             const deleteBtn = document.createElement('button');
             deleteBtn.textContent = 'Remover';
             deleteBtn.classList.add('delete-btn');
-            deleteBtn.onclick = () => {
-                removeComment(commentDiv);
-            };
+            deleteBtn.onclick = () => removeComment(commentDiv);
             commentActions.appendChild(deleteBtn);
         }
 
@@ -354,7 +338,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 credentials: 'include',
                 body: JSON.stringify({ 
                     comentario: commentText,
-                    username: currentUser.username
+                    username: currentUser.username,
+                    userId: currentUser._id
                 })
             });
 
