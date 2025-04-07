@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const url = buildApiUrl(window.API_CONFIG.endpoints.comment);
             console.log("Publicando comentário em:", url);
+            console.log("Dados do usuário:", currentUser);
             
             const response = await fetch(url, {
                 method: 'POST',
@@ -116,13 +117,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 credentials: 'include',
                 body: JSON.stringify({
                     comentario: commentText,
-                    userId: currentUser._id,
+                    user: currentUser._id || currentUser.id, // Tenta ambos os campos possíveis
                     username: currentUser.username
                 })
             });
 
             if (!response.ok) {
-                throw new Error('Erro ao publicar comentário');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Erro ao publicar comentário');
             }
 
             const newComment = await response.json();
@@ -131,9 +133,12 @@ document.addEventListener("DOMContentLoaded", function () {
             // Limpa o input e recarrega os comentários
             commentInput.value = '';
             loadComments();
+            
+            // Mostra mensagem de sucesso
+            showAlert("Comentário publicado com sucesso!");
         } catch (error) {
             console.error('Erro ao publicar comentário:', error);
-            showAlert('Erro ao publicar o comentário. Por favor, tente novamente.');
+            showAlert(error.message || 'Erro ao publicar o comentário. Por favor, tente novamente.');
         }
     }
 

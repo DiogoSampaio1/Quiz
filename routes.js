@@ -119,21 +119,39 @@ router.post('/validate-password', (req, res) => {
 
 // Rota para Guardar Comments
 router.post('/comments', async (req, res) => { 
-  const { comentario } = req.body;
-  
-  // Verifica se o comentário não está vazio
-  if (!comentario || comentario.trim() === "") {
-    return res.status(400).json({ message: "Comentário não pode estar vazio." });
-  }
+    const { comentario, user, username } = req.body;
+    
+    // Verifica se todos os campos necessários estão presentes
+    if (!comentario || !user || !username) {
+        return res.status(400).json({ 
+            message: "Todos os campos são obrigatórios (comentario, user, username)." 
+        });
+    }
 
-  try {
-    const newComment = new Comment({ comentario });
-    await newComment.save();
-    res.status(201).json(newComment);
-  } catch (err) {
-    console.error("Erro ao salvar o comentário:", err);
-    res.status(500).json({ message: "Erro ao salvar o comentário.", error: err.message });
-  }
+    // Verifica se o comentário não está vazio
+    if (comentario.trim() === "") {
+        return res.status(400).json({ 
+            message: "O comentário não pode estar vazio." 
+        });
+    }
+
+    try {
+        const newComment = new Comment({ 
+            comentario, 
+            user, 
+            username,
+            is_deleted: false 
+        });
+        
+        await newComment.save();
+        res.status(201).json(newComment);
+    } catch (err) {
+        console.error("Erro ao salvar o comentário:", err);
+        res.status(500).json({ 
+            message: "Erro ao salvar o comentário.", 
+            error: err.message 
+        });
+    }
 });
 
 // Rota para Encontrar Comments (agora filtrando os não apagados)
