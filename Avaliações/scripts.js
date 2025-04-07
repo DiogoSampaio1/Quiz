@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Adiciona a classe loaded ao container quando a página estiver pronta
+    document.querySelector('.container').classList.add('loaded');
+
     console.log("API_CONFIG:", window.API_CONFIG);
 
     // Variáveis para controle

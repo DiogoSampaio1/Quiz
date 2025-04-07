@@ -5,42 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../Imagens/estrela.png">
     <title>Quiz GB - Avaliações</title>
+    <style>
+        /* Estilos iniciais para prevenir FOUC */
+        .container {
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+        .container.loaded {
+            opacity: 1;
+        }
+    </style>
     <link rel="stylesheet" href="styles.css">
     <script src="config.js" defer></script>
     <script src="scripts.js" defer></script>
 </head>
 <body>
     <div class="container">
-<header>
-    <div id="sidebar" class="sidebar">
-        <div class="sidebar-header">
-          <nav id="closeSidebar"></nav>
-        </div>
-        <ul class="sidebar-menu">
-          <li><a href="../Index.html">Página Inicial</a></li>
-          <li><a href="../Quizes/Quizes.html">Quizes</a></li>
-          <li><a href="../Avaliações/Index.html">Avaliações</a></li>
-        </ul>
-        <div class="icons">
-            <a href="https://forms.gle/omntUsZuXxEiq6yx5" target="_blank" class="botao-form botao-avaliacoes">
-                <img src="../Imagens/Formulário_icon.png" alt="Formulário">
-                <span>Avaliações</span>
-            </a>
+        <header>
+            <div id="sidebar" class="sidebar">
+                <div class="sidebar-header">
+                    <nav id="closeSidebar"></nav>
+                </div>
+                <ul class="sidebar-menu">
+                    <li><a href="../Index.html">Página Inicial</a></li>
+                    <li><a href="../Quizes/Quizes.html">Quizes</a></li>
+                    <li><a href="../Avaliações/Index.html">Avaliações</a></li>
+                </ul>
+                <div class="icons">
+                    <a href="https://forms.gle/omntUsZuXxEiq6yx5" target="_blank" class="botao-form botao-avaliacoes">
+                        <img src="../Imagens/Formulário_icon.png" alt="Formulário">
+                        <span>Avaliações</span>
+                    </a>
 
-            <a href="https://esgamabarros.pt/gbarros/" target="_blank" class="botao-form botao-gama-barros">
-              <img src="../Imagens/Logo_Escola.png" alt="Formulário">
-              <span>Gama Barros</span>
-          </a>
-          </div>
-        </div>
+                    <a href="https://esgamabarros.pt/gbarros/" target="_blank" class="botao-form botao-gama-barros">
+                        <img src="../Imagens/Logo_Escola.png" alt="Formulário">
+                        <span>Gama Barros</span>
+                    </a>
+                </div>
+            </div>
 
-      <div id="menuButton" class="menu-button">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-        <h1>Avaliações</h1>
-</header>
+            <div id="menuButton" class="menu-button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <h1>Avaliações</h1>
+        </header>
         <!--Dev screen para criar quiz 
         <div id="devScreen" class="dev-screen">
             <h2>🚧 Em Desenvolvimento 🚧</h2>
@@ -61,7 +71,7 @@
             </div>
             <div id="commentsSection" class="comments-section">
                 <h2>Avaliações Publicadas</h2>
-                </div>
+            </div>
         </section>
     </div>
 
@@ -72,7 +82,7 @@
             <span id="problem-span"></span>
             <br>
             <br>
-            <button class="confirm-alert-btn" id="confirm-alert-btn" onclick="closeAlert()">Ok</button>
+            <button class="confirm-alert-btn" id="confirm-alert-btn">Ok</button>
         </div>
     </div>
 
@@ -84,12 +94,10 @@
             <br>
             <br>
             <div class="btns">
-                <button class="confirm-alert-btn" id="confirm-alert-btn-confirm-sim" onclick="goAheadAlert()">Sim</button>
-                <button class="confirm-alert-btn" id="confirm-alert-btn-confirm-nao" onclick="closeConfirmAlert()">Não</button>
+                <button class="confirm-alert-btn" id="confirm-alert-btn-confirm-sim">Sim</button>
+                <button class="confirm-alert-btn" id="confirm-alert-btn-confirm-nao">Não</button>
             </div>
         </div>
-    </div>
-
     </div>
 
     <footer class="main-footer">
