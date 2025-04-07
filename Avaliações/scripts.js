@@ -72,31 +72,193 @@ document.addEventListener("DOMContentLoaded", function () {
         if (publishBtn) publishBtn.disabled = true;
     }
 
-    // Adiciona evento de tecla para o input de comentário
-    commentInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            if (currentUser) {
-                publishBtn.click();
-            } else {
-                showAlert("Por favor, inicia sessão para deixar uma avaliação");
-            }
+    // Função para mostrar alertas
+    function showAlert(message) {
+        const alertBox = document.getElementById('alert-box');
+        const problemSpan = document.getElementById('problem-span');
+        if (alertBox && problemSpan) {
+            problemSpan.textContent = message;
+            alertBox.style.display = 'block';
+        } else {
+            alert(message);
         }
-    });
-
-    // Adiciona evento global para ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && currentEditMode) {
-            e.preventDefault();
-            cancelEdit(currentEditMode);
-        }
-    });
+    }
 
     // Função para construir URL da API
     function buildApiUrl(endpoint) {
-        // Remove any leading slashes from the endpoint to prevent double slashes
         const cleanEndpoint = endpoint.startsWith('/') ? endpoint.substring(1) : endpoint;
         return `${window.API_CONFIG.baseUrl}/${cleanEndpoint}`;
+    }
+
+    // Função para publicar novo comentário
+    async function publishComment() {
+        if (!currentUser) {
+            showAlert("Por favor, inicia sessão para deixar uma avaliação");
+            return;
+        }
+
+        const commentText = commentInput.value.trim();
+        if (!commentText) {
+            showAlert("O comentário não pode estar vazio");
+            return;
+        }
+
+        try {
+            const url = buildApiUrl(window.API_CONFIG.endpoints.comment);
+            console.log("Publicando comentário em:", url);
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    comentario: commentText,
+                    userId: currentUser._id,
+                    username: currentUser.username
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao publicar comentário');
+            }
+
+            const newComment = await response.json();
+            console.log("Comentário publicado:", newComment);
+
+            // Limpa o input e recarrega os comentários
+            commentInput.value = '';
+            loadComments();
+        } catch (error) {
+            console.error('Erro ao publicar comentário:', error);
+            showAlert('Erro ao publicar o comentário. Por favor, tente novamente.');
+        }
+    }
+
+    // Adiciona evento ao botão de publicar
+    if (publishBtn) {
+        publishBtn.addEventListener('click', publishComment);
+    }
+
+    // Adiciona evento de tecla para o input de comentário
+    if (commentInput) {
+        commentInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                publishComment();
+            }
+        });
+    }
+
+    // Função para mostrar alerta de confirmação
+    function showConfirmAlert(message, onConfirm) {
+        const alertBoxConfirm = document.getElementById('alert-box-confirm');
+        const problemSpanConfirm = document.getElementById('problem-span-confirm');
+        const btnSim = document.getElementById('confirm-alert-btn-confirm-sim');
+        const btnNao = document.getElementById('confirm-alert-btn-confirm-nao');
+
+        if (alertBoxConfirm && problemSpanConfirm && btnSim && btnNao) {
+            problemSpanConfirm.textContent = message;
+            alertBoxConfirm.style.display = 'block';
+
+            btnSim.onclick = () => {
+                onConfirm();
+                alertBoxConfirm.style.display = 'none';
+            };
+
+            btnNao.onclick = () => {
+                alertBoxConfirm.style.display = 'none';
+            };
+        }
+    }
+
+    // Função para remover comentário com confirmação
+    function confirmRemoveComment(commentDiv) {
+        showConfirmAlert(
+            "Tens a certeza que queres remover este comentário?",
+            () => removeComment(commentDiv)
+        );
+    }
+
+    // Função para remover comentário
+    async function removeComment(commentDiv) {
+        const commentId = commentDiv.dataset.id;
+        const userId = commentDiv.dataset.userId;
+
+        // Verifica se o usuário atual é o dono do comentário
+        if (!currentUser || currentUser._id !== userId) {
+            showAlert("Você não tem permissão para remover este comentário");
+            return;
+        }
+
+        try {
+            const url = buildApiUrl(`${window.API_CONFIG.endpoints.comment}/${commentId}`);
+            console.log("Removendo comentário:", url);
+            
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao remover comentário');
+            }
+
+            // Recarrega os comentários após remover
+            loadComments();
+        } catch (error) {
+            console.error('Erro ao remover comentário:', error);
+            showAlert('Erro ao remover o comentário. Por favor, tente novamente.');
+        }
+    }
+
+    // Função para editar comentário
+    async function saveEdit(commentDiv, editTextArea) {
+        const commentId = commentDiv.dataset.id;
+        const userId = commentDiv.dataset.userId;
+        const newText = editTextArea.value.trim();
+
+        // Verifica se o usuário atual é o dono do comentário
+        if (!currentUser || currentUser._id !== userId) {
+            showAlert("Você não tem permissão para editar este comentário");
+            return;
+        }
+
+        if (!newText) {
+            showAlert("O comentário não pode estar vazio");
+            return;
+        }
+
+        try {
+            const url = buildApiUrl(`${window.API_CONFIG.endpoints.comment}/${commentId}`);
+            console.log("Atualizando comentário:", url);
+            
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({ comentario: newText })
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao atualizar comentário');
+            }
+
+            // Recarrega os comentários após editar
+            loadComments();
+        } catch (error) {
+            console.error('Erro ao atualizar comentário:', error);
+            showAlert('Erro ao atualizar o comentário. Por favor, tente novamente.');
+        }
     }
 
     // Carregar avaliações ao iniciar a página
@@ -163,7 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const deleteBtn = document.createElement('button');
             deleteBtn.textContent = 'Remover';
             deleteBtn.classList.add('delete-btn');
-            deleteBtn.onclick = () => removeComment(commentDiv);
+            deleteBtn.onclick = () => confirmRemoveComment(commentDiv);
             commentActions.appendChild(deleteBtn);
         }
 
@@ -186,6 +348,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para ativar/desativar modo de edição
     function toggleEdit(commentDiv, textElement, editBtn) {
+        if (currentEditMode) {
+            // Se já existe um comentário em edição, cancela primeiro
+            cancelEdit(currentEditMode);
+        }
+
         const editTextArea = document.createElement('textarea');
         const maxLength = 200;
         const originalText = textElement.textContent;
@@ -197,210 +364,119 @@ document.addEventListener("DOMContentLoaded", function () {
         charCountDiv.classList.add('char-count');
         charCountDiv.textContent = `${maxLength - editTextArea.value.length} caracteres restantes`;
 
+        // Atualiza o contador de caracteres
+        editTextArea.addEventListener('input', function() {
+            const remaining = maxLength - this.value.length;
+            charCountDiv.textContent = `${remaining} caracteres restantes`;
+        });
+
+        // Substitui o texto pelo textarea
+        textElement.style.display = 'none';
         commentDiv.insertBefore(editTextArea, textElement);
         commentDiv.insertBefore(charCountDiv, editTextArea.nextSibling);
+        editTextArea.focus();
 
-        textElement.style.display = 'none';
-        editTextArea.style.height = `${editTextArea.scrollHeight}px`;
-
+        // Muda o botão de editar para salvar
         editBtn.textContent = 'Salvar';
         editBtn.classList.remove('edit-btn');
         editBtn.classList.add('save-btn');
-        editBtn.onclick = () => saveEdit(commentDiv, editTextArea, textElement, editBtn);
+        editBtn.onclick = () => saveEdit(commentDiv, editTextArea);
 
+        // Desabilita o botão de remover durante a edição
         const deleteBtn = commentDiv.querySelector('.delete-btn');
         if (deleteBtn) {
             deleteBtn.disabled = true;
         }
 
-        // Armazena o estado atual de edição
-        currentEditMode = {
+        // Adiciona botão de cancelar
+        const cancelBtn = document.createElement('button');
+        cancelBtn.textContent = 'Cancelar';
+        cancelBtn.classList.add('cancel-btn');
+        cancelBtn.onclick = () => cancelEdit({
             commentDiv,
-            editTextArea,
             textElement,
             editBtn,
+            editTextArea,
             charCountDiv,
-            deleteBtn,
+            cancelBtn,
             originalText
-        };
+        });
+        commentDiv.querySelector('.comment-actions').appendChild(cancelBtn);
 
-        // Adiciona eventos de teclado
+        // Adiciona handler para teclas
         editTextArea.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
-                saveEdit(commentDiv, editTextArea, textElement, editBtn);
+                saveEdit(commentDiv, editTextArea);
+            } else if (e.key === 'Escape') {
+                cancelEdit({
+                    commentDiv,
+                    textElement,
+                    editBtn,
+                    editTextArea,
+                    charCountDiv,
+                    cancelBtn,
+                    originalText
+                });
             }
         });
 
-        editTextArea.addEventListener('input', () => {
-            const remainingChars = maxLength - editTextArea.value.length;
-            charCountDiv.textContent = `${remainingChars} caracteres restantes`;
-
-            if (remainingChars < 0) {
-                charCountDiv.style.color = 'red';
-            } else {
-                charCountDiv.style.color = '';
-            }
-
-            editTextArea.style.height = 'auto';
-            editTextArea.style.height = `${editTextArea.scrollHeight}px`;
-        });
+        // Guarda o estado de edição atual
+        currentEditMode = {
+            commentDiv,
+            textElement,
+            editBtn,
+            editTextArea,
+            charCountDiv,
+            cancelBtn,
+            originalText
+        };
     }
 
     // Função para cancelar edição
-    function cancelEdit(editState) {
-        if (!editState) return;
+    function cancelEdit(editMode) {
+        const {
+            commentDiv,
+            textElement,
+            editBtn,
+            editTextArea,
+            charCountDiv,
+            cancelBtn,
+            originalText
+        } = editMode;
 
-        const { commentDiv, editTextArea, textElement, editBtn, charCountDiv, deleteBtn, originalText } = editState;
-        
+        // Restaura o texto original
+        textElement.textContent = originalText;
+        textElement.style.display = 'block';
+
+        // Remove elementos de edição
         editTextArea.remove();
         charCountDiv.remove();
-        textElement.style.display = 'block';
-        textElement.textContent = originalText;
+        cancelBtn.remove();
+
+        // Restaura o botão de editar
         editBtn.textContent = 'Editar';
         editBtn.classList.remove('save-btn');
         editBtn.classList.add('edit-btn');
         editBtn.onclick = () => toggleEdit(commentDiv, textElement, editBtn);
-        
+
+        // Reabilita o botão de remover
+        const deleteBtn = commentDiv.querySelector('.delete-btn');
         if (deleteBtn) {
             deleteBtn.disabled = false;
         }
 
-        // Limpa o estado de edição
         currentEditMode = null;
     }
 
-    // Função para salvar edição
-    async function saveEdit(commentDiv, editTextArea, textElement, editBtn) {
-        const newText = editTextArea.value.trim();
-        const commentId = commentDiv.dataset.id;
-
-        if (newText === '') {
-            showAlert("O comentário não pode estar vazio!");
-            return;
-        }
-
-        try {
-            const response = await fetch(buildApiUrl(`${window.API_CONFIG.endpoints.comment}/${commentId}`), {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ comentario: newText })
-            });
-
-            if (!response.ok) throw new Error('Erro ao atualizar avaliação');
-
-            textElement.textContent = newText;
-            editTextArea.remove();
-            textElement.style.display = 'block';
-            editBtn.textContent = 'Editar';
-            editBtn.classList.remove('save-btn');
-            editBtn.classList.add('edit-btn');
-            editBtn.onclick = () => toggleEdit(commentDiv, textElement, editBtn);
-
-            const deleteBtn = commentDiv.querySelector('.delete-btn');
-            if (deleteBtn) {
-                deleteBtn.disabled = false;
+    // Adiciona handler para o botão OK do alerta
+    if (confirmAlertBtn) {
+        confirmAlertBtn.addEventListener('click', function() {
+            const alertBox = document.getElementById('alert-box');
+            if (alertBox) {
+                alertBox.style.display = 'none';
             }
-
-            const charCountDiv = commentDiv.querySelector('.char-count');
-            if (charCountDiv) {
-                charCountDiv.remove();
-            }
-        } catch (error) {
-            console.error('Erro:', error);
-            showAlert('Erro ao atualizar avaliação. Tente novamente.');
-        }
-    }
-
-    // Função para remover comentário
-    function removeComment(commentDiv) {
-        showConfirmAlert('Tens a certeza que queres remover este comentário?', commentDiv);
-    }
-
-    // Função para confirmar remoção
-    async function goAheadAlert(commentDiv) {
-        const commentId = commentDiv.dataset.id;
-
-        try {
-            const response = await fetch(buildApiUrl(`${window.API_CONFIG.endpoints.comment}/${commentId}`), {
-                method: 'DELETE'
-            });
-
-            if (!response.ok) throw new Error('Erro ao remover avaliação');
-
-            commentDiv.remove();
-            closeConfirmAlert();
-        } catch (error) {
-            console.error('Erro:', error);
-            showAlert('Erro ao remover avaliação. Tente novamente.');
-        }
-    }
-
-    // Publicar novo comentário
-    publishBtn.onclick = async () => {
-        if (!currentUser) {
-            showAlert("Por favor, inicia sessão para deixar uma avaliação");
-            return;
-        }
-
-        const commentText = commentInput.value.trim();
-        
-        if (commentText === '') {
-            showAlert("Tens de inserir um comentário para avaliar");
-            return;
-        }
-
-        try {
-            const response = await fetch(buildApiUrl(window.API_CONFIG.endpoints.comment), {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify({ 
-                    comentario: commentText,
-                    username: currentUser.username,
-                    userId: currentUser._id
-                })
-            });
-
-            if (!response.ok) throw new Error('Erro ao publicar avaliação');
-
-            const novoComentario = await response.json();
-            createComment(commentText, novoComentario._id, currentUser.username, currentUser._id);
-            commentInput.value = '';
-        } catch (error) {
-            console.error('Erro:', error);
-            showAlert('Erro ao publicar avaliação. Tente novamente.');
-        }
-    };
-
-    // Funções de alerta
-    function showAlert(message) {
-        document.getElementById("problem-span").textContent = message;
-        document.getElementById("alert-box").style.display = 'flex';
-        
-        // Adiciona evento de clique ao botão OK
-        const confirmBtn = document.getElementById("confirm-alert-btn");
-        confirmBtn.onclick = closeAlert;
-    }
-
-    function closeAlert() {
-        document.getElementById("alert-box").style.display = 'none';
-    }
-
-    function showConfirmAlert(message, commentDiv) {
-        document.getElementById("problem-span-confirm").textContent = message;
-        document.getElementById("alert-box-confirm").style.display = "flex";
-
-        document.getElementById("confirm-alert-btn-confirm-sim").onclick = () => goAheadAlert(commentDiv);
-        document.getElementById("confirm-alert-btn-confirm-nao").onclick = closeConfirmAlert;
-    }
-
-    function closeConfirmAlert() {
-        document.getElementById("alert-box-confirm").style.display = "none";
+        });
     }
 });
 
