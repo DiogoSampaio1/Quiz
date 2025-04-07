@@ -121,8 +121,10 @@
     </footer>
 
     <script>
+        console.log("Página carregando...");
         // Script inline para controlar o carregamento inicial
         window.addEventListener('load', function() {
+            console.log("Página carregada");
             document.body.classList.add('loaded');
             const preloader = document.getElementById('preloader');
             if (preloader) {
@@ -133,8 +135,8 @@
             }
         });
     </script>
-    <script src="auth.js"></script>
-    <script src="config.js"></script>
+    <script src="../auth.js"></script>
+    <script src="../config.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>

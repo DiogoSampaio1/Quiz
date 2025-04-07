@@ -27,10 +27,15 @@ function removePreloader() {
 window.addEventListener('load', removePreloader);
 
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("API_CONFIG:", window.API_CONFIG);
+    console.log("Auth object exists:", !!window.Auth);
+    
+    // Verifica o usuário atual
+    const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
+    console.log("Current user from Auth:", currentUser);
+
     // Adiciona a classe loaded ao container quando a página estiver pronta
     document.querySelector('.container').classList.add('loaded');
-
-    console.log("API_CONFIG:", window.API_CONFIG);
 
     // Variáveis para controle
     const publishBtn = document.getElementById('publishBtn');
@@ -43,12 +48,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Variável para controlar o modo de edição
     let currentEditMode = null;
-    let currentUser = window.Auth.checkAuthState();
 
     // Atualiza a UI baseado no estado de autenticação inicial
     if (currentUser) {
+        console.log("Usuário está logado, habilitando comentários");
         updateUIForLoggedInUser();
     } else {
+        console.log("Usuário não está logado, desabilitando comentários");
         updateUIForLoggedOutUser();
     }
 
