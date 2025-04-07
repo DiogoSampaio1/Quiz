@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("API_CONFIG:", window.API_CONFIG); // Debug log
 
+  // Função para construir URL da API
+  function buildApiUrl(endpoint) {
+    // Remove any leading slashes from the endpoint to prevent double slashes
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint.substring(1) : endpoint;
+    return `${window.API_CONFIG.baseUrl}/${cleanEndpoint}`;
+  }
+
   // Menu Lateral
   const menuButton = document.getElementById("menuButton");
   const sidebar = document.getElementById("sidebar");
@@ -122,12 +129,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const password = document.getElementById("loginSenha").value;
 
       try {
-        const response = await fetch(buildApiUrl(window.API_CONFIG.endpoints.login), {
+        const url = buildApiUrl(window.API_CONFIG.endpoints.login);
+        console.log("Tentando login em:", url);
+        
+        const response = await fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
           },
+          credentials: 'include', // Important for CORS with credentials
           body: JSON.stringify({ username, password })
         });
 
@@ -137,6 +148,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const userData = await response.json();
+        console.log("Login bem sucedido:", userData);
+        
         // Salva os dados completos do usuário
         mostrarUser({
           _id: userData._id,
@@ -160,12 +173,17 @@ document.addEventListener("DOMContentLoaded", function () {
       const password = document.getElementById("registerSenha").value;
 
       try {
-        const response = await fetch(API_CONFIG.endpoints.register, {
+        const url = buildApiUrl(window.API_CONFIG.endpoints.register);
+        console.log("Tentando registro em:", url);
+        
+        const response = await fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Accept": "application/json"
           },
-          body: JSON.stringify({ username, email, password }),
+          credentials: 'include', // Important for CORS with credentials
+          body: JSON.stringify({ username, email, password })
         });
 
         const data = await response.json();
@@ -178,6 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fecharModal("modalCriarConta");
         abrirModal("modalLogin");
       } catch (error) {
+        console.error("Erro no registro:", error);
         alert(error.message);
       }
     });
@@ -282,9 +301,4 @@ function checkPassword() {
 
 function goHome() {
   window.location.href = "../index.html";
-}
-
-// Helper function to build API URLs
-function buildApiUrl(endpoint) {
-  return `${window.API_CONFIG.baseUrl}${endpoint}`;
 }
