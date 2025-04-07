@@ -123,7 +123,7 @@ router.post('/comments', async (req, res) => {
   
   // Verifica se o comentário não está vazio
   if (!comentario || comentario.trim() === "") {
-    return res.status(400).send("Comentário não pode estar vazio.");
+    return res.status(400).json({ message: "Comentário não pode estar vazio." });
   }
 
   try {
@@ -131,17 +131,15 @@ router.post('/comments', async (req, res) => {
     await newComment.save();
     res.status(201).json(newComment);
   } catch (err) {
-    res.status(500).send("Erro ao salvar o comentário.");
+    console.error("Erro ao salvar o comentário:", err);
+    res.status(500).json({ message: "Erro ao salvar o comentário.", error: err.message });
   }
 });
 
 // Rota para Encontrar Comments
 router.get("/comments", async (req, res) => {
   try {
-    const comentarios = await Comment.find(); // Buscar todos os comentários do banco de dados
-    if (comentarios.length === 0) {
-      return res.status(404).json({ message: "Nenhum comentário encontrado" });
-    }
+    const comentarios = await Comment.find().sort({ createdAt: -1 }); // Buscar todos os comentários do banco de dados, ordenados pelo mais recente
     res.json(comentarios); // Retorna os comentários encontrados
   } catch (error) {
     console.error("Erro ao encontrar Comentários:", error);
@@ -155,7 +153,7 @@ router.put('/comments/:id', async (req, res) => {
     const { comentario } = req.body;
 
     if (!comentario || comentario.trim() === "") {
-        return res.status(400).send("Comentário não pode estar vazio.");
+        return res.status(400).json({ message: "Comentário não pode estar vazio." });
     }
 
     try {
@@ -166,12 +164,13 @@ router.put('/comments/:id', async (req, res) => {
         );
 
         if (!updatedComment) {
-            return res.status(404).send("Comentário não encontrado.");
+            return res.status(404).json({ message: "Comentário não encontrado." });
         }
 
         res.json(updatedComment);
     } catch (err) {
-        res.status(500).send("Erro ao atualizar o comentário.");
+        console.error("Erro ao atualizar o comentário:", err);
+        res.status(500).json({ message: "Erro ao atualizar o comentário.", error: err.message });
     }
 });
 
@@ -183,12 +182,13 @@ router.delete('/comments/:id', async (req, res) => {
         const deletedComment = await Comment.findByIdAndDelete(id);
 
         if (!deletedComment) {
-            return res.status(404).send("Comentário não encontrado.");
+            return res.status(404).json({ message: "Comentário não encontrado." });
         }
 
         res.json({ message: "Comentário removido com sucesso." });
     } catch (err) {
-        res.status(500).send("Erro ao remover o comentário.");
+        console.error("Erro ao remover o comentário:", err);
+        res.status(500).json({ message: "Erro ao remover o comentário.", error: err.message });
     }
 });
 

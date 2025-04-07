@@ -242,39 +242,6 @@ function closeConfirmAlert() {
     document.getElementById("alert-box-confirm").style.display = "none";
 }
 
-// Funções de autenticação
-function checkPassword() {
-    const passwordInput = document.getElementById("passwordInput").value;
-    const alertBox = document.getElementById("customAlert");
-
-    fetch(buildApiUrl(window.API_CONFIG.endpoints.validatePassword), {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ password: passwordInput })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.valid) {
-            document.getElementById("devScreen").style.display = "none";
-        } else {
-            alertBox.style.display = "block";
-            setTimeout(() => {
-                alertBox.style.display = "none";
-            }, 2000);
-        }
-    })
-    .catch(error => {
-        console.error("Erro:", error);
-        alertBox.textContent = "Erro ao validar a senha";
-        alertBox.style.display = "block";
-        setTimeout(() => {
-            alertBox.style.display = "none";
-        }, 2000);
-    });
-}
-
 function goHome() {
     window.location.href = "../Index.html";
 }    
