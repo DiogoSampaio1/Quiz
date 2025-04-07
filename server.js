@@ -10,7 +10,6 @@ const routes = require("./routes");
 
 const app = express();
 
-// Configuração do CORS
 app.use(cors({
   origin: ['https://quizgb.netlify.app', 'https://quiz-ivory-chi.vercel.app'],
   credentials: true,
@@ -20,7 +19,6 @@ app.use(cors({
 
 app.use(express.json());
 
-// Middleware para tratamento de erros JSON
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
     return res.status(400).json({ message: 'Invalid JSON' });
@@ -28,7 +26,6 @@ app.use((err, req, res, next) => {
   next();
 });
 
-// Middleware para garantir conexão com o banco antes de acessar rotas da API
 const ensureDbConnection = async (req, res, next) => {
   try {
     if (mongoose.connection.readyState !== 1) {
@@ -41,7 +38,6 @@ const ensureDbConnection = async (req, res, next) => {
   }
 };
 
-// Rota raiz
 app.get('/', (_req, res) => {
   res.json({ 
     message: 'Quiz API is running',
@@ -57,22 +53,18 @@ app.get('/', (_req, res) => {
   });
 });
 
-// Rota de teste para verificar se a API está funcionando
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: 'API is running' });
 });
 
-// Aplica o middleware de conexão com o banco e as rotas
 app.use('/api', ensureDbConnection, routes);
 
-// Redirecionamento de rotas antigas para novas com prefixo /api
 app.all('/login', (req, res) => res.redirect(307, '/api/login'));
 app.all('/register', (req, res) => res.redirect(307, '/api/register'));
 app.all('/quiz', (req, res) => res.redirect(307, '/api/quiz'));
 app.all('/quizzes', (req, res) => res.redirect(307, '/api/quizzes'));
 app.all('/validate-password', (req, res) => res.redirect(307, '/api/validate-password'));
 
-// Rota para capturar erros 404
 app.use('*', (req, res) => {
   const endpoints = {
     login: { path: '/api/login', method: 'POST' },
@@ -83,8 +75,7 @@ app.use('*', (req, res) => {
     password: { path: '/api/validate-password', method: 'POST' }
   };
 
-  // Verifica se a rota existe mas o método está errado
-  const path = req.originalUrl.replace(/\/$/, ''); // Remove trailing slash if present
+  const path = req.originalUrl.replace(/\/$/, ''); 
   const endpoint = Object.values(endpoints).find(e => e.path === path);
   
   if (endpoint) {
@@ -96,7 +87,6 @@ app.use('*', (req, res) => {
     });
   }
 
-  // Se a rota não existe
   res.status(404).json({ 
     message: 'Route not found',
     method: req.method,
@@ -106,10 +96,8 @@ app.use('*', (req, res) => {
   });
 });
 
-// Tenta conectar ao banco de dados no início
 connectToDatabase().catch(console.error);
 
-// Para desenvolvimento local
 if (process.env.NODE_ENV !== 'production') {
   const port = process.env.PORT || 3333;
   app.listen(port, () => {

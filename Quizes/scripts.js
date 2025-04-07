@@ -1,6 +1,4 @@
-// Espera o DOM carregar antes de aplicar o dark mode
 document.addEventListener("DOMContentLoaded", function () {
-    // Aplica o dark mode se estiver ativado
     if (localStorage.getItem("darkMode") === "enabled") {
         document.body.classList.add("dark-mode");
     }

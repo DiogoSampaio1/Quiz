@@ -6,7 +6,6 @@
     <link rel="icon" type="image/png" href="../Imagens/estrela.png">
     <title>Quiz GB - Avaliações</title>
     <style>
-        /* Estilos iniciais para prevenir FOUC */
         body {
             visibility: hidden;
             opacity: 0;
@@ -67,17 +66,6 @@
             </div>
             <h1>Avaliações</h1>
         </header>
-        <!--Dev screen para criar quiz 
-        <div id="devScreen" class="dev-screen">
-            <h2>🚧 Em Desenvolvimento 🚧</h2>
-            <p>Insira a password para aceder:</p>
-            <input type="password" id="passwordInput" placeholder="Insira a password..." />
-            <button onclick="checkPassword()">Entrar</button>
-            <button onclick="goHome()" class="back-button">Voltar</button>
-        </div>
-        <div id="customAlert" class="custom-alert">
-            ❌ Senha incorreta! 🚫
-        </div>-->
 
         <section class="main-content">
             <div class="form-container">
@@ -111,8 +99,7 @@
     </footer>
 
     <script>
-        console.log("Página carregando...");
-        // Script inline para controlar o carregamento inicial
+        console.log("A Página está a carregar...");
         window.addEventListener('load', function() {
             console.log("Página carregada");
             document.body.classList.add('loaded');
@@ -125,7 +112,7 @@
             }
         });
     </script>
-    <!-- Carrega os scripts na ordem correta -->
+    
     <script src="config.js"></script>
     <script src="../auth.js"></script>
     <script src="scripts.js"></script>

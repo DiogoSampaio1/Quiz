@@ -1,20 +1,16 @@
-// Adiciona classe js-loading ao body imediatamente
 document.body.classList.add('js-loading');
 
-// Função para remover o preloader e mostrar o conteúdo
 function removePreloader() {
     const preloader = document.getElementById('preloader');
     const container = document.querySelector('.container');
     
-    // Remove o preloader com fade
     if (preloader) {
         preloader.classList.add('fade-out');
         setTimeout(() => {
             preloader.style.display = 'none';
-        }, 300); // Tempo igual à transição CSS
+        }, 300); 
     }
     
-    // Mostra o conteúdo com fade
     if (container) {
         setTimeout(() => {
             container.classList.add('visible');
@@ -23,21 +19,31 @@ function removePreloader() {
     }
 }
 
-// Espera todos os recursos carregarem
 window.addEventListener('load', removePreloader);
 
 document.addEventListener("DOMContentLoaded", function () {
     console.log("API_CONFIG:", window.API_CONFIG);
     console.log("Auth object exists:", !!window.Auth);
     
-    // Verifica o usuário atual
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+    
+     // 🌓 Modo Escuro - Aplica estado inicial
+     if (themeToggle) {
+        themeToggle.checked = localStorage.getItem("darkMode") === "enabled";
+
+        themeToggle.addEventListener("change", function () {
+            document.body.classList.toggle("dark-mode", themeToggle.checked);
+            localStorage.setItem("darkMode", themeToggle.checked ? "enabled" : "disabled");
+        });
+    }
+
     const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
     console.log("Current user from Auth:", currentUser);
 
-    // Adiciona a classe loaded ao container quando a página estiver pronta
     document.querySelector('.container').classList.add('loaded');
 
-    // Variáveis para controle
     const publishBtn = document.getElementById('publishBtn');
     const commentInput = document.getElementById('commentInput');
     const commentsSection = document.getElementById('commentsSection');
@@ -46,33 +52,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeSidebar = document.getElementById('closeSidebar');
     const confirmAlertBtn = document.getElementById('confirm-alert-btn');
 
-    // Variável para controlar o modo de edição
     let currentEditMode = null;
 
-    // Atualiza a UI baseado no estado de autenticação inicial
     if (currentUser) {
-        console.log("Usuário está logado, habilitando comentários");
+        console.log("Utilizador está logado, habilitando comentários");
         updateUIForLoggedInUser();
     } else {
-        console.log("Usuário não está logado, desabilitando comentários");
+        console.log("Utilizador não está logado, desabilitando comentários");
         updateUIForLoggedOutUser();
     }
 
-    // Atualiza a UI para usuário logado
     function updateUIForLoggedInUser() {
         if (commentInput) commentInput.disabled = false;
         if (commentInput) commentInput.placeholder = "Deixa a tua avaliação (máximo de 200 caracteres)...";
         if (publishBtn) publishBtn.disabled = false;
     }
 
-    // Atualiza a UI para usuário não logado
     function updateUIForLoggedOutUser() {
         if (commentInput) commentInput.disabled = true;
         if (commentInput) commentInput.placeholder = "Por favor, inicia sessão para deixar uma avaliação";
         if (publishBtn) publishBtn.disabled = true;
     }
 
-    // Função para mostrar alertas
     function showAlert(message) {
         const alertBox = document.getElementById('alert-box');
         const problemSpan = document.getElementById('problem-span');
@@ -84,13 +85,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Função para construir URL da API
     function buildApiUrl(endpoint) {
         const cleanEndpoint = endpoint.startsWith('/') ? endpoint.substring(1) : endpoint;
         return `${window.API_CONFIG.baseUrl}/${cleanEndpoint}`;
     }
 
-    // Função para obter headers com autenticação
     function getAuthHeaders() {
         return {
             'Content-Type': 'application/json',
@@ -98,7 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     }
 
-    // Função para publicar novo comentário
     async function publishComment() {
         const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
         if (!currentUser) {
@@ -134,11 +132,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const newComment = await response.json();
             console.log("Comentário publicado:", newComment);
 
-            // Limpa o input e recarrega os comentários
             commentInput.value = '';
             loadComments();
             
-            // Mostra mensagem de sucesso
             showAlert("Comentário publicado com sucesso!");
         } catch (error) {
             console.error('Erro ao publicar comentário:', error);
@@ -146,12 +142,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Adiciona evento ao botão de publicar
     if (publishBtn) {
         publishBtn.addEventListener('click', publishComment);
     }
 
-    // Adiciona evento de tecla para o input de comentário
     if (commentInput) {
         commentInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -161,7 +155,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Função para mostrar alerta de confirmação
     function showConfirmAlert(message, onConfirm) {
         const alertBoxConfirm = document.getElementById('alert-box-confirm');
         const problemSpanConfirm = document.getElementById('problem-span-confirm');
@@ -183,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Função para remover comentário com confirmação
     function confirmRemoveComment(commentDiv) {
         showConfirmAlert(
             "Tens a certeza que queres remover este comentário?",
@@ -191,7 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-    // Função para remover comentário
     async function removeComment(commentDiv) {
         const commentId = commentDiv.dataset.id;
         const username = commentDiv.dataset.username;
@@ -223,7 +214,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Função para salvar edição
     async function saveEdit(commentDiv, editTextArea) {
         const commentId = commentDiv.dataset.id;
         const username = commentDiv.dataset.username;
@@ -265,7 +255,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Função para carregar comentários
     async function loadComments() {
         try {
             const url = buildApiUrl(window.API_CONFIG.endpoints.comment);
@@ -295,10 +284,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Inicia o carregamento dos comentários
     loadComments();
 
-    // Função para criar um novo comentário
     function createComment(commentText, id, username) {
         const commentDiv = document.createElement('div');
         commentDiv.classList.add('comment');
@@ -315,7 +302,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const commentActions = document.createElement('div');
         commentActions.classList.add('comment-actions');
 
-        // Só mostra botões de edição/remoção se for o dono do comentário
         if (currentUser && currentUser.username === username) {
             const editBtn = document.createElement('button');
             editBtn.textContent = 'Editar';
@@ -336,7 +322,6 @@ document.addEventListener("DOMContentLoaded", function () {
         commentsSection.appendChild(commentDiv);
     }
 
-    // Atualizar visibilidade do menu lateral
     function toggleMenu() {
         sidebar.classList.toggle("open");
     }
@@ -347,10 +332,8 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebar.classList.remove("open");
     });
 
-    // Função para ativar/desativar modo de edição
     function toggleEdit(commentDiv, textElement, editBtn) {
         if (currentEditMode) {
-            // Se já existe um comentário em edição, cancela primeiro
             cancelEdit(currentEditMode);
         }
 
@@ -365,31 +348,26 @@ document.addEventListener("DOMContentLoaded", function () {
         charCountDiv.classList.add('char-count');
         charCountDiv.textContent = `${maxLength - editTextArea.value.length} caracteres restantes`;
 
-        // Atualiza o contador de caracteres
         editTextArea.addEventListener('input', function() {
             const remaining = maxLength - this.value.length;
             charCountDiv.textContent = `${remaining} caracteres restantes`;
         });
 
-        // Substitui o texto pelo textarea
         textElement.style.display = 'none';
         commentDiv.insertBefore(editTextArea, textElement);
         commentDiv.insertBefore(charCountDiv, editTextArea.nextSibling);
         editTextArea.focus();
 
-        // Muda o botão de editar para salvar
         editBtn.textContent = 'Salvar';
         editBtn.classList.remove('edit-btn');
         editBtn.classList.add('save-btn');
         editBtn.onclick = () => saveEdit(commentDiv, editTextArea);
 
-        // Desabilita o botão de remover durante a edição
         const deleteBtn = commentDiv.querySelector('.delete-btn');
         if (deleteBtn) {
             deleteBtn.disabled = true;
         }
 
-        // Adiciona botão de cancelar
         const cancelBtn = document.createElement('button');
         cancelBtn.textContent = 'Cancelar';
         cancelBtn.classList.add('cancel-btn');
@@ -404,7 +382,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         commentDiv.querySelector('.comment-actions').appendChild(cancelBtn);
 
-        // Adiciona handler para teclas
         editTextArea.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -422,7 +399,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Guarda o estado de edição atual
         currentEditMode = {
             commentDiv,
             textElement,
@@ -434,7 +410,6 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     }
 
-    // Função para cancelar edição
     function cancelEdit(editMode) {
         const {
             commentDiv,
@@ -446,22 +421,18 @@ document.addEventListener("DOMContentLoaded", function () {
             originalText
         } = editMode;
 
-        // Restaura o texto original
         textElement.textContent = originalText;
         textElement.style.display = 'block';
 
-        // Remove elementos de edição
         editTextArea.remove();
         charCountDiv.remove();
         cancelBtn.remove();
 
-        // Restaura o botão de editar
         editBtn.textContent = 'Editar';
         editBtn.classList.remove('save-btn');
         editBtn.classList.add('edit-btn');
         editBtn.onclick = () => toggleEdit(commentDiv, textElement, editBtn);
 
-        // Reabilita o botão de remover
         const deleteBtn = commentDiv.querySelector('.delete-btn');
         if (deleteBtn) {
             deleteBtn.disabled = false;
@@ -470,7 +441,6 @@ document.addEventListener("DOMContentLoaded", function () {
         currentEditMode = null;
     }
 
-    // Adiciona handler para o botão OK do alerta
     if (confirmAlertBtn) {
         confirmAlertBtn.addEventListener('click', function() {
             const alertBox = document.getElementById('alert-box');

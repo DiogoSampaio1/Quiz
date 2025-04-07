@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("API_CONFIG:", window.API_CONFIG); // Debug log
-  console.log("Auth object exists:", !!window.Auth); // Debug log
+  console.log("API_CONFIG:", window.API_CONFIG);
+  console.log("Auth object exists:", !!window.Auth); 
 
-  // Função para construir URL da API
   function buildApiUrl(endpoint) {
-    // Remove any leading slashes from the endpoint to prevent double slashes
     const cleanEndpoint = endpoint.startsWith('/') ? endpoint.substring(1) : endpoint;
     return `${window.API_CONFIG.baseUrl}/${cleanEndpoint}`;
   }
