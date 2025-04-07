@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("API_CONFIG:", window.API_CONFIG); // Debug log
+  console.log("Auth object exists:", !!window.Auth); // Debug log
 
   // Função para construir URL da API
   function buildApiUrl(endpoint) {
@@ -76,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Salva os dados do usuário no Auth
     if (window.Auth) {
       window.Auth.setAuthState(userData);
+      console.log("Usuário salvo no Auth:", userData); // Debug log
     }
   }
 
@@ -85,17 +87,24 @@ document.addEventListener("DOMContentLoaded", function () {
     // Limpa os dados do usuário no Auth
     if (window.Auth) {
       window.Auth.clearAuthState();
+      console.log("Estado de autenticação limpo"); // Debug log
     }
   }
 
   // Verifica se há usuário salvo no Auth
   if (window.Auth) {
+    console.log("Verificando estado de autenticação..."); // Debug log
     const userData = window.Auth.checkAuthState();
+    console.log("Estado de autenticação:", userData); // Debug log
     if (userData) {
+      console.log("Usuário encontrado, atualizando UI"); // Debug log
       mostrarUser(userData);
     } else {
+      console.log("Nenhum usuário encontrado, escondendo UI"); // Debug log
       esconderUser();
     }
+  } else {
+    console.error("Auth não está disponível!"); // Debug log
   }
 
   if (btnLoginModal) {
