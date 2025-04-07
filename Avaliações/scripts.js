@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Auth object exists:", !!window.Auth);
     
     // Verifica o usuário atual
-    const currentUser = window.Auth ? window.Auth.syncAuthState() : null;
+    const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
     console.log("Current user from Auth:", currentUser);
 
     // Adiciona a classe loaded ao container quando a página estiver pronta

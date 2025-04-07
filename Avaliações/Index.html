@@ -135,8 +135,53 @@
             }
         });
     </script>
-    <script src="auth.js"></script>
-    <script src="config.js"></script>
+
+    <!-- Load scripts in correct order -->
+    <script src="../auth.js"></script>
+    <script>
+        // Verify Auth object is loaded
+        if (typeof window.Auth === 'undefined') {
+            console.error('Auth.js não carregou corretamente');
+        } else {
+            console.log('Auth.js carregado com sucesso');
+            // Initialize Auth object
+            window.Auth = {
+                checkAuthState: function() {
+                    const userStr = localStorage.getItem('currentUser');
+                    if (userStr) {
+                        try {
+                            const user = JSON.parse(userStr);
+                            console.log('Usuário encontrado:', user);
+                            return user;
+                        } catch (e) {
+                            console.error('Erro ao parsear usuário:', e);
+                            localStorage.removeItem('currentUser');
+                            return null;
+                        }
+                    }
+                    return null;
+                },
+                setAuthState: function(user) {
+                    if (user) {
+                        try {
+                            localStorage.setItem('currentUser', JSON.stringify(user));
+                            console.log('Usuário salvo:', user);
+                        } catch (e) {
+                            console.error('Erro ao salvar usuário:', e);
+                        }
+                    } else {
+                        localStorage.removeItem('currentUser');
+                        console.log('Usuário removido do localStorage');
+                    }
+                },
+                clearAuthState: function() {
+                    localStorage.removeItem('currentUser');
+                    console.log('Estado de autenticação limpo');
+                }
+            };
+        }
+    </script>
+    <script src="../config.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
