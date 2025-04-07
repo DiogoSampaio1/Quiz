@@ -49,10 +49,11 @@
         <div id="customAlert" class="custom-alert">
             ❌ Senha incorreta! 🚫
         </div>
+
         <section class="main-content">
             <div class="form-container">
-                <h2>Deixe a tua Avaliação</h2>
-                <textarea id="commentInput" placeholder="Deixa a tua avaliação (máximo de 100 caracteres)..." rows="4" maxlength="100"></textarea>
+                <h2>Deixa a tua Avaliação</h2>
+                <textarea id="commentInput" placeholder="Deixa a tua avaliação (máximo de 200 caracteres)..." rows="4" maxlength="200"></textarea>
                 <button id="publishBtn" class="publish-button">Publicar</button>
             </div>
             <div id="commentsSection" class="comments-section">
@@ -60,6 +61,34 @@
                 </div>
         </section>
     </div>
+
+    <!-- Alert para problemas-->
+    <div class="alert-box" id="alert-box" style="display: none;">
+        <div class="alert-area">
+            <h1>Ocorreu um problema!</h1>
+            <span id="problem-span"></span>
+            <br>
+            <br>
+            <button class="confirm-alert-btn" id="confirm-alert-btn" onclick="closeAlert()">Ok</button>
+        </div>
+    </div>
+
+    <!-- Alert para confirmação-->
+    <div class="alert-box" id="alert-box-confirm" style="display: none;">
+        <div class="alert-area">
+            <h1>Tens a certeza?</h1>
+            <span id="problem-span-confirm"></span>
+            <br>
+            <br>
+            <div class="btns">
+                <button class="confirm-alert-btn" id="confirm-alert-btn-confirm-sim" onclick="goAheadAlert()">Sim</button>
+                <button class="confirm-alert-btn" id="confirm-alert-btn-confirm-nao" onclick="closeConfirmAlert()">Não</button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
     <footer class="main-footer">
         <p>© 2025 Quiz GB. Todos os direitos reservados.</p>
     </footer>

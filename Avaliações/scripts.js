@@ -1,3 +1,46 @@
+// Espera o DOM carregar antes de aplicar o dark mode
+document.addEventListener("DOMContentLoaded", function () {
+    // Aplica o dark mode se estiver ativado
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+
+     // 🌓 Modo Escuro - Aplica estado inicial
+     if (themeToggle) {
+        themeToggle.checked = localStorage.getItem("darkMode") === "enabled";
+
+        themeToggle.addEventListener("change", function () {
+            document.body.classList.toggle("dark-mode", themeToggle.checked);
+            localStorage.setItem("darkMode", themeToggle.checked ? "enabled" : "disabled");
+        });
+    }
+});
+
+//Alerts de Probelmas
+function showAlert(message) {
+    document.getElementById("problem-span").textContent = message;
+    document.getElementById("alert-box").style.display = 'flex';
+}
+
+function closeAlert() {
+    document.getElementById("alert-box").style.display = 'none';
+}
+
+
+//Alters de Confirmações
+function ShowConfirmAlert(message, commentDiv, index) {
+    document.getElementById("problem-span-confirm").textContent = message;
+    document.getElementById("alert-box-confirm").style.display = "flex";
+
+    document.getElementById("confirm-alert-btn-confirm-sim").onclick = () => goAheadAlert(commentDiv, index);
+    document.getElementById("confirm-alert-btn-confirm-nao").onclick = closeConfirmAlert;
+}
+
+
+function closeConfirmAlert() {
+    document.getElementById("alert-box-confirm").style.display = "none";
+}
+
 // Variáveis para controle
 const publishBtn = document.getElementById('publishBtn');
 const commentInput = document.getElementById('commentInput');
@@ -51,78 +94,102 @@ function createComment(commentText, index) {
 
 // Função para ativar/desativar modo de edição
 function toggleEdit(commentDiv, textElement, editBtn, index) {
-    // Cria o campo de texto para edição
     const editTextArea = document.createElement('textarea');
-    editTextArea.value = textElement.textContent; // Coloca o texto atual no textarea
+    const maxLength = 200; 
+    
+    editTextArea.value = textElement.textContent;
+    editTextArea.maxLength = maxLength; 
 
-    // Substitui o parágrafo de texto pelo campo de texto para edição
+    const charCountDiv = document.createElement('div');
+    charCountDiv.classList.add('char-count');
+    charCountDiv.textContent = `${maxLength - editTextArea.value.length} caracteres restantes`;
+
     commentDiv.insertBefore(editTextArea, textElement);
-    textElement.style.display = 'none'; // Esconde o parágrafo
-    // Ajusta a altura do textarea
+    commentDiv.insertBefore(charCountDiv, editTextArea.nextSibling); 
+
+    textElement.style.display = 'none'; 
     editTextArea.style.height = `${editTextArea.scrollHeight}px`;
-    // Altera o texto do botão para 'Salvar' e muda a classe
+
     editBtn.textContent = 'Salvar';
     editBtn.classList.remove('edit-btn');
     editBtn.classList.add('save-btn');
     editBtn.onclick = () => saveEdit(commentDiv, editTextArea, textElement, editBtn, index);
 
-    // Desabilita o botão de remover durante a edição
     const deleteBtn = commentDiv.querySelector('.delete-btn');
     if (deleteBtn) {
         deleteBtn.disabled = true;
     }
+
+    editTextArea.addEventListener('input', () => {
+        const remainingChars = maxLength - editTextArea.value.length;
+        charCountDiv.textContent = `${remainingChars} caracteres restantes`;
+
+        if (remainingChars < 0) {
+            charCountDiv.style.color = 'red';
+        } else {
+            charCountDiv.style.color = ''; 
+        }
+
+        editTextArea.style.height = 'auto';
+        editTextArea.style.height = `${editTextArea.scrollHeight}px`;
+    });
 }
 
-// Função para salvar a edição
+
 function saveEdit(commentDiv, editTextArea, textElement, editBtn, index) {
     const newText = editTextArea.value.trim();
+
     if (newText !== '') {
-        // Atualiza o conteúdo do comentário com o novo texto
         textElement.textContent = newText;
-        // Atualiza o comentário no LocalStorage
         updateCommentInLocalStorage(index, newText);
+        editTextArea.remove();
+        textElement.style.display = 'block';
+        editBtn.textContent = 'Editar';
+        editBtn.classList.remove('save-btn');
+        editBtn.classList.add('edit-btn');
+        editBtn.onclick = () => toggleEdit(commentDiv, textElement, editBtn, index);
+        
+        const deleteBtn = commentDiv.querySelector('.delete-btn');
+        if (deleteBtn) {
+            deleteBtn.disabled = false;
+        }
     } else {
-        // Se o campo de texto estiver vazio, mantém o texto original
-        textElement.textContent = 'Comentário vazio'; // Adiciona texto padrão
-    }
-    // Remove o campo de texto de edição e mostra o parágrafo de volta
-    editTextArea.remove();
-    textElement.style.display = 'block';
-    // Altera o botão de volta para 'Editar' e muda a classe
-    editBtn.textContent = 'Editar';
-    editBtn.classList.remove('save-btn');
-    editBtn.classList.add('edit-btn');
-    editBtn.onclick = () => toggleEdit(commentDiv, textElement, editBtn, index);
+        showAlert("O comentário não pode estar vazio!");
 
-    // Reabilita o botão de remover após a edição
-    const deleteBtn = commentDiv.querySelector('.delete-btn');
-    if (deleteBtn) {
-        deleteBtn.disabled = false;
+        editTextArea.value = textElement.textContent;
+
+        editTextArea.style.display = 'block';
+        textElement.style.display = 'none';
+
+        editBtn.textContent = 'Salvar';
+        editBtn.classList.remove('edit-btn');
+        editBtn.classList.add('save-btn');
+        editBtn.onclick = () => saveEdit(commentDiv, editTextArea, textElement, editBtn, index);
     }
 }
 
-// Função para remover um comentário
+
 function removeComment(commentDiv, index) {
-    if (confirm('Tem certeza que deseja remover este comentário?')) {
-        removeCommentFromLocalStorage(index);
-        commentDiv.remove();
-        // Recarrega os comentários para atualizar os índices no LocalStorage (opcional, dependendo da necessidade)
-        // commentsSection.innerHTML = '';
-        // loadCommentsFromLocalStorage();
-    }
+    ShowConfirmAlert('Tens a certeza que queres remover este comentário?', commentDiv, index);
 }
 
-// Função para publicar o comentário
+
+function goAheadAlert(commentDiv, index) {
+    removeCommentFromLocalStorage(index);
+    commentDiv.remove();
+    closeConfirmAlert();
+}
+
+
+
 publishBtn.onclick = () => {
     const commentText = commentInput.value.trim();
     if (commentText !== '') {
-        // Adiciona o comentário ao LocalStorage
         addCommentToLocalStorage(commentText);
-        // Cria o comentário na interface
         createComment(commentText, getCommentsFromLocalStorage().length - 1);
-        commentInput.value = ''; // Limpa o campo de texto após publicar
+        commentInput.value = '';
     } else {
-        alert('Por favor, escreva um comentário antes de publicar.');
+        showAlert("Tens de inserir um comentário para avaliar");
     }
 };
 
