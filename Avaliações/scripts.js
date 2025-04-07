@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para remover comentário
     function removeComment(commentDiv) {
-        ShowConfirmAlert('Tens a certeza que queres remover este comentário?', commentDiv);
+        showConfirmAlert('Tens a certeza que queres remover este comentário?', commentDiv);
     }
 
     // Função para confirmar remoção
@@ -218,29 +218,29 @@ document.addEventListener("DOMContentLoaded", function () {
             showAlert('Erro ao publicar avaliação. Tente novamente.');
         }
     };
+
+    // Funções de alerta
+    function showAlert(message) {
+        document.getElementById("problem-span").textContent = message;
+        document.getElementById("alert-box").style.display = 'flex';
+    }
+
+    function closeAlert() {
+        document.getElementById("alert-box").style.display = 'none';
+    }
+
+    function showConfirmAlert(message, commentDiv) {
+        document.getElementById("problem-span-confirm").textContent = message;
+        document.getElementById("alert-box-confirm").style.display = "flex";
+
+        document.getElementById("confirm-alert-btn-confirm-sim").onclick = () => goAheadAlert(commentDiv);
+        document.getElementById("confirm-alert-btn-confirm-nao").onclick = closeConfirmAlert;
+    }
+
+    function closeConfirmAlert() {
+        document.getElementById("alert-box-confirm").style.display = "none";
+    }
 });
-
-// Funções de alerta
-function showAlert(message) {
-    document.getElementById("problem-span").textContent = message;
-    document.getElementById("alert-box").style.display = 'flex';
-}
-
-function closeAlert() {
-    document.getElementById("alert-box").style.display = 'none';
-}
-
-function ShowConfirmAlert(message, commentDiv) {
-    document.getElementById("problem-span-confirm").textContent = message;
-    document.getElementById("alert-box-confirm").style.display = "flex";
-
-    document.getElementById("confirm-alert-btn-confirm-sim").onclick = () => goAheadAlert(commentDiv);
-    document.getElementById("confirm-alert-btn-confirm-nao").onclick = closeConfirmAlert;
-}
-
-function closeConfirmAlert() {
-    document.getElementById("alert-box-confirm").style.display = "none";
-}
 
 function goHome() {
     window.location.href = "../Index.html";
