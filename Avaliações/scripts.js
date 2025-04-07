@@ -41,11 +41,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeSidebar = document.getElementById('closeSidebar');
     const confirmAlertBtn = document.getElementById('confirm-alert-btn');
 
+    // Variável para controlar o modo de edição
+    let currentEditMode = null;
+
     // Adiciona evento de tecla para o input de comentário
     commentInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             publishBtn.click();
+        }
+    });
+
+    // Adiciona evento global para ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && currentEditMode) {
+            e.preventDefault();
+            cancelEdit(currentEditMode);
         }
     });
 
@@ -148,28 +159,22 @@ document.addEventListener("DOMContentLoaded", function () {
             deleteBtn.disabled = true;
         }
 
-        // Função para cancelar edição
-        function cancelEdit() {
-            editTextArea.remove();
-            charCountDiv.remove();
-            textElement.style.display = 'block';
-            editBtn.textContent = 'Editar';
-            editBtn.classList.remove('save-btn');
-            editBtn.classList.add('edit-btn');
-            editBtn.onclick = () => toggleEdit(commentDiv, textElement, editBtn);
-            if (deleteBtn) {
-                deleteBtn.disabled = false;
-            }
-        }
+        // Armazena o estado atual de edição
+        currentEditMode = {
+            commentDiv,
+            editTextArea,
+            textElement,
+            editBtn,
+            charCountDiv,
+            deleteBtn,
+            originalText
+        };
 
         // Adiciona eventos de teclado
         editTextArea.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 saveEdit(commentDiv, editTextArea, textElement, editBtn);
-            } else if (e.key === 'Escape') {
-                e.preventDefault();
-                cancelEdit();
             }
         });
 
@@ -186,6 +191,29 @@ document.addEventListener("DOMContentLoaded", function () {
             editTextArea.style.height = 'auto';
             editTextArea.style.height = `${editTextArea.scrollHeight}px`;
         });
+    }
+
+    // Função para cancelar edição
+    function cancelEdit(editState) {
+        if (!editState) return;
+
+        const { commentDiv, editTextArea, textElement, editBtn, charCountDiv, deleteBtn, originalText } = editState;
+        
+        editTextArea.remove();
+        charCountDiv.remove();
+        textElement.style.display = 'block';
+        textElement.textContent = originalText;
+        editBtn.textContent = 'Editar';
+        editBtn.classList.remove('save-btn');
+        editBtn.classList.add('edit-btn');
+        editBtn.onclick = () => toggleEdit(commentDiv, textElement, editBtn);
+        
+        if (deleteBtn) {
+            deleteBtn.disabled = false;
+        }
+
+        // Limpa o estado de edição
+        currentEditMode = null;
     }
 
     // Função para salvar edição
