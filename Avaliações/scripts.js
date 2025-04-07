@@ -92,11 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para obter headers com autenticação
     function getAuthHeaders() {
-        const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
         return {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-User-Name': currentUser ? currentUser.username : ''
+            'Accept': 'application/json'
         };
     }
 
@@ -117,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const url = buildApiUrl(window.API_CONFIG.endpoints.comment);
             console.log("Publicando comentário em:", url);
-            console.log("Headers:", getAuthHeaders());
             
             const response = await fetch(url, {
                 method: 'POST',
@@ -125,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 credentials: 'include',
                 body: JSON.stringify({
                     comentario: commentText,
-                    username: currentUser.username // Incluindo o username no corpo da requisição
+                    username: currentUser.username
                 })
             });
 
@@ -197,9 +194,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Função para remover comentário
     async function removeComment(commentDiv) {
         const commentId = commentDiv.dataset.id;
-        const userId = commentDiv.dataset.userId;
+        const username = commentDiv.dataset.username;
 
-        if (!currentUser || currentUser._id !== userId) {
+        const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
+        if (!currentUser || currentUser.username !== username) {
             showAlert("Você não tem permissão para remover este comentário");
             return;
         }
@@ -225,13 +223,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Função para editar comentário
+    // Função para salvar edição
     async function saveEdit(commentDiv, editTextArea) {
         const commentId = commentDiv.dataset.id;
-        const userId = commentDiv.dataset.userId;
+        const username = commentDiv.dataset.username;
         const newText = editTextArea.value.trim();
 
-        if (!currentUser || currentUser._id !== userId) {
+        const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
+        if (!currentUser || currentUser.username !== username) {
             showAlert("Você não tem permissão para editar este comentário");
             return;
         }
@@ -249,7 +248,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: 'PUT',
                 headers: getAuthHeaders(),
                 credentials: 'include',
-                body: JSON.stringify({ comentario: newText })
+                body: JSON.stringify({ 
+                    comentario: newText,
+                    username: currentUser.username
+                })
             });
 
             if (!response.ok) {
@@ -263,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Carregar avaliações ao iniciar a página
+    // Função para carregar comentários
     async function loadComments() {
         try {
             const url = buildApiUrl(window.API_CONFIG.endpoints.comment);
@@ -271,8 +273,8 @@ document.addEventListener("DOMContentLoaded", function () {
             
             const response = await fetch(url, {
                 method: 'GET',
-                credentials: 'include',
-                headers: getAuthHeaders()
+                headers: getAuthHeaders(),
+                credentials: 'include'
             });
 
             if (!response.ok) {
@@ -284,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 commentsSection.innerHTML = '<h2>Avaliações Publicadas</h2>';
                 
                 comentarios.forEach((comentario) => {
-                    createComment(comentario.comentario, comentario._id, comentario.username, comentario.userId);
+                    createComment(comentario.comentario, comentario._id, comentario.username);
                 });
             }
         } catch (error) {
@@ -297,11 +299,11 @@ document.addEventListener("DOMContentLoaded", function () {
     loadComments();
 
     // Função para criar um novo comentário
-    function createComment(commentText, id, username, userId) {
+    function createComment(commentText, id, username) {
         const commentDiv = document.createElement('div');
         commentDiv.classList.add('comment');
         commentDiv.dataset.id = id;
-        commentDiv.dataset.userId = userId;
+        commentDiv.dataset.username = username;
 
         const commentHeader = document.createElement('div');
         commentHeader.classList.add('comment-header');
@@ -314,7 +316,7 @@ document.addEventListener("DOMContentLoaded", function () {
         commentActions.classList.add('comment-actions');
 
         // Só mostra botões de edição/remoção se for o dono do comentário
-        if (currentUser && currentUser._id === userId) {
+        if (currentUser && currentUser.username === username) {
             const editBtn = document.createElement('button');
             editBtn.textContent = 'Editar';
             editBtn.classList.add('edit-btn');
