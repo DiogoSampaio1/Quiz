@@ -1,9 +1,26 @@
-// Função para remover o preloader
+// Adiciona classe js-loading ao body imediatamente
+document.body.classList.add('js-loading');
+
+// Função para remover o preloader e mostrar o conteúdo
 function removePreloader() {
     const preloader = document.getElementById('preloader');
-    preloader.classList.add('fade-out');
-    document.documentElement.classList.add('ready');
-    document.body.classList.add('ready');
+    const container = document.querySelector('.container');
+    
+    // Remove o preloader com fade
+    if (preloader) {
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+            preloader.style.display = 'none';
+        }, 300); // Tempo igual à transição CSS
+    }
+    
+    // Mostra o conteúdo com fade
+    if (container) {
+        setTimeout(() => {
+            container.classList.add('visible');
+            document.body.classList.remove('js-loading');
+        }, 100);
+    }
 }
 
 // Espera todos os recursos carregarem
