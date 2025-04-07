@@ -136,11 +136,11 @@ router.post('/comments', async (req, res) => {
   }
 });
 
-// Rota para Encontrar Comments
+// Rota para Encontrar Comments (agora filtrando os não apagados)
 router.get("/comments", async (req, res) => {
   try {
-    const comentarios = await Comment.find().sort({ createdAt: -1 }); // Buscar todos os comentários do banco de dados, ordenados pelo mais recente
-    res.json(comentarios); // Retorna os comentários encontrados
+    const comentarios = await Comment.find({ is_deleted: false }).sort({ createdAt: -1 }); // Busca apenas comentários não apagados
+    res.json(comentarios);
   } catch (error) {
     console.error("Erro ao encontrar Comentários:", error);
     res.status(500).json({ message: "Erro ao encontrar Comentários", error: error.message });
@@ -174,14 +174,18 @@ router.put('/comments/:id', async (req, res) => {
     }
 });
 
-// Rota para deletar um comentário
+// Rota para "apagar" um comentário (soft delete)
 router.delete('/comments/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const deletedComment = await Comment.findByIdAndDelete(id);
+        const updatedComment = await Comment.findByIdAndUpdate(
+            id,
+            { is_deleted: true },
+            { new: true }
+        );
 
-        if (!deletedComment) {
+        if (!updatedComment) {
             return res.status(404).json({ message: "Comentário não encontrado." });
         }
 

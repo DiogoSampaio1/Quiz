@@ -7,6 +7,10 @@ const CommentSchema = new mongoose.Schema({
     required: true,
     trim: true,
     maxlength: 200
+  },
+  is_deleted: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true // Adds createdAt and updatedAt fields
