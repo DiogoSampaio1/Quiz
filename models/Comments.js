@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-// Função para obter a data atual em Portugal
+// Função para obter a data atual em Portugal (UTC+1)
 function getPortugalTime() {
     const now = new Date();
-    // Portugal está no UTC+0 (horário de inverno) ou UTC+1 (horário de verão)
-    // Vamos usar o UTC+0 como padrão
-    return new Date(now.getTime() + (0 * 60 * 60 * 1000));
+    // Portugal está em UTC+1 (horário de verão)
+    return new Date(now.getTime() + (1 * 60 * 60 * 1000));
 }
 
 const CommentSchema = new mongoose.Schema({
@@ -19,17 +18,13 @@ const CommentSchema = new mongoose.Schema({
   is_deleted: {
     type: Boolean,
     default: false
-  },
-  created_at: {
-    type: Date,
-    default: getPortugalTime
-  },
-  updated_at: {
-    type: Date,
-    default: getPortugalTime
   }
 }, {
-  timestamps: true // Adds createdAt and updatedAt fields
+  timestamps: { 
+    createdAt: 'created_at', // Renomeia createdAt para created_at
+    updatedAt: 'updated_at', // Renomeia updatedAt para updated_at
+    currentTime: getPortugalTime // Usa nossa função para definir a hora
+  }
 });
 
 // Middleware para atualizar o updated_at antes de salvar
