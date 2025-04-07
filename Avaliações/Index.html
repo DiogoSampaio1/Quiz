@@ -1,83 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../Imagens/estrela.png">
-
     <title>Quiz GB - Avaliações</title>
-
     <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
     <div class="container">
 <header>
-
-<!-- Sidebar Menu -->
-<div id="sidebar" class="sidebar">
-    <div class="sidebar-header">
-      <nav id="closeSidebar"></nav>
-    </div>
-    <ul class="sidebar-menu">
-      <li><a href="../Index.html">Página Inicial</a></li>
-      <li><a href="../Quizes/Quizes.html">Quizes</a></li>
-      <li><a href="../Avaliações/Index.html">Avaliações</a></li>
-    </ul>
-    <div class="icons">
-        <a href="https://forms.gle/omntUsZuXxEiq6yx5" target="_blank" class="botao-form botao-avaliacoes">
-            <img src="../Imagens/Formulário_icon.png" alt="Formulário">
-            <span>Avaliações</span>
-        </a>
-    
-        <a href="https://esgamabarros.pt/gbarros/" target="_blank" class="botao-form botao-gama-barros">
-          <img src="../Imagens/Logo_Escola.png" alt="Formulário">
-          <span>Gama Barros</span>
-      </a>
-      </div>
-    </div>
-  
-  <!-- Botão de abrir menu -->
-  <div id="menuButton" class="menu-button">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-    <h1>Avaliações</h1>
-
-</header>
-
-    <div id="devScreen" class="dev-screen">
-        <h2>🚧 Em Desenvolvimento 🚧</h2>
-        <p>Insira a password para aceder:</p>
-        <input type="password" id="passwordInput" placeholder="Insira a password..." />
-        <button onclick="checkPassword()">Entrar</button>
-        <button onclick="goHome()" class="back-button">Voltar</button>
-    </div>
-
-    <div id="customAlert" class="custom-alert">
-        ❌ Senha incorreta! 🚫
-    </div>    
-
-    <div class="form-container">
-        <textarea id="commentInput" placeholder="Escreva sua avaliação..." rows="4" maxlength="100"></textarea>
-        <button id="publishBtn">Publicar</button>
-    </div>
-
-        <div id="commentsSection" class="comments-section">
-            <!-- Comentários serão inseridos aqui dinamicamente -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+          <nav id="closeSidebar"></nav>
         </div>
-    </div>
+        <ul class="sidebar-menu">
+          <li><a href="../Index.html">Página Inicial</a></li>
+          <li><a href="../Quizes/Quizes.html">Quizes</a></li>
+          <li><a href="../Avaliações/Index.html">Avaliações</a></li>
+        </ul>
+        <div class="icons">
+            <a href="https://forms.gle/omntUsZuXxEiq6yx5" target="_blank" class="botao-form botao-avaliacoes">
+                <img src="../Imagens/Formulário_icon.png" alt="Formulário">
+                <span>Avaliações</span>
+            </a>
 
-    <div class="footer">
-        <footer>
-            <p>© 2025 Quiz GB. Todos os direitos reservados.</p>
-        </footer>
-    </div>
+            <a href="https://esgamabarros.pt/gbarros/" target="_blank" class="botao-form botao-gama-barros">
+              <img src="../Imagens/Logo_Escola.png" alt="Formulário">
+              <span>Gama Barros</span>
+          </a>
+          </div>
+        </div>
 
+      <div id="menuButton" class="menu-button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+        <h1>Avaliações</h1>
+</header>
+        <div id="devScreen" class="dev-screen">
+            <h2>🚧 Em Desenvolvimento 🚧</h2>
+            <p>Insira a password para aceder:</p>
+            <input type="password" id="passwordInput" placeholder="Insira a password..." />
+            <button onclick="checkPassword()">Entrar</button>
+            <button onclick="goHome()" class="back-button">Voltar</button>
+        </div>
+        <div id="customAlert" class="custom-alert">
+            ❌ Senha incorreta! 🚫
+        </div>
+        <section class="main-content">
+            <div class="form-container">
+                <h2>Deixe a tua Avaliação</h2>
+                <textarea id="commentInput" placeholder="Deixa a tua avaliação (máximo de 100 caracteres)..." rows="4" maxlength="100"></textarea>
+                <button id="publishBtn" class="publish-button">Publicar</button>
+            </div>
+            <div id="commentsSection" class="comments-section">
+                <h2>Avaliações Publicadas</h2>
+                </div>
+        </section>
+    </div>
+    <footer class="main-footer">
+        <p>© 2025 Quiz GB. Todos os direitos reservados.</p>
+    </footer>
     <script src="scripts.js"></script>
-
 </body>
 </html>
