@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Auth object exists:", !!window.Auth);
     
     // Verifica o usuário atual
-    const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
+    const currentUser = window.Auth ? window.Auth.syncAuthState() : null;
     console.log("Current user from Auth:", currentUser);
 
     // Adiciona a classe loaded ao container quando a página estiver pronta
@@ -60,16 +60,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Atualiza a UI para usuário logado
     function updateUIForLoggedInUser() {
-        commentInput.disabled = false;
-        commentInput.placeholder = "Deixa a tua avaliação (máximo de 200 caracteres)...";
-        publishBtn.disabled = false;
+        if (commentInput) commentInput.disabled = false;
+        if (commentInput) commentInput.placeholder = "Deixa a tua avaliação (máximo de 200 caracteres)...";
+        if (publishBtn) publishBtn.disabled = false;
     }
 
     // Atualiza a UI para usuário não logado
     function updateUIForLoggedOutUser() {
-        commentInput.disabled = true;
-        commentInput.placeholder = "Por favor, inicia sessão para deixar uma avaliação";
-        publishBtn.disabled = true;
+        if (commentInput) commentInput.disabled = true;
+        if (commentInput) commentInput.placeholder = "Por favor, inicia sessão para deixar uma avaliação";
+        if (publishBtn) publishBtn.disabled = true;
     }
 
     // Adiciona evento de tecla para o input de comentário
@@ -94,40 +94,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para construir URL da API
     function buildApiUrl(endpoint) {
-        return `${window.API_CONFIG.baseUrl}${endpoint}`;
+        // Remove any leading slashes from the endpoint to prevent double slashes
+        const cleanEndpoint = endpoint.startsWith('/') ? endpoint.substring(1) : endpoint;
+        return `${window.API_CONFIG.baseUrl}/${cleanEndpoint}`;
     }
 
     // Carregar avaliações ao iniciar a página
-    loadComments();
-
-    // Alternar visibilidade do menu lateral
-    function toggleMenu() {
-        sidebar.classList.toggle("open");
-    }
-
-    menuButton.addEventListener("click", toggleMenu);
-
-    closeSidebar.addEventListener("click", () => {
-        sidebar.classList.remove("open");
-    });
-
-    // Função para carregar avaliações da API
     async function loadComments() {
         try {
-            const response = await fetch(buildApiUrl(window.API_CONFIG.endpoints.comment));
-            if (!response.ok) throw new Error('Erro ao carregar avaliações');
+            const url = buildApiUrl(window.API_CONFIG.endpoints.comment);
+            console.log("Fetching comments from:", url);
+            
+            const response = await fetch(url, {
+                method: 'GET',
+                credentials: 'include', // Important for CORS with credentials
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             
             const comentarios = await response.json();
-            commentsSection.innerHTML = '<h2>Avaliações Publicadas</h2>';
-            
-            comentarios.forEach((comentario) => {
-                createComment(comentario.comentario, comentario._id, comentario.username, comentario.userId);
-            });
+            if (commentsSection) {
+                commentsSection.innerHTML = '<h2>Avaliações Publicadas</h2>';
+                
+                comentarios.forEach((comentario) => {
+                    createComment(comentario.comentario, comentario._id, comentario.username, comentario.userId);
+                });
+            }
         } catch (error) {
-            console.error('Erro:', error);
-            showAlert('Erro ao carregar avaliações. Tente novamente mais tarde.');
+            console.error('Erro ao carregar comentários:', error);
+            showAlert('Erro ao carregar avaliações. Por favor, tente novamente mais tarde.');
         }
     }
+
+    // Inicia o carregamento dos comentários
+    loadComments();
 
     // Função para criar um novo comentário
     function createComment(commentText, id, username, userId) {
@@ -166,6 +172,17 @@ document.addEventListener("DOMContentLoaded", function () {
         commentDiv.appendChild(commentActions);
         commentsSection.appendChild(commentDiv);
     }
+
+    // Atualizar visibilidade do menu lateral
+    function toggleMenu() {
+        sidebar.classList.toggle("open");
+    }
+
+    menuButton.addEventListener("click", toggleMenu);
+
+    closeSidebar.addEventListener("click", () => {
+        sidebar.classList.remove("open");
+    });
 
     // Função para ativar/desativar modo de edição
     function toggleEdit(commentDiv, textElement, editBtn) {
