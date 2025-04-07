@@ -119,7 +119,7 @@ router.post('/validate-password', (req, res) => {
 
 // Rota para Guardar Comments
 router.post('/comments', async (req, res) => { 
-    const { comentario } = req.body;
+    const { comentario, username } = req.body;
     
     // Verifica se o comentário não está vazio
     if (!comentario || comentario.trim() === "") {
@@ -128,8 +128,8 @@ router.post('/comments', async (req, res) => {
         });
     }
 
-    // Verifica se o usuário está autenticado
-    if (!req.session || !req.session.userId) {
+    // Verifica se o username está presente
+    if (!username) {
         return res.status(401).json({ 
             message: "Usuário não autenticado." 
         });
@@ -137,8 +137,8 @@ router.post('/comments', async (req, res) => {
 
     try {
         const newComment = new Comment({ 
-            comentario, 
-            user: req.session.userId,
+            comentario,
+            username,
             is_deleted: false 
         });
         

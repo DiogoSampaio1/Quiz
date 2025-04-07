@@ -92,16 +92,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função para obter headers com autenticação
     function getAuthHeaders() {
-        const token = window.Auth ? window.Auth.getToken() : null;
+        const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
         return {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': token ? `Bearer ${token}` : ''
+            'X-User-Name': currentUser ? currentUser.username : ''
         };
     }
 
     // Função para publicar novo comentário
     async function publishComment() {
+        const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
         if (!currentUser) {
             showAlert("Por favor, inicia sessão para deixar uma avaliação");
             return;
@@ -123,7 +124,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 headers: getAuthHeaders(),
                 credentials: 'include',
                 body: JSON.stringify({
-                    comentario: commentText
+                    comentario: commentText,
+                    username: currentUser.username // Incluindo o username no corpo da requisição
                 })
             });
 
