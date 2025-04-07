@@ -12,7 +12,7 @@ const app = express();
 
 // Configuração do CORS
 app.use(cors({
-  origin: 'https://quizgb.netlify.app',
+  origin: ['https://quizgb.netlify.app', 'https://quiz-ivory-chi.vercel.app'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']

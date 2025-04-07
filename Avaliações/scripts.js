@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById('sidebar');
     const closeSidebar = document.getElementById('closeSidebar');
 
+    // Função para construir URL da API
+    function buildApiUrl(endpoint) {
+        return `${window.API_CONFIG.baseUrl}${endpoint}`;
+    }
+
     // Carregar avaliações ao iniciar a página
     loadComments();
 
@@ -26,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Função para carregar avaliações da API
     async function loadComments() {
         try {
-            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.comment}`);
+            const response = await fetch(buildApiUrl(window.API_CONFIG.endpoints.comment));
             if (!response.ok) throw new Error('Erro ao carregar avaliações');
             
             const comentarios = await response.json();
@@ -128,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.comment}/${commentId}`, {
+            const response = await fetch(buildApiUrl(`${window.API_CONFIG.endpoints.comment}/${commentId}`), {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -171,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const commentId = commentDiv.dataset.id;
 
         try {
-            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.comment}/${commentId}`, {
+            const response = await fetch(buildApiUrl(`${window.API_CONFIG.endpoints.comment}/${commentId}`), {
                 method: 'DELETE'
             });
 
@@ -195,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.comment}`, {
+            const response = await fetch(buildApiUrl(window.API_CONFIG.endpoints.comment), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -242,7 +247,7 @@ function checkPassword() {
     const passwordInput = document.getElementById("passwordInput").value;
     const alertBox = document.getElementById("customAlert");
 
-    fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.validatePassword}`, {
+    fetch(buildApiUrl(window.API_CONFIG.endpoints.validatePassword), {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
