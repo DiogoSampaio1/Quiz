@@ -28,22 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (localStorage.getItem("darkMode") === "enabled") {
         document.body.classList.add("dark-mode");
     }
-    
-     // 🌓 Modo Escuro - Aplica estado inicial
-     if (themeToggle) {
-        themeToggle.checked = localStorage.getItem("darkMode") === "enabled";
-
-        themeToggle.addEventListener("change", function () {
-            document.body.classList.toggle("dark-mode", themeToggle.checked);
-            localStorage.setItem("darkMode", themeToggle.checked ? "enabled" : "disabled");
-        });
-    }
 
     const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
     console.log("Current user from Auth:", currentUser);
 
     document.querySelector('.container').classList.add('loaded');
 
+    const themeToggle = document.getElementById("theme-toggle");
     const publishBtn = document.getElementById('publishBtn');
     const commentInput = document.getElementById('commentInput');
     const commentsSection = document.getElementById('commentsSection');
@@ -53,6 +44,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmAlertBtn = document.getElementById('confirm-alert-btn');
 
     let currentEditMode = null;
+
+     // 🌓 Modo Escuro - Aplica estado inicial
+     if (themeToggle) {
+        themeToggle.checked = localStorage.getItem("darkMode") === "enabled";
+
+        themeToggle.addEventListener("change", function () {
+            document.body.classList.toggle("dark-mode", themeToggle.checked);
+            localStorage.setItem("darkMode", themeToggle.checked ? "enabled" : "disabled");
+        });
+    }
 
     if (currentUser) {
         console.log("Utilizador está logado, habilitando comentários");
