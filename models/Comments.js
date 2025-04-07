@@ -15,6 +15,15 @@ const CommentSchema = new mongoose.Schema({
     trim: true,
     maxlength: 200
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  username: {
+    type: String,
+    required: true
+  },
   is_deleted: {
     type: Boolean,
     default: false

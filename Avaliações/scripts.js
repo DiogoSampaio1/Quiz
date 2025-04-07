@@ -43,12 +43,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Variável para controlar o modo de edição
     let currentEditMode = null;
+    let currentUser = null;
+
+    // Verifica se o usuário está logado
+    async function checkAuth() {
+        try {
+            const response = await fetch(buildApiUrl(window.API_CONFIG.endpoints.login), {
+                credentials: 'include'
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                currentUser = data.user;
+                updateUIForLoggedInUser();
+            } else {
+                updateUIForLoggedOutUser();
+            }
+        } catch (error) {
+            console.error('Erro ao verificar autenticação:', error);
+            updateUIForLoggedOutUser();
+        }
+    }
+
+    // Atualiza a UI para usuário logado
+    function updateUIForLoggedInUser() {
+        commentInput.disabled = false;
+        commentInput.placeholder = "Deixa a tua avaliação (máximo de 200 caracteres)...";
+        publishBtn.disabled = false;
+    }
+
+    // Atualiza a UI para usuário não logado
+    function updateUIForLoggedOutUser() {
+        commentInput.disabled = true;
+        commentInput.placeholder = "Por favor, inicia sessão para deixar uma avaliação";
+        publishBtn.disabled = true;
+    }
 
     // Adiciona evento de tecla para o input de comentário
     commentInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            publishBtn.click();
+            if (currentUser) {
+                publishBtn.click();
+            }
         }
     });
 
@@ -66,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Carregar avaliações ao iniciar a página
+    checkAuth();
     loadComments();
 
     // Alternar visibilidade do menu lateral
@@ -89,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
             commentsSection.innerHTML = '<h2>Avaliações Publicadas</h2>';
             
             comentarios.forEach((comentario) => {
-                createComment(comentario.comentario, comentario._id);
+                createComment(comentario.comentario, comentario._id, comentario.username, comentario.userId);
             });
         } catch (error) {
             console.error('Erro:', error);
@@ -98,10 +136,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Função para criar um novo comentário
-    function createComment(commentText, id) {
+    function createComment(commentText, id, username, userId) {
         const commentDiv = document.createElement('div');
         commentDiv.classList.add('comment');
         commentDiv.dataset.id = id;
+        commentDiv.dataset.userId = userId;
+
+        const commentHeader = document.createElement('div');
+        commentHeader.classList.add('comment-header');
+        commentHeader.textContent = username;
 
         const commentTextP = document.createElement('p');
         commentTextP.textContent = commentText;
@@ -109,22 +152,26 @@ document.addEventListener("DOMContentLoaded", function () {
         const commentActions = document.createElement('div');
         commentActions.classList.add('comment-actions');
 
-        const editBtn = document.createElement('button');
-        editBtn.textContent = 'Editar';
-        editBtn.classList.add('edit-btn');
-        editBtn.onclick = () => {
-            toggleEdit(commentDiv, commentTextP, editBtn);
-        };
-        commentActions.appendChild(editBtn);
+        // Só mostra botões de edição/remoção se for o dono do comentário
+        if (currentUser && currentUser._id === userId) {
+            const editBtn = document.createElement('button');
+            editBtn.textContent = 'Editar';
+            editBtn.classList.add('edit-btn');
+            editBtn.onclick = () => {
+                toggleEdit(commentDiv, commentTextP, editBtn);
+            };
+            commentActions.appendChild(editBtn);
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Remover';
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.onclick = () => {
-            removeComment(commentDiv);
-        };
-        commentActions.appendChild(deleteBtn);
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Remover';
+            deleteBtn.classList.add('delete-btn');
+            deleteBtn.onclick = () => {
+                removeComment(commentDiv);
+            };
+            commentActions.appendChild(deleteBtn);
+        }
 
+        commentDiv.appendChild(commentHeader);
         commentDiv.appendChild(commentTextP);
         commentDiv.appendChild(commentActions);
         commentsSection.appendChild(commentDiv);
@@ -286,6 +333,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Publicar novo comentário
     publishBtn.onclick = async () => {
+        if (!currentUser) {
+            showAlert("Por favor, inicia sessão para deixar uma avaliação");
+            return;
+        }
+
         const commentText = commentInput.value.trim();
         
         if (commentText === '') {
@@ -299,13 +351,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ comentario: commentText })
+                credentials: 'include',
+                body: JSON.stringify({ 
+                    comentario: commentText,
+                    username: currentUser.username
+                })
             });
 
             if (!response.ok) throw new Error('Erro ao publicar avaliação');
 
             const novoComentario = await response.json();
-            createComment(commentText, novoComentario._id);
+            createComment(commentText, novoComentario._id, currentUser.username, currentUser._id);
             commentInput.value = '';
         } catch (error) {
             console.error('Erro:', error);

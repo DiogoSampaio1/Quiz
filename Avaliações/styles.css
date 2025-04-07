@@ -134,15 +134,22 @@ textarea {
     position: relative;
 }
 
-.comment-box {
-    max-height: 100px; 
-    overflow-y: auto; 
+.comment-header {
+    font-weight: bold;
+    color: #3498db;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
 }
 
 .comment p {
     font-size: 1rem;
     margin-bottom: 10px;
     color: #555;
+}
+
+.comment-box {
+    max-height: 100px; 
+    overflow-y: auto; 
 }
 
 .comment .comment-actions {
