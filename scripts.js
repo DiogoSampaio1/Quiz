@@ -62,22 +62,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function mostrarUser(username) {
+  function mostrarUser(userData) {
     if (btnLoginModal) btnLoginModal.style.display = "none";
     if (userInfo) userInfo.style.display = "flex";
-    if (usernameDisplay) usernameDisplay.textContent = `Olá, ${username}!`;
+    if (usernameDisplay) usernameDisplay.textContent = `Olá, ${userData.username}!`;
+    // Salva os dados do usuário no Auth
+    if (window.Auth) {
+      window.Auth.setAuthState(userData);
+    }
   }
 
   function esconderUser() {
     if (btnLoginModal) btnLoginModal.style.display = "block";
     if (userInfo) userInfo.style.display = "none";
+    // Limpa os dados do usuário no Auth
+    if (window.Auth) {
+      window.Auth.clearAuthState();
+    }
   }
 
-  const loggedUser = localStorage.getItem("username");
-  if (loggedUser) {
-    mostrarUser(loggedUser);
-  } else {
-    esconderUser();
+  // Verifica se há usuário salvo no Auth
+  if (window.Auth) {
+    const userData = window.Auth.checkAuthState();
+    if (userData) {
+      mostrarUser(userData);
+    } else {
+      esconderUser();
+    }
   }
 
   if (btnLoginModal) {
@@ -110,11 +121,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const username = document.getElementById("loginUsername").value;
       const password = document.getElementById("loginSenha").value;
 
-      const loginUrl = 'https://quiz-ivory-chi.vercel.app/api/login';
-      console.log("Tentando fazer login em:", loginUrl);
-
       try {
-        const response = await fetch(loginUrl, {
+        const response = await fetch(buildApiUrl(window.API_CONFIG.endpoints.login), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -128,9 +136,13 @@ document.addEventListener("DOMContentLoaded", function () {
           throw new Error(errorData.message || "Falha no login");
         }
 
-        const data = await response.json();
-        localStorage.setItem("username", data.username);
-        mostrarUser(data.username);
+        const userData = await response.json();
+        // Salva os dados completos do usuário
+        mostrarUser({
+          _id: userData._id,
+          username: userData.username,
+          email: userData.email
+        });
         fecharModal("modalLogin");
       } catch (error) {
         console.error("Erro no login:", error);
@@ -173,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
-      localStorage.removeItem("username");
       esconderUser();
     });
   }
@@ -271,4 +282,9 @@ function checkPassword() {
 
 function goHome() {
   window.location.href = "../index.html";
+}
+
+// Helper function to build API URLs
+function buildApiUrl(endpoint) {
+  return `${window.API_CONFIG.baseUrl}${endpoint}`;
 }
