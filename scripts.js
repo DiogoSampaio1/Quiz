@@ -275,39 +275,55 @@ if (botaoCriarQuiz) {
     });
 };
 
-function checkPassword() {
-  const passwordInput = document.getElementById("passwordInput").value;
-  const alertBox = document.getElementById("customAlert");
+// Função para verificar a senha
+async function checkPassword() {
+    const passwordInput = document.getElementById('passwordInput');
+    const password = passwordInput.value;
 
-  fetch(API_CONFIG.endpoints.validatePassword, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ password: passwordInput }),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.valid) {
-        window.location.href = "../Criação de Quizzes/index.html";
-      } else {
-        alertBox.textContent = "Senha incorreta!";
-        alertBox.style.display = "block";
-        setTimeout(() => {
-          alertBox.style.display = "none";
-        }, 3000);
-      }
-    })
-    .catch(error => {
-      console.error("Erro:", error);
-      alertBox.textContent = "Erro ao validar a senha";
-      alertBox.style.display = "block";
-      setTimeout(() => {
-        alertBox.style.display = "none";
-      }, 3000);
-    }); 
+    try {
+        const url = 'https://quiz-ivory-chi.vercel.app/api/validate-password';
+        console.log("Validando senha em:", url);
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ password })
+        });
+
+        if (!response.ok) {
+            throw new Error('Senha incorreta');
+        }
+
+        const data = await response.json();
+        
+        if (data.valid) {
+            // Redireciona para a página de criação de quiz
+            window.location.href = "Quizes/CriarQuiz.html";
+        } else {
+            showAlert("Senha incorreta!");
+        }
+    } catch (error) {
+        console.error('Erro ao validar senha:', error);
+        showAlert("Senha incorreta!");
+    }
 }
 
+// Função para mostrar alerta
+function showAlert(message) {
+    const customAlert = document.getElementById('customAlert');
+    if (customAlert) {
+        customAlert.textContent = message;
+        customAlert.style.display = 'block';
+        setTimeout(() => {
+            customAlert.style.display = 'none';
+        }, 3000);
+    }
+}
+
+// Função para voltar à página inicial
 function goHome() {
-  window.location.href = "../index.html";
+    window.location.href = "Index.html";
 }
