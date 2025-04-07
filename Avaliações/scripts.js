@@ -39,6 +39,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuButton = document.getElementById('menuButton');
     const sidebar = document.getElementById('sidebar');
     const closeSidebar = document.getElementById('closeSidebar');
+    const confirmAlertBtn = document.getElementById('confirm-alert-btn');
+
+    // Adiciona evento de tecla para o input de comentário
+    commentInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            publishBtn.click();
+        }
+    });
 
     // Função para construir URL da API
     function buildApiUrl(endpoint) {
@@ -114,8 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function toggleEdit(commentDiv, textElement, editBtn) {
         const editTextArea = document.createElement('textarea');
         const maxLength = 200;
+        const originalText = textElement.textContent;
         
-        editTextArea.value = textElement.textContent;
+        editTextArea.value = originalText;
         editTextArea.maxLength = maxLength;
 
         const charCountDiv = document.createElement('div');
@@ -137,6 +147,31 @@ document.addEventListener("DOMContentLoaded", function () {
         if (deleteBtn) {
             deleteBtn.disabled = true;
         }
+
+        // Função para cancelar edição
+        function cancelEdit() {
+            editTextArea.remove();
+            charCountDiv.remove();
+            textElement.style.display = 'block';
+            editBtn.textContent = 'Editar';
+            editBtn.classList.remove('save-btn');
+            editBtn.classList.add('edit-btn');
+            editBtn.onclick = () => toggleEdit(commentDiv, textElement, editBtn);
+            if (deleteBtn) {
+                deleteBtn.disabled = false;
+            }
+        }
+
+        // Adiciona eventos de teclado
+        editTextArea.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                saveEdit(commentDiv, editTextArea, textElement, editBtn);
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                cancelEdit();
+            }
+        });
 
         editTextArea.addEventListener('input', () => {
             const remainingChars = maxLength - editTextArea.value.length;
@@ -254,6 +289,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function showAlert(message) {
         document.getElementById("problem-span").textContent = message;
         document.getElementById("alert-box").style.display = 'flex';
+        
+        // Adiciona evento de clique ao botão OK
+        const confirmBtn = document.getElementById("confirm-alert-btn");
+        confirmBtn.onclick = closeAlert;
     }
 
     function closeAlert() {
