@@ -90,6 +90,16 @@ document.addEventListener("DOMContentLoaded", function () {
         return `${window.API_CONFIG.baseUrl}/${cleanEndpoint}`;
     }
 
+    // Função para obter headers com autenticação
+    function getAuthHeaders() {
+        const token = window.Auth ? window.Auth.getToken() : null;
+        return {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': token ? `Bearer ${token}` : ''
+        };
+    }
+
     // Função para publicar novo comentário
     async function publishComment() {
         if (!currentUser) {
@@ -106,13 +116,11 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const url = buildApiUrl(window.API_CONFIG.endpoints.comment);
             console.log("Publicando comentário em:", url);
+            console.log("Headers:", getAuthHeaders());
             
             const response = await fetch(url, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+                headers: getAuthHeaders(),
                 credentials: 'include',
                 body: JSON.stringify({
                     comentario: commentText
@@ -189,7 +197,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const commentId = commentDiv.dataset.id;
         const userId = commentDiv.dataset.userId;
 
-        // Verifica se o usuário atual é o dono do comentário
         if (!currentUser || currentUser._id !== userId) {
             showAlert("Você não tem permissão para remover este comentário");
             return;
@@ -201,10 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             const response = await fetch(url, {
                 method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
+                headers: getAuthHeaders(),
                 credentials: 'include'
             });
 
@@ -212,7 +216,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error('Erro ao remover comentário');
             }
 
-            // Recarrega os comentários após remover
             loadComments();
         } catch (error) {
             console.error('Erro ao remover comentário:', error);
@@ -226,7 +229,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const userId = commentDiv.dataset.userId;
         const newText = editTextArea.value.trim();
 
-        // Verifica se o usuário atual é o dono do comentário
         if (!currentUser || currentUser._id !== userId) {
             showAlert("Você não tem permissão para editar este comentário");
             return;
@@ -243,10 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             const response = await fetch(url, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+                headers: getAuthHeaders(),
                 credentials: 'include',
                 body: JSON.stringify({ comentario: newText })
             });
@@ -255,7 +254,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error('Erro ao atualizar comentário');
             }
 
-            // Recarrega os comentários após editar
             loadComments();
         } catch (error) {
             console.error('Erro ao atualizar comentário:', error);
@@ -271,11 +269,8 @@ document.addEventListener("DOMContentLoaded", function () {
             
             const response = await fetch(url, {
                 method: 'GET',
-                credentials: 'include', // Important for CORS with credentials
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
+                credentials: 'include',
+                headers: getAuthHeaders()
             });
 
             if (!response.ok) {
