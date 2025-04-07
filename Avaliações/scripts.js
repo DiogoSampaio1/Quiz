@@ -106,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const url = buildApiUrl(window.API_CONFIG.endpoints.comment);
             console.log("Publicando comentário em:", url);
-            console.log("Dados do usuário:", currentUser);
             
             const response = await fetch(url, {
                 method: 'POST',
@@ -116,9 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    comentario: commentText,
-                    user: currentUser._id || currentUser.id, // Tenta ambos os campos possíveis
-                    username: currentUser.username
+                    comentario: commentText
                 })
             });
 

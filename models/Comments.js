@@ -20,19 +20,15 @@ const CommentSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  username: {
-    type: String,
-    required: true
-  },
   is_deleted: {
     type: Boolean,
     default: false
   }
 }, {
   timestamps: { 
-    createdAt: 'created_at', // Renomeia createdAt para created_at
-    updatedAt: 'updated_at', // Renomeia updatedAt para updated_at
-    currentTime: getPortugalTime // Usa nossa função para definir a hora
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+    currentTime: getPortugalTime
   }
 });
 

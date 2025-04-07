@@ -119,27 +119,26 @@ router.post('/validate-password', (req, res) => {
 
 // Rota para Guardar Comments
 router.post('/comments', async (req, res) => { 
-    const { comentario, user, username } = req.body;
+    const { comentario } = req.body;
     
-    // Verifica se todos os campos necessários estão presentes
-    if (!comentario || !user || !username) {
+    // Verifica se o comentário não está vazio
+    if (!comentario || comentario.trim() === "") {
         return res.status(400).json({ 
-            message: "Todos os campos são obrigatórios (comentario, user, username)." 
+            message: "O comentário não pode estar vazio." 
         });
     }
 
-    // Verifica se o comentário não está vazio
-    if (comentario.trim() === "") {
-        return res.status(400).json({ 
-            message: "O comentário não pode estar vazio." 
+    // Verifica se o usuário está autenticado
+    if (!req.session || !req.session.userId) {
+        return res.status(401).json({ 
+            message: "Usuário não autenticado." 
         });
     }
 
     try {
         const newComment = new Comment({ 
             comentario, 
-            user, 
-            username,
+            user: req.session.userId,
             is_deleted: false 
         });
         
