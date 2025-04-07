@@ -1,3 +1,14 @@
+// Função para remover o preloader
+function removePreloader() {
+    const preloader = document.getElementById('preloader');
+    preloader.classList.add('fade-out');
+    document.documentElement.classList.add('ready');
+    document.body.classList.add('ready');
+}
+
+// Espera todos os recursos carregarem
+window.addEventListener('load', removePreloader);
+
 document.addEventListener("DOMContentLoaded", function () {
     // Adiciona a classe loaded ao container quando a página estiver pronta
     document.querySelector('.container').classList.add('loaded');
