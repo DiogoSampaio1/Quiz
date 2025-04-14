@@ -80,6 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
         initializeQuiz();
     });
 
+    document.getElementById('confirmBtn').addEventListener('click', () => {
+        document.getElementById('back-home-btn').style.display = 'flex';
+    })
+    
     const questions = Array.from(document.querySelectorAll(".question"));
     const resultsDiv = document.getElementById("results");
     const scoreDisplay = document.getElementById("score");
@@ -130,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
         resultsDiv.scrollIntoView({ behavior: "smooth" });
         scoreDisplay.textContent = `Você acertou ${score} de ${questions.length} perguntas!`;
 
+        document.getElementById("back-home-btn").style.display = "none";
         document.getElementById("returnButton").classList.remove("hidden");
     }
 
