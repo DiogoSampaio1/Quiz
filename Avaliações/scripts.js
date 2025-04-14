@@ -22,8 +22,6 @@ function removePreloader() {
 window.addEventListener('load', removePreloader);
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("API_CONFIG:", window.API_CONFIG);
-    console.log("Auth object exists:", !!window.Auth);
     
     if (localStorage.getItem("darkMode") === "enabled") {
         document.body.classList.add("dark-mode");
@@ -113,7 +111,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             const url = buildApiUrl(window.API_CONFIG.endpoints.comment);
-            console.log("Publicando comentário em:", url);
             
             const response = await fetch(url, {
                 method: 'POST',
@@ -131,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const newComment = await response.json();
-            console.log("Comentário publicado:", newComment);
 
             commentInput.value = '';
             loadComments();
@@ -196,7 +192,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             const url = buildApiUrl(`${window.API_CONFIG.endpoints.comment}/${commentId}`);
-            console.log("Removendo comentário:", url);
             
             const response = await fetch(url, {
                 method: 'DELETE',
@@ -233,7 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             const url = buildApiUrl(`${window.API_CONFIG.endpoints.comment}/${commentId}`);
-            console.log("Atualizando comentário:", url);
             
             const response = await fetch(url, {
                 method: 'PUT',
@@ -259,7 +253,6 @@ document.addEventListener("DOMContentLoaded", function () {
     async function loadComments() {
         try {
             const url = buildApiUrl(window.API_CONFIG.endpoints.comment);
-            console.log("Fetching comments from:", url);
             
             const response = await fetch(url, {
                 method: 'GET',
