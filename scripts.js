@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Salva os dados do usuário no Auth
     if (window.Auth) {
       window.Auth.setAuthState(userData);
-      console.log("Usuário salvo no Auth:", userData); // Debug log
+      console.log("Utilizador salvo no Auth:", userData); // Debug log
     }
   }
 
@@ -90,12 +90,11 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.Auth) {
     console.log("Verificando estado de autenticação..."); // Debug log
     const userData = window.Auth.checkAuthState();
-    console.log("Estado de autenticação:", userData); // Debug log
     if (userData) {
       console.log("Utilizador encontrado"); // Debug log
       mostrarUser(userData);
     } else {
-      console.log("Nenhum usuário encontrado"); // Debug log
+      console.log("Nenhum utilizador encontrado"); // Debug log
       esconderUser();
     }
   } else {
