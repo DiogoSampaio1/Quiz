@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("API_CONFIG:", window.API_CONFIG);
-  console.log("Auth object exists:", !!window.Auth); 
 
   function buildApiUrl(endpoint) {
     const cleanEndpoint = endpoint.startsWith('/') ? endpoint.substring(1) : endpoint;
@@ -85,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Limpa os dados do usuário no Auth
     if (window.Auth) {
       window.Auth.clearAuthState();
-      console.log("Estado de autenticação limpo"); // Debug log
     }
   }
 
@@ -95,10 +92,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const userData = window.Auth.checkAuthState();
     console.log("Estado de autenticação:", userData); // Debug log
     if (userData) {
-      console.log("Usuário encontrado, atualizando UI"); // Debug log
+      console.log("Utilizador encontrado"); // Debug log
       mostrarUser(userData);
     } else {
-      console.log("Nenhum usuário encontrado, escondendo UI"); // Debug log
+      console.log("Nenhum usuário encontrado"); // Debug log
       esconderUser();
     }
   } else {
@@ -181,7 +178,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       try {
         const url = buildApiUrl(window.API_CONFIG.endpoints.register);
-        console.log("Tentando registro em:", url);
         
         const response = await fetch(url, {
           method: "POST",
@@ -280,7 +276,7 @@ async function checkPassword() {
 
     try {
         const url = 'https://quiz-ivory-chi.vercel.app/api/validate-password';
-        console.log("Validando senha em:", url);
+        console.log("Verificando password em:", url);
 
         const response = await fetch(url, {
             method: 'POST',
