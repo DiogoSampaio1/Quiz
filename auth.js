@@ -18,7 +18,6 @@ function setAuthState(user) {
     if (user) {
         try {
             localStorage.setItem('currentUser', JSON.stringify(user));
-            console.log('Utilizador salvo:', user); 
         } catch (e) {
             console.error('Erro ao salvar Utilizador:', e);
         }
