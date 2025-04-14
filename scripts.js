@@ -73,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Salva os dados do usuário no Auth
     if (window.Auth) {
       window.Auth.setAuthState(userData);
-      console.log("Utilizador salvo no Auth:", userData); // Debug log
     }
   }
 
@@ -133,7 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       try {
         const url = buildApiUrl(window.API_CONFIG.endpoints.login);
-        console.log("Tentando login em:", url);
         
         const response = await fetch(url, {
           method: "POST",
