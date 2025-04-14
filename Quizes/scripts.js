@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.classList.add("dark-mode");
     }
 
-    console.log("API_CONFIG:", window.API_CONFIG); // Debug log
-
     const themeToggle = document.getElementById("theme-toggle");
     const menuButton = document.getElementById("menuButton");
     const sidebar = document.getElementById("sidebar");

@@ -444,7 +444,6 @@
             // Carregar quizzes criados pelos usuários
             async function loadUserQuizzes() {
                 try {
-                    console.log("Tentando carregar quizzes de:", window.API_CONFIG.endpoints.quizzes);
                     const response = await fetch(window.API_CONFIG.endpoints.quizzes);
                     
                     if (!response.ok) {
