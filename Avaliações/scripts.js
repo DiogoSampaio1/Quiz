@@ -54,10 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (currentUser) {
-        console.log("Utilizador está logado, habilitando comentários");
+        console.log("Utilizador está logado, comentários habilitados");
         updateUIForLoggedInUser();
     } else {
-        console.log("Utilizador não está logado, desabilitando comentários");
+        console.log("Utilizador não está logado, comentários desabilitados");
         updateUIForLoggedOutUser();
     }
 
