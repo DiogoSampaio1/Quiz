@@ -11,7 +11,6 @@ function checkAuthState() {
             return null;
         }
     }
-    console.log('Nenhum Utilizador encontrado no localStorage');
     return null;
 }
 
@@ -25,19 +24,16 @@ function setAuthState(user) {
         }
     } else {
         localStorage.removeItem('currentUser');
-        console.log('Utilizador removido do localStorage'); 
     }
 }
 
 function clearAuthState() {
     localStorage.removeItem('currentUser');
-    console.log('Estado de autenticação limpo');
 }
 
 function syncAuthState() {
     const user = checkAuthState();
     if (user) {
-        console.log('Estado de autenticação sincronizado:', user);
         return user;
     }
     return null;
@@ -51,6 +47,5 @@ window.Auth = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Auth.js carregado');
     window.Auth.syncAuthState();
 }); 
