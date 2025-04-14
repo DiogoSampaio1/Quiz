@@ -80,6 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
         initializeQuiz();
     });
 
+    document.getElementById('confirmBtn').addEventListener('click', () => {
+        document.getElementById('back-home-btn').style.display = 'flex';
+    })
+
     const questions = Array.from(document.querySelectorAll(".question"));
     const resultsDiv = document.getElementById("results");
     const scoreDisplay = document.getElementById("score");
