@@ -90,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Verificando estado de autenticação..."); // Debug log
     const userData = window.Auth.checkAuthState();
     if (userData) {
-      console.log("Utilizador encontrado"); // Debug log
       mostrarUser(userData);
     } else {
       console.log("Nenhum utilizador encontrado"); // Debug log
