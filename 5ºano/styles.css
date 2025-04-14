@@ -172,7 +172,7 @@ h2{
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(135deg, #4F46E5, #6366F1); /* roxo elegante */
+  background: linear-gradient(135deg, #333, #6366F1);
   color: white;
   padding: 12px 20px;
   border: none;
@@ -184,7 +184,7 @@ h2{
   transition: all 0.3s ease;
   text-decoration: none;
   text-align: center;
-  width: 200px;
+  width: 170px;
 }
 
 .back-home-btn:hover {

@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
         resultsDiv.scrollIntoView({ behavior: "smooth" });
         scoreDisplay.textContent = `Você acertou ${score} de ${questions.length} perguntas!`;
 
+        document.getElementById("back-home-btn").style.display = "none";
         document.getElementById("returnButton").classList.remove("hidden");
     }
 

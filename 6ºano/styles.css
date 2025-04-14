@@ -162,6 +162,43 @@ h2{
   100% { transform: translateX(3px); }
 }
 
+/*Back Button                              */
+
+.back-home-btn {
+  position: absolute;
+  left: 50%;
+  top: 7%;
+  transform: translate(-50%, -7%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #333, #6366F1);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 999px;
+  font-size: 16px;
+  font-family: sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+  width: 170px;
+}
+
+.back-home-btn:hover {
+  transform: translateY(-50%, -50%);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #4338CA, #6366F1);
+}
+
+.back-home-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
 /*PERGUNTAS                              */
 
 .quiz-container {
