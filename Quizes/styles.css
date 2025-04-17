@@ -180,12 +180,6 @@ main.sidebar-open {
     margin-bottom: 1vh;
   }
 
-  @media (max-widht: 768px) {
-    .sidebar-open{
-        left: 100px;
-    }
-  }
-
   @media (max-height: 700px) {
     .botao-form {
       position: fixed;
