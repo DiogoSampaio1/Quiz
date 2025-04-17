@@ -449,6 +449,12 @@ a {
   transition: transform 0.3s ease-in-out;
 }
 
+@media (max-width:768px){
+  #sobre-nos {
+    padding: 10px 10px;
+  }
+}
+
 #sobre-nos:hover {
   transform: scale(1.02);
 }
@@ -457,6 +463,13 @@ a {
   width: 1000px;
   max-width: 1000px;
   margin: auto;
+}
+
+@media (max-width:768px){
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .title-sobre-nos {

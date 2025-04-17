@@ -34,6 +34,13 @@
   border-radius: 100px;
 }
 
+@media (max-width:768px){
+  .barra-pesquisa {
+    width: 0%;
+    display: none;
+  }
+}
+
 /* Icon da lupa dentro da barra de pesquisa */
 .icon-lupa {
   position: absolute;
@@ -43,6 +50,13 @@
   width: 20px;
   height: 20px;
   pointer-events: none;
+}
+
+@media (max-width:768px){
+  .icon-lupa {
+    width: 0%;
+    display: none;
+  }
 }
 
 /* Botões no geral */
