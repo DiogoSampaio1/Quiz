@@ -411,6 +411,12 @@ main {
   right: -50px;
 }
 
+@media (max-width:768px){
+  .carousel-btn {
+    display: none;
+  }
+}
+
 .carousel-btn:hover {
   text-decoration: none !important;
   background-color: rgba(0, 0, 0, 0.8);
