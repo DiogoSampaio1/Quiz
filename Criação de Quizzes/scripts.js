@@ -144,7 +144,6 @@ submitBtn.addEventListener("click", () => {
       return res.json();
     })
     .then(data => {
-      console.log("Quiz salvo:", data);
       popup.classList.add("show");
       setTimeout(() => {
         window.location.href = "../Index.html"; 

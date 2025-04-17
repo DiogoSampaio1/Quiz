@@ -87,12 +87,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Verifica se há usuário salvo no Auth
   if (window.Auth) {
-    console.log("Verificando estado de autenticação..."); // Debug log
     const userData = window.Auth.checkAuthState();
     if (userData) {
       mostrarUser(userData);
     } else {
-      console.log("Nenhum utilizador encontrado"); // Debug log
       esconderUser();
     }
   } else {
@@ -148,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const userData = await response.json();
-        console.log("Login bem sucedido:", userData);
         
         // Salva os dados completos do usuário
         mostrarUser({
@@ -272,7 +269,6 @@ async function checkPassword() {
 
     try {
         const url = 'https://quiz-ivory-chi.vercel.app/api/validate-password';
-        console.log("Verificando password em:", url);
 
         const response = await fetch(url, {
             method: 'POST',

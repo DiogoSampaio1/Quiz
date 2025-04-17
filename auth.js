@@ -3,7 +3,6 @@ function checkAuthState() {
     if (userStr) {
         try {
             const user = JSON.parse(userStr);
-            console.log('Utilizador encontrado:', user); 
             return user;
         } catch (e) {
             console.error('Erro ao parsear Utilizador:', e);
