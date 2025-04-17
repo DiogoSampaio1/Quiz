@@ -179,12 +179,6 @@ main.sidebar-open {
   .botao-gama-barros {
     margin-bottom: 1vh;
   }
-  
-  @media (max-height: 768px) {
-    .sidebar {
-      left: -100px;
-    }
-  }
 
   @media (max-height: 700px) {
     .botao-form {
