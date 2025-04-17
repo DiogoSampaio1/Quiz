@@ -222,6 +222,12 @@ main {
   position: fixed;
 }
 
+@media (max-width: 768px){
+  .menu-button {
+    position: relative;
+  }
+}
+
 .menu-button span {
   display: flex;
   width: 30px;
