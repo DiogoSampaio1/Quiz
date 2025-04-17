@@ -316,6 +316,12 @@ main.sidebar-open {
     gap: 20px; 
 }
 
+@media (max-width: 768px) {
+    .disciplinas-container {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  
 .disciplina-card {
     background-color: white;
     border: 1px solid #ddd;
