@@ -1,5 +1,5 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://quizgb.netlify.app; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+ Content-Security-Policy: default-src 'self'; script-src 'self' https://quizgb.netlify.app; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://quiz-ivory-chi.vercel.app;
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
