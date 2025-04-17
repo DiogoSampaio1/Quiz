@@ -287,15 +287,6 @@ main {
   margin-bottom: 1vh;
 }
 
-@media (max-height: 700px) {
-  .botao-form {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
 @media (max-width: 768px) {
   .botao-form {
     padding: 8px 4%;
