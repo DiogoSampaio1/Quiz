@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const currentUser = window.Auth ? window.Auth.checkAuthState() : null;
-    console.log("Current user from Auth:", currentUser);
 
     document.querySelector('.container').classList.add('loaded');
 
@@ -54,10 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (currentUser) {
-        console.log("Utilizador está logado, comentários habilitados");
         updateUIForLoggedInUser();
     } else {
-        console.log("Utilizador não está logado, comentários desabilitados");
         updateUIForLoggedOutUser();
     }
 
