@@ -162,6 +162,12 @@ main {
   overflow: hidden;
 }
 
+@media(max-width: 768px){
+  .sidebar {
+    z-index: 9999;
+  }
+}
+
 .sidebar.open {
   left: 0 !important;
   width: 250px;
