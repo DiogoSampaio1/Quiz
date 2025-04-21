@@ -379,6 +379,13 @@ main {
   border-radius: 5px;
 }
 
+@media (max-width: 768px){
+  .carousel-item {
+    min-width: 250px;
+    max-width: 250px;
+  }
+}
+
 .carousel-item p {
   margin-top: 10px;
   font-size: 16px;
