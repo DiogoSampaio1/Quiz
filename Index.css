@@ -168,6 +168,11 @@ main {
   z-index: 1000;
 }
 
+@media (max-width: 768px) {
+  .sidebar.open{
+    z-index: 10000;
+  }
+}
 .sidebar-header {
   display: flex;
   justify-content: space-between;

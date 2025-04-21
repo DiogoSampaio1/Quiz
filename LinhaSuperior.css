@@ -9,12 +9,6 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-@media(max-width: 768px) {
-  .linha-superior {
-    display: none;
-  }
-}
-
 .barra-container {
   position: absolute;
   top: 15px;
