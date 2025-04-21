@@ -464,7 +464,7 @@ a {
   transition: transform 0.3s ease-in-out;
 }
 
-@media (max-width:1024px){
+@media (max-width:768px){
   #sobre-nos {
     padding: 10px 10px;
   }
