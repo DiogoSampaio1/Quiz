@@ -223,6 +223,12 @@ main {
   z-index: 1100;
 }
 
+@media (max-width: 768px) {
+  .menu-button{
+    z-index: 10001;
+  }
+}
+
 .menu-button.fixed {
   position: fixed;
 }
