@@ -189,17 +189,20 @@ main.sidebar-open {
   
   @media (max-width: 768px) {
     .botao-form {
+      display: none;
       padding: 8px 4%;
       font-size: 0.9rem;
       width: clamp(120px, 60%, 250px);
     }
   
     .icons {
+      display: none;
       padding: 3vh;
       margin-top: 3vh;
     }
   
     .icons {
+      display: none;
       flex-direction: row; 
       gap: 10px; 
     }
@@ -207,6 +210,7 @@ main.sidebar-open {
   
   @media (max-width: 480px) {
     .botao-form {
+      display: none;
       padding: 6px 3%;
       font-size: 0.8rem;
       border-radius: 40px;
@@ -214,6 +218,7 @@ main.sidebar-open {
     }
   
     .icons {
+      display: none;
       padding: 4vh;
       flex-direction: column;
     }
