@@ -127,8 +127,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const newComment = await response.json();
 
             commentInput.value = '';
-            loadComments();
-            
+    loadComments();
+
             showAlert("Comentário publicado com sucesso!");
         } catch (error) {
             console.error('Erro ao publicar comentário:', error);
@@ -294,17 +294,17 @@ document.addEventListener("DOMContentLoaded", function () {
         commentActions.classList.add('comment-actions');
 
         if (currentUser && currentUser.username === username) {
-            const editBtn = document.createElement('button');
-            editBtn.textContent = 'Editar';
-            editBtn.classList.add('edit-btn');
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Editar';
+        editBtn.classList.add('edit-btn');
             editBtn.onclick = () => toggleEdit(commentDiv, commentTextP, editBtn);
-            commentActions.appendChild(editBtn);
+        commentActions.appendChild(editBtn);
 
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Remover';
-            deleteBtn.classList.add('delete-btn');
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Remover';
+        deleteBtn.classList.add('delete-btn');
             deleteBtn.onclick = () => confirmRemoveComment(commentDiv);
-            commentActions.appendChild(deleteBtn);
+        commentActions.appendChild(deleteBtn);
         }
 
         commentDiv.appendChild(commentHeader);
@@ -415,19 +415,19 @@ document.addEventListener("DOMContentLoaded", function () {
         textElement.textContent = originalText;
         textElement.style.display = 'block';
 
-        editTextArea.remove();
+            editTextArea.remove();
         charCountDiv.remove();
         cancelBtn.remove();
 
-        editBtn.textContent = 'Editar';
-        editBtn.classList.remove('save-btn');
-        editBtn.classList.add('edit-btn');
-        editBtn.onclick = () => toggleEdit(commentDiv, textElement, editBtn);
+            editBtn.textContent = 'Editar';
+            editBtn.classList.remove('save-btn');
+            editBtn.classList.add('edit-btn');
+            editBtn.onclick = () => toggleEdit(commentDiv, textElement, editBtn);
 
-        const deleteBtn = commentDiv.querySelector('.delete-btn');
-        if (deleteBtn) {
-            deleteBtn.disabled = false;
-        }
+            const deleteBtn = commentDiv.querySelector('.delete-btn');
+            if (deleteBtn) {
+                deleteBtn.disabled = false;
+            }
 
         currentEditMode = null;
     }
