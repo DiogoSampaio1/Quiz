@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function () {
         quizContainer.classList.remove("hidden");
         quizContainer.style.display = "block";
 
-        console.log("Iniciando quiz...");
         initializeQuiz();
     });
 

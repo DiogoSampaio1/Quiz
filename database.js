@@ -4,7 +4,6 @@ async function connectToDatabase() {
   try {
     // Verificar se a conexão já foi estabelecida
     if (mongoose.connections[0].readyState) {
-      console.log("🌕 Já estamos conectados ao banco de dados.");
       return;
     }
 
@@ -14,7 +13,6 @@ async function connectToDatabase() {
       useUnifiedTopology: true,
     });
 
-    console.log("🌕 Conectado ao banco de dados com sucesso!");
   } catch (error) {
     console.error("❌ Erro ao conectar ao banco de dados:", error);
     throw new Error("Erro ao conectar ao banco de dados");

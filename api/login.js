@@ -12,16 +12,11 @@ export default async function handler(req, res) {
 
       const user = await User.findOne({ username });
       if (!user) {
-        console.log("Utilizador não encontrado!");
         return res.status(401).json({ message: "Utilizador não encontrado" });
       }
 
-      console.log("Password Inserida:", password);
-      console.log("Password guardada na Database:", user.password);
-
       // Comparar diretamente as senhas
       const senhaCorreta = await bcrypt.compare(password, user.password);
-      console.log("Password correta?", senhaCorreta);
 
       if (!senhaCorreta) {
         return res.status(401).json({ message: "Password incorreta" });

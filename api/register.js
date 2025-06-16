@@ -6,7 +6,6 @@ import connectToDatabase from '../database';
 export default async function handler(req, res) {
   // Verifica se a requisição é POST
   if (req.method === 'POST') {
-    console.log("Dados recebidos:", req.body);
 
     const { username, email, password } = req.body;
 
@@ -23,14 +22,10 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: "E-mail já está em uso" });
       }
 
-      console.log("Antes do hash:", password);
       const hashedPassword = await bcrypt.hash(password, 10);
-      console.log("Depois do hash:", hashedPassword);
 
       const newUser = new User({ username, email, password: hashedPassword });
       await newUser.save();
-
-      console.log("Utilizador salvo no banco:", newUser);
 
       res.status(201).json({ message: "Utilizador registado com sucesso!", user: newUser });
     } catch (error) {
